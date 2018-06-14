@@ -1,0 +1,142 @@
+.many-orders{
+  .yo-scroll{
+    top:0;
+  }
+}
+.top45{
+  top: 4.5rem !important;
+}
+
+.nav-header{
+  @extend .w100,.flex-space-between;
+  height: 4.5rem;
+  padding:0 4%;
+  color:#666;
+  background-color: #fff;
+  //margin-bottom:0.5rem;
+  border-bottom: 1px solid #ececec;
+  .nav-header-item{
+    img{
+      width:2rem;
+    }
+  }
+}
+.all-orders-box{
+  padding-bottom:1.2rem;
+}
+.mbp{
+  margin-bottom:1rem;
+  padding: 0.8rem 0;
+}
+.all-orders-item{
+  background-color: #fff;
+
+  font-size: 1.6rem;
+  .one{
+    @extend .flex-space-between;
+    padding: 1rem 2%;
+    .btn-orange-share{
+      background-color: $orange;
+      border-radius: 0.2rem;
+      padding: 0.3rem 1.2rem;
+    }
+  }
+  .two{
+    @extend .flex-space-between;
+    padding: 1rem 2%;
+  }
+  .btn-group{
+    padding: 0 4%;
+    @extend .flex-ajc;
+    flex-direction: column;
+    margin-top: 1rem ;
+  }
+}
+.btn{
+  width: 100%;
+  line-height: 4.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.cancel{
+  border:1px solid #ccc;
+  border-radius: 0.3rem;
+  color: #999;
+}
+//工地详情
+.work-area{
+  //margin-top: 1rem;
+  //border-bottom: 1px solid #ececec;
+  border-top: 1px solid #ececec;
+  .work-title{
+    padding: 1rem 2%;
+  }
+}
+//材料详情
+.material-details{
+  @extend .w100;
+  border-top: 1px solid #ececec;
+  .material-title{
+    @extend .w100;
+    padding:1rem 2%;
+  }
+}
+.icon-arrows{
+  @extend .icon-arrow;
+  border: solid 1px $darkOrange !important;
+  //border-left: solid 1px $darkOrange !important;
+}
+.arrow-down{
+  border-bottom: none !important;
+  border-right: none !important;
+}
+.arrow-up{
+  border-top: none !important;
+  border-left: none !important;
+}
+.material-body{
+  li{
+    //height: 5.2rem;
+    @extend .flex-space-between,.p2;
+    padding: 1.4rem 2%;
+  }
+  li:not(:last-child){
+    border-bottom: 1px solid #ececec;
+  }
+}
+.total-money{
+  padding-right: 2%;
+  p{
+    text-align: right;
+    line-height: 4rem;
+  }
+
+}
+.no-pay{
+  height: 5rem;
+  border-bottom: 1px solid #ececec;
+}
+.payed{
+  height: 5rem;
+  //border-bottom: 1px solid #ececec;
+  @extend  .p2;
+}
+
+.wechatTime{
+  background-color:#f5f5f5;
+  color:#999;
+  padding: 1rem 2%;
+}
+.my-comment{
+  padding: 0 2%;
+  .my-comment-title{
+    font-size: 1.6rem;
+    line-height: 3.6rem;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .comment-star{
+    padding: 1rem 0 0;
+  }
+}
+
+

@@ -1,0 +1,72 @@
+.disclaimer-box{
+  font-size: 1.6rem;
+  padding: 2%;
+
+  h3{
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  p{
+    margin: 1.6rem 0;
+  }
+}
+//设置里的东西
+.main-setting{
+  background-color: #fff;
+  font-size: 1.6rem;
+  .setting-item{
+    @extend .flex-space-between;
+    padding: 1.4rem 4%;
+    border-bottom: 1px solid #f5f5f5;
+
+  }
+}
+.exit{
+  @extend .pf;
+
+  background-color: #fff;
+  .exit-btn{
+    color:#f00;
+    line-height: 4.5rem;
+    font-size: 1.6rem;
+    text-align: center ;
+  }
+}
+//关于我们
+.about-us{
+  border-bottom: 1px solid #f5f5f5;
+}
+.about-logo-box{
+  text-align: center;
+  .logo{
+    width: 19rem;
+    margin: 2rem auto;
+    text-align: center;
+  }
+}
+
+
+.about-content{
+  font-size: 1.4rem;
+  color:#333;
+  letter-spacing: 0.2rem;
+  line-height: 2.4rem;
+  padding:0 4% 2.5rem;
+  border-bottom: 1px solid #f5f5f5;
+  .content-two h3{
+    font-weight: normal;
+    font-size: 1.4rem;
+  }
+  .content-one,.content-two{
+    margin-bottom: 3rem;
+  }
+}
+.about-footer {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1.5rem 0 1rem;
+  line-height: 2rem;
+  p{
+    color: #999;
+  }
+}

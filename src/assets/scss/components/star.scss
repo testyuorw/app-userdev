@@ -1,0 +1,22 @@
+.star-rating{
+  font-size: 1.2rem;
+  margin-right:0.5rem;
+}
+.star-rating .star-rating__star {
+  display: inline-block;
+  padding: 0.2rem;
+  vertical-align: middle;
+  line-height: 1;
+  font-size: 1.2em;
+  color: #ccc;
+  transition: color .2s ease-out;
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating .star-rating__star.is-selected {
+  color: #ff9d00;
+}

@@ -1,0 +1,438 @@
+{
+  "api": {
+    "GET /api/check_list": {
+      "response": {
+        "code": 200,
+        "msg": "指派成功",
+        "result": {
+          "total": 8,
+          "list": [
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 1,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 1,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 1,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 1,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 2,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 2,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 2,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "order_status": 2,
+              "name": "老王",
+              "work_type": "水工",
+              "gender": "男",
+              "mobile": "13262509999",
+              "work_range": "5公里",
+              "address": "上海",
+              "worker_id":20
+            }
+          ]
+        }
+      }
+    },
+    "GET /api/get_worker": {
+      "response": {
+        "code": 200,
+        "msg": "",
+        "result": [
+          {
+            "worker_id": 20,
+            "name": "李明"
+          },
+          {
+            "worker_id": 30,
+            "name": "小明"
+          }
+        ]
+      }
+    },
+    "GET /api/get_worker_info": {
+      "response": {
+        "code": 200,
+        "msg": "指派成功",
+        "result": {
+          "name":"老王",
+          "gender":"男",
+          "mobile":"13390900099",
+          "worker_type":"水工",
+          "work_range":"5公里",
+          "star":4,
+          "commet":"很好",
+          "id_card_front":"http://localhost:8000/mock/images/1.png",
+          "id_card_back":"http://localhost:8000/mock/images/1.png",
+          "cert":["http://localhost:8000/mock/images/1.png"],
+          "address":"上海"
+        }
+      }
+    },
+    "GET /api/invite_worker": {
+      "response": {
+        "code": 200,
+        "msg": "指派成功",
+        "result": {
+          "total": 20,
+          "list": [
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "order_total": 20,
+              "finish_total": 1,
+              "cost_total": 20
+            }
+          ]
+        }
+      }
+    },
+    "GET /api/order_info": {
+      "response": {
+        "code": 200,
+        "msg": "",
+        "result": {
+          "order_id":222233,
+          "order_status":1,
+          "order_talking_time":"2017-10-20",
+          "order_once_time":"2017-10-20",
+          "order_secondary_time":"2017-10-20",
+          "name":"老王",
+          "mobile":"13262409988",
+          "address":"上海",
+          "service_mobile":"13299008800",
+          "remakr":"fff",
+          "service_name":"李明",
+          "total_amount":"20",
+          "pay_amount":"10",
+          "material_before":"90",
+          "material_after":"0",
+          "before_install_mount":"100",
+          "after_install_mount":"0",
+          "is_pay":1,
+          "is_check":1,
+          "star":"4",
+          "comment":"hehhe",
+          "service_type":"安装灯具",
+          "invoice":[
+            "http://localhost:8000/mock/images/1.png",
+            "http://localhost:8000/mock/images/1.png"
+          ],
+          "work_photo":[
+            "http://localhost:8000/mock/images/1.png",
+            "http://localhost:8000/mock/images/1.png"
+          ]
+        }
+      }
+    },
+    "GET /api/order_list": {
+      "response": {
+        "code": 200,
+        "msg": "",
+        "result": {
+          "total": 8,
+          "list": [
+            {
+              "order_id":1,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":2,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":3,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":4,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":5,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":6,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":7,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            },
+            {
+              "order_id":8,
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "username": "小明",
+              "worker_type": "水工",
+              "mobile": 13399887766,
+              "address": "太平间30号",
+              "is_verify": 1,
+              "service": "安装水管"
+            }
+          ]
+        }
+      }
+    },
+    "GET /api/service_list": {
+      "response": {
+        "code": 200,
+        "msg": "",
+        "result": {
+          "total": 10,
+          "list": [
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            },
+            {
+              "pic": "http://localhost:8000/mock/images/1.png",
+              "name": "老王",
+              "uid": 20,
+              "address": "上海",
+              "check_total": 2,
+              "finish_check_total": 1
+            }
+          ]
+        }
+      }
+    },
+    "GET /api/user_order_list": {
+      "response": {
+        "code": 200,
+        "msg": "",
+        "result": {
+          "total": 20,
+          "list": [
+            {
+              "order_id": "201432f34234",
+              "order_status": 1,
+              "get_order_time": "2017-10-10",
+              "finish_time": "2017-10-10",
+              "assign_time": "2017-2-10",
+              "name": "老王",
+              "service": "安装灯",
+              "mobile": "13262507000",
+              "service_time": "2017-10-13",
+              "address": "上海",
+              "service_mobile": "13300990000",
+              "remark": "hhehe"
+            }
+          ]
+        }
+      }
+    },
+    "POST /api/user_login": {
+      "response": {
+        "code": 200,
+        "msg": "登录成功",
+        "result": {
+          "uid": 20,
+          "username": "mr kk",
+          "token": "fsdf3rfsdfsdfsdtrerfgsdfg",
+          "avator": "http://localhost:8000/mock/images/people.png"
+        }
+      }
+    },
+    "POST /api/add_user": {
+      "response": {
+        "code": 200,
+        "msg": "设置成功"
+      }
+    },
+    "POST /api/assign_worker": {
+      "response": {
+        "code": 200,
+        "msg": "指派成功"
+      }
+    },
+    "POST /api/setting": {
+      "response": {
+        "code": 200,
+        "msg": "设置成功"
+      }
+    },
+    "POST /api/worker_pass": {
+      "response": {
+        "code": 200,
+        "msg": "已通过审核"
+      }
+    }
+  }
+}
+

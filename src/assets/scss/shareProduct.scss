@@ -1,0 +1,69 @@
+//付款成功页面样式
+.paysucc{
+  margin: 0 auto;
+  background-color: $orange;
+  width: 80%;
+  line-height: 4.5rem;
+  letter-spacing: 1px;
+  border-radius: 0.6rem;
+}
+//确认订单页面表单样式
+.share-product{
+  @extend .p4,.bgf;
+  .form-group{
+    @extend .flex,.fz15;
+    padding: 1.6rem 0.5rem;
+    .label-control{
+      width: 28%;
+    }
+    .share-info-text{
+      border: none;
+      width: 72%;
+    }
+  }
+  .form-group:not(:last-child){
+    border-bottom: 1px solid #ececec;
+    align-items: center;
+  }
+}
+.product-share-box{
+  overflow-y:auto;
+  margin-bottom:4.2rem;
+  .title-detail{
+    @extend .fz16;
+    padding:1.6rem 4%;
+    margin-left:0.5rem;
+  }
+  .buy-shareproduct{
+    padding: 1.6rem 4%;
+    margin-left: 0.5rem;
+    .count{
+      @extend .fz20,.flex-ajc;
+      width: 3rem;
+      height: 3rem;
+      background-color: #f5f5f5;
+    }
+    .show-num{
+      border: none;
+      @extend .tc;
+      width: 4rem;
+
+    }
+  }
+  .count-money{
+    @extend .fz16,.flex-ac;
+    flex-direction: row-reverse;
+    border-top: 1px solid #ececec;
+    margin: 0 4%;
+  }
+}
+.share-product-detail{
+  .img-box{
+    width: 6rem;
+  }
+}
+
+.buy-share-btn{
+  @extend .w100,.flex-ajc;
+  font-size: 2rem;
+}

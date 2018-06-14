@@ -1,0 +1,296 @@
+//全部订单
+.all-orders{
+  .yo-scroll{
+    top:0 !important;
+  }
+}
+.all-order-list{
+  border-top: 0.5rem solid #f5f5f5;
+  padding: 1rem 0 4rem;
+  font-size: 1.4rem;
+  div{
+    @extend .flex-space-between;
+    padding: 1rem 2%;
+  }
+  .order-two{
+    padding-top: 0;
+  }
+  .order-one{
+    padding-top: 0;
+  }
+}
+.order-three{
+  border-bottom: 1px solid #ececec;
+}
+.pay-status{
+  border: 1px solid #999;
+  border-radius: 3px;
+  color:#999;
+  padding:0.2rem 0.5rem;
+}
+//订单详情
+    // 导航栏切换
+.toggle-title{
+  background-color: #fff;
+  font-size: 1.4rem;
+  line-height: 3rem;
+  @extend .flex-ajc;
+ .paydetail{
+   margin-left: 1.4rem;
+   padding: 0 0.5rem;
+ }
+  .orderdetail{
+    padding: 0 0.5rem;
+  }
+}
+.toggle-content{
+  margin-top: 3.5rem;
+}
+.toggle-on{
+  color:$orange;
+  border-bottom: 1px solid $orange;
+
+}
+.my-work-area{
+  font-size: 1.4rem;
+  //border-top: 0.5rem solid #f5f5f5;
+}
+.title-detail-wrap{
+  height: 4rem;
+  @extend .p2;
+  .linkme{
+    font-size: 1rem;
+    color: #fff;
+    padding:0.5rem 0.7rem;
+    border-radius: 2px;
+    background-color: $orange;
+  }
+}
+
+
+.pay-detail{
+  border-top: 1px solid #ececec;
+  padding: 1rem 2%;
+  line-height: 2rem;
+  p{
+    color:#999;
+    line-height: 3rem;
+  }
+}
+.already-pays{
+  align-items: center;
+}
+.work-condition-box{
+  border-top: 0.4rem solid #f5f5f5;
+  font-size: 1.4rem;
+  h3{
+    display: block;
+    border-bottom: 1px solid #ececec;
+    line-height: 3rem;
+    padding: 0.5rem 2%;
+  }
+}
+.work-condition{
+  border-bottom: 0.7rem solid #f5f5f5;
+  margin-bottom: 3.6rem;
+  li{
+    border-top: 1px solid #f5f5f5;
+    padding: 1rem 0;
+  }
+}
+.work-condition-img-box{
+  @extend .flex-space-between;
+  flex-wrap: wrap;
+  img{
+    width: 30%;
+    height: 30%;
+    margin-top: 1rem;
+  }
+}
+.btn-group-orders{
+  display: flex;
+  a{
+    //display: flex;
+    //width: 100%;
+    @extend .w100,.flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 4rem;
+    font-size: 1.4rem;
+  }
+  .btn-order-cancel{
+    background-color: #fff;
+    color: #333;
+    border-top: 1px solid #f5f5f5;
+  }
+  .btn-order-detail{
+    background-color: $orange;
+    color:#fff;
+  }
+}
+//订单的评价
+.evaluation-of-workes{
+  border-top: 0.5rem solid #f5f5f5;
+}
+.evaluation{
+  font-size: 1.4rem;
+  padding-bottom: 1rem;
+  h3{
+    line-height: 3rem;
+    text-align: center;
+    border-bottom: 1px solid #ececec;
+  }
+}
+.evaluation-box{
+  p.tac{
+    line-height: 3rem;
+  }
+  .five-star{
+    @extend .flex-ajc;
+    img{
+      margin-right: 0.8rem;
+    }
+  }
+  textarea{
+    width: 100%;
+    height: 10rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #fafafa;
+  }
+}
+.evaluation-tips{
+  @extend .flex-start;
+  flex-wrap: wrap;
+  p{
+    padding: 0.5rem;
+    color:#999;
+    border: 1px solid #c8c8c8;
+    border-radius: 1.4rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+}
+.btn-evaluation{
+  width: 96%;
+  margin: 3.2rem auto 0;
+}
+//支付页面
+.pay-title{
+  font-size: 1.4rem;
+  padding: 1rem;
+}
+.choose-pay{
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  li{
+    @extend .flex-space-between;
+    align-items: center;
+    padding: 1.4rem 0;
+  }
+}
+.choose-pay{
+  li:not(:first-child){
+    border-top: 1px solid #f5f5f5;
+  }
+}
+.paying{
+  width: 2.4rem;
+  margin-right: 1rem;
+}
+//线下付款
+.pay-offline{
+  border-top: 0.5rem solid #f5f5f5;
+  font-size: 1.4rem;
+  .form-group{
+    border-bottom: 1px solid #f5f5f5;
+    padding:0;
+    line-height: 4rem;
+    @extend .flex;
+    label{
+      width: 30%;
+    }
+    input{
+      border: none;
+      width: 66%;
+      font-size: 1.4rem ;
+    }
+  }
+}
+.bank-info{
+  font-size: 1.4rem;
+  margin-bottom: 4.6rem;
+  padding-bottom: 2rem;
+  p{
+    @extend .c9;
+  }
+  span{
+    @extend .c6;
+  }
+}
+.offline-title{
+  line-height: 3rem;
+  @extend .pb10;
+}
+.g-bank-info{
+  @extend .flex-space-between;
+}
+//付款的页面
+.pays{
+  padding: 0.5rem 0 0;
+  font-size: 1.4rem;
+  li{
+    padding: 1rem 2%;
+  }
+}
+.pays:last-of-type{
+  padding-bottom: 4.5rem;
+}
+.pays-list{
+  @extend .flex-space-between;
+  align-items: center;
+}
+.pays-list:not(:first-child){
+  border-bottom: 1px solid #ececec;
+}
+.all-pay{
+  font-size: 1.4rem;
+  line-height: 3rem;
+  @extend .flex;
+  justify-content: flex-end;
+  align-items: center;
+  a{
+    width: 30%;
+    margin-left: 1rem;
+  }
+}
+.paystype{
+  width: 1.8rem;
+}
+//取消订单
+.cancel-box{
+  background-color: #fff;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  border-top: 5px solid #f5f5f5;
+  padding:0.5rem 2%;
+  .cancel-content{
+    @extend .flex-space-between;
+    span{
+      margin-right:1rem;
+    }
+  }
+}
+.cancel-input{
+  resize: none;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  height: 10rem;
+  background-color: #fafafa;
+  font-size: 1.4rem;
+  border: none;
+}
+
+
+
