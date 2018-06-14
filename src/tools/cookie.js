@@ -1,9 +1,9 @@
 var cookie = {};
-cookie.set = function (name, val, time=1) {
+cookie.set = function (name, val, time) {
   var data = JSON.stringify(val);
-  // var date = new Date();
-  // var exp = (date.getTime() / 1000) + time;
-  return this.$cookie.set(name, data, time);
+  var date = new Date();
+  var exp = (date.getTime() / 1000) + time;
+  return this.$cookie.set(name, data, exp);
 };
 cookie.get = function (name) {
   var data = JSON.parse(this.$cookie.get(name));
@@ -14,3 +14,4 @@ cookie.remove = function (name) {
 };
 
 export default cookie;
+

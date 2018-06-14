@@ -239,7 +239,6 @@
     };
     // 获取支付流水
     api.get_trade(tradeform).then(function (res) {
-
       store.trade_sn = res.result.trade_sn;
       lstore.set_item('trade_sn', store.trade_sn);
       if (store.trade_sn) {
@@ -278,9 +277,7 @@ export default {
   methods: method,
   beforeMount(){
     store.vm = this;
-    console.log('share 0');
     store.openid = cookie.get.call(this,'openid');//取openid
-    console.log(store.openid+"confirm")
     api.check_openid({openid:store.openid}).then(function (res) {
       if (res.code == error.success ){
         if (res.result){
@@ -297,21 +294,20 @@ export default {
       store.isGo = ShareLogin || store.canLogin;
       if (store.isGo) {//如果存在
         store.vm.$router.push({path: '/confirmOrder'});
-        console.log("1");
       }
       else if (!store.isGo) {//不存在就继续sharelogin
-        cookie.set.call(store.vm, 'ShareLoginPage', true)
+        cookie.set.call(store.vm, 'ShareLoginPage', true);
         const share_page = cookie.get.call(store.vm, 'ShareLoginPage');
         if (share_page) {
           console.log('share1');
-          store.vm.$router.push({path: '/shareLogin'});
+          store.vm.$router.push({path: '/login'});
         }
-        console.log("2");
       }
     });
   },
   mounted() {
     page.title("确认订单");
+    lstore.set_item('sitetype',5);//表明我要跳到这一页
     user.login_page = false;
     //存分享的信息
     store.link_id = this.$route.query.link_id;
@@ -379,7 +375,7 @@ export default {
     // store.cookie = cookie.get.call(this,'openid');
     store.cookie = cookie.get.call(this,'sharezjbird');
     method.canBuy();
-    if(store.isGo){
+    if(store.cookie){
       return false;
     }
     store.vm.$messagebox.show(

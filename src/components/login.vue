@@ -1,7 +1,12 @@
 <template>
   <div class="container h100">
     <div class="login-box w100">
-      <img src="../assets/images/login-bg.png" alt="住建鸟-登录" class="login-banner">
+      <div>
+        <a href="javascript:void (0);">
+          <img src="../../assets/images/login-bg.png" alt="住建鸟-登录" class="login-banner">
+        </a>
+      </div>
+
       <form class="login">
         <div class="form-group mb20">
           <input type="text" v-model="form.mobile" placeholder="手机号" class="user-input user-phone" maxlength="11">
@@ -90,13 +95,13 @@
         ResetGetVerifyCode();
         var callback = function (code) {
           console.log("点击确定要验证验证码是否正确");
-          var self = this;
+          // var self = this;
           store.usercode = code;
           store.code = {uuid:store.uuid,mobile:store.form.mobile,captcha:store.usercode};
           console.log(store.code);
           api.captcha_check(store.code).then(function (res) {
             if(res.code == error.success){
-              self.cancle();
+              store.vm.cancle();
               verifyCodeHandle.call($this, response);
             }else if(res.code == error.error){
               $this.$toast(res.msg,'bottom');
@@ -115,7 +120,7 @@
   //点击登录按钮
   method.login = function () {
     var url = {'true': '/userInfo?workid='+store.workid, 'false': {1: '/allWorker', 2: '/manyOrders',3:'/allProduct',4:'workerDetail/?workid='+store.workid}};
-    const self = this;
+    // const self = this;
     var errorconf = {
       "mobile": {
         "required": true,
@@ -130,23 +135,50 @@
     if (!SubmitOk) {
       return false;
     }
-    api.login(store.form).then(function (response) {
-      if (error.success == response.code) {
-        let result = response.result;
-        const login_once = result.login_once;
-        let location_url = url[login_once];
-        if ('object' == typeof  location_url) {
-          location_url = location_url[store.sitetype];
+    if (store.sitetype == 5){
+
+      api.check_openid({openid:store.openid}).then(function (res) {
+        if (res.code == error.success ){
+          store.vm.$router.push({path: '/confirmOrder'});
+        }else {
+          //调用分享登录接口
+          api.share_login(store.form).then(function (res) {
+            console.log(res);
+            var result = res.result;
+            if (error.success == res.code) {
+              lstore.set_item('shareUser', result);
+              store.vm.$router.push({path: '/confirmOrder'});
+            }
+            else if(error.error == res.code){
+              store.vm.$toast(res.msg, 'bottom');
+            }
+            cookie.set.call(store.vm, 'sharezjbird', res.result,1000);//设置为已登录cookie
+          });
         }
-        self.$router.push({
-          path: location_url
-        });
-      }
-      else if(  response.code == error.error){
-        self.$toast(response.msg, 'bottom');
-      }
-      cookie.set.call(self, 'zjbird', response.result, 3600);
-    });
+
+      });
+
+    }
+    else{
+      api.login(store.form).then(function (response) {
+        if (error.success == response.code) {
+          let result = response.result;
+          const login_once = result.login_once;
+          let location_url = url[login_once];
+          if ('object' == typeof  location_url) {
+            location_url = location_url[store.sitetype];
+          }
+          store.vm.$router.push({
+            path: location_url
+          });
+        }
+        else if(  response.code == error.error){
+          store.vm.$toast(response.msg, 'bottom');
+        }
+        cookie.set.call(store.vm, 'zjbird', response.result, 3600);
+      });
+    }
+
   };
 
   export default{
@@ -156,20 +188,26 @@
     },
     mounted(){
       page.title('登录');
-      var self = this;
+
+      store.vm = this;
       //判断有没有登录
 
 
       if (lstore.get_item('workid')) {
         store.workid = lstore.get_item('workid').val;
       }
-      store.sitetype = lstore.get_item('sitetype');
+      store.sitetype = lstore.get_item('sitetype');//获取是哪一页
       if (store.sitetype) {
         store.sitetype = store.sitetype.val;
       }
       if (!store.sitetype) {
-        store.sitetype = self.$route.query.sitetype ? self.$route.query.sitetype : 1;
+        store.sitetype = store.vm.$route.query.sitetype ? store.vm.$route.query.sitetype : 1;
       }
+
+      if (lstore.get_item('openid')) {
+        store.openid = lstore.get_item('openid').val;
+      }
+      store.form.openid = store.openid;
     },
     methods: method
   }
