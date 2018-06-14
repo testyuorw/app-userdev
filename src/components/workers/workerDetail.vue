@@ -312,7 +312,7 @@
       starRating
     },
     mounted:function () {
-      api.share({url:window.location.href}).then(function (response) {
+     /* api.share({url:window.location.href}).then(function (response) {
         const  result = response.result;
         const config = {
           debug: false,
@@ -339,7 +339,7 @@
         wx.error(function(res){
           console.log(res)
         });
-      })
+      })*/
       var self = this;
       store.weShare = page.WechatShare();
       store.user = user.info.apply(this);

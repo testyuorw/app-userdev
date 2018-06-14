@@ -16,7 +16,7 @@
           <a @click="getCode()" :disabled="count<60" class="get-verification" v-text="verify_text" :class="showCode ? 'bg6' : 'bgo' "></a>
         </div>
         <div class="form-group mt200">
-          <a href="javascript:void(0)" class="btn-login" @click="login">立即登录</a>
+          <a href="javascript:void(0)" class="btn-login" @click="login">1立即登录</a>
           <div class="agree">
             <router-link to="/userProtocol" class="agree-protocol">注册/登录即代表同意《住建鸟用户使用协议》</router-link>
           </div>
@@ -142,7 +142,7 @@
       var result = res.result;
       if (error.success == res.code) {
         lstore.set_item('shareUser', result);
-        self.$router.push({path: '/confirmOrder'});
+        //self.$router.push({path: '/confirmOrder'});
       }
       else if(error.error == res.code){
         self.$toast(res.msg, 'bottom');

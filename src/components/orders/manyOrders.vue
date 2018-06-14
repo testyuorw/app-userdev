@@ -293,7 +293,7 @@
                 'title': '测试',
                 'uid': store.user.user_id,
                 'wait_pay_price':store.money
-              };x
+              };
               api.get_jsapi(params).then(function (response) {
                 store.jsapi = JSON.parse(response.result.js);
                 var def = wxpay(store.jsapi);

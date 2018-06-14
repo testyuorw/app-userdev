@@ -278,36 +278,10 @@ export default {
   beforeMount(){
     store.vm = this;
     store.openid = cookie.get.call(this,'openid');//取openid
-    api.check_openid({openid:store.openid}).then(function (res) {
-      if (res.code == error.success ){
-        if (res.result){
-          var result = res.result;
-          lstore.set_item('shareUser', result);
-          store.canLogin = true;
-          console.log(store.canLogin);
-        }else {
-          store.canLogin = false;
-          console.log(store.canLogin);
-        }
-      }
-      var ShareLogin = cookie.get.call(store.vm,'sharezjbird') ? true : false;
-      store.isGo = ShareLogin || store.canLogin;
-      if (store.isGo) {//如果存在
-        store.vm.$router.push({path: '/confirmOrder'});
-      }
-      else if (!store.isGo) {//不存在就继续sharelogin
-        cookie.set.call(store.vm, 'ShareLoginPage', true);
-        const share_page = cookie.get.call(store.vm, 'ShareLoginPage');
-        if (share_page) {
-          console.log('share1');
-          store.vm.$router.push({path: '/login'});
-        }
-      }
-    });
   },
   mounted() {
     page.title("确认订单");
-    lstore.set_item('sitetype',5);//表明我要跳到这一页
+    lstore.set_item('sitetype',5);
     user.login_page = false;
     //存分享的信息
     store.link_id = this.$route.query.link_id;

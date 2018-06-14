@@ -3,7 +3,7 @@
     <div class="login-box w100">
       <div>
         <a href="javascript:void (0);">
-          <img src="../../assets/images/login-bg.png" alt="住建鸟-登录" class="login-banner">
+          <img src="../assets/images/login-bg.png" alt="住建鸟-登录" class="login-banner">
         </a>
       </div>
 
@@ -16,7 +16,7 @@
           <a @click="getCode()" :disabled="count<60" class="get-verification" v-text="verify_text" :class="showCode ? 'bg6' : 'bgo' "></a>
         </div>
         <div class="form-group mt200">
-          <a href="javascript:void(0)" class="btn-login" @click="login">立即登录</a>
+          <a href="javascript:void(0)" class="btn-login" @click="login">立即登录1</a>
           <div class="agree">
             <router-link to="/userProtocol" class="agree-protocol">注册/登录即代表同意《住建鸟用户使用协议》</router-link>
           </div>
@@ -136,28 +136,24 @@
       return false;
     }
     if (store.sitetype == 5){
-
-      api.check_openid({openid:store.openid}).then(function (res) {
-        if (res.code == error.success ){
-          store.vm.$router.push({path: '/confirmOrder'});
-        }else {
-          //调用分享登录接口
-          api.share_login(store.form).then(function (res) {
-            console.log(res);
-            var result = res.result;
-            if (error.success == res.code) {
-              lstore.set_item('shareUser', result);
-              store.vm.$router.push({path: '/confirmOrder'});
-            }
-            else if(error.error == res.code){
-              store.vm.$toast(res.msg, 'bottom');
-            }
-            cookie.set.call(store.vm, 'sharezjbird', res.result,1000);//设置为已登录cookie
-          });
+      //表示是商品分享的登录接口
+      api.share_login(store.form).then(function (res) {
+        console.log(res);
+        var result = res.result;
+        if (error.success == res.code) {
+          lstore.set_item('shareUser', result);
+          try {
+            store.vm.$router.push({path: '/confirmOrder'});
+            console.log(store.vm.$router,store.vm.$route);
+          } catch (e) {
+            console.log(e)
+          }
         }
-
+        else if(error.error == res.code){
+          store.vm.$toast(res.msg, 'bottom');
+        }
+        cookie.set.call(store.vm, 'zjbird', res.result,1000);//设置为已登录cookie
       });
-
     }
     else{
       api.login(store.form).then(function (response) {
@@ -180,17 +176,25 @@
     }
 
   };
-
+  var fetchData = function () {
+    var fullPath = store.vm.$route.fullPath;
+    console.log(fullPath);
+  };
   export default{
     name: 'login',
     data(){
       return store
+    },
+    watch : {
+      '$route': 'fetchData'
     },
     mounted(){
       page.title('登录');
 
       store.vm = this;
       //判断有没有登录
+      store.path =  store.vm.$route.path;
+
 
 
       if (lstore.get_item('workid')) {
@@ -208,6 +212,17 @@
         store.openid = lstore.get_item('openid').val;
       }
       store.form.openid = store.openid;
+
+
+      api.check_openid({openid:store.openid}).then(function (res) {
+        if (!res.result || res.result == null || res.result == 'null') {
+          return false;
+        }
+        if (res.code == error.success) {
+          store.vm.$router.push({path: '/confirmOrder'});
+          console.log("aa");
+        }
+      });
     },
     methods: method
   }

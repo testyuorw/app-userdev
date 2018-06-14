@@ -22,6 +22,7 @@
   };
   var fetchData = function () {
     var fullPath = this.$route.fullPath;
+    console.log(fullPath);
     loadmore.clear();
     setSiteType(fullPath);
     let sitetype = lstore.get_item('sitetype');
@@ -46,11 +47,9 @@
         }
       }
       else {
+        console.log('run'+Math.random());
         this.$router.push({path: '/login'})
       }
-
-
-
 
     }
   };
@@ -71,6 +70,8 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
+      console.log("appvue",openid);
+      console.log(openid);
       if (!openid) {
         if (query.hasOwnProperty('openid')) {
           const openid = query['openid'];
