@@ -16,7 +16,7 @@
           <a @click="getCode()" :disabled="count<60" class="get-verification" v-text="verify_text" :class="showCode ? 'bg6' : 'bgo' "></a>
         </div>
         <div class="form-group mt200">
-          <a href="javascript:void(0)" class="btn-login" @click="login">立即登录1</a>
+          <a href="javascript:void(0)" class="btn-login" @click="login">立即登录</a>
           <div class="agree">
             <router-link to="/userProtocol" class="agree-protocol">注册/登录即代表同意《住建鸟用户使用协议》</router-link>
           </div>
@@ -65,7 +65,7 @@
           ResetGetVerifyCode();
       }
     }, 1000);
-    this.$toast(response.msg, 'bottom');
+    store.vm.$toast(response.msg, 'bottom');
   };
   method.getCode = function () {
 
@@ -95,14 +95,14 @@
         ResetGetVerifyCode();
         var callback = function (code) {
           console.log("点击确定要验证验证码是否正确");
-          // var self = this;
+          var self = this;
           store.usercode = code;
           store.code = {uuid:store.uuid,mobile:store.form.mobile,captcha:store.usercode};
           console.log(store.code);
           api.captcha_check(store.code).then(function (res) {
             if(res.code == error.success){
-              store.vm.cancle();
-              verifyCodeHandle.call($this, response);
+              self.cancle();
+              verifyCodeHandle.call($this,  response);
             }else if(res.code == error.error){
               $this.$toast(res.msg,'bottom');
             }
@@ -137,6 +137,12 @@
     }
     if (store.sitetype == 5){
       //表示是商品分享的登录接口
+      console.log("form",store.form);
+
+      if (lstore.get_item('openid')) {
+        store.openid = lstore.get_item('openid').val;
+      }
+      store.form.openid =  store.openid;
       api.share_login(store.form).then(function (res) {
         console.log(res);
         var result = res.result;
@@ -144,7 +150,6 @@
           lstore.set_item('shareUser', result);
           try {
             store.vm.$router.push({path: '/confirmOrder'});
-            console.log(store.vm.$router,store.vm.$route);
           } catch (e) {
             console.log(e)
           }
@@ -178,7 +183,7 @@
   };
   var fetchData = function () {
     var fullPath = store.vm.$route.fullPath;
-    console.log(fullPath);
+    console.log("123",fullPath);
   };
   export default{
     name: 'login',
@@ -188,7 +193,7 @@
     watch : {
       '$route': 'fetchData'
     },
-    mounted(){
+      mounted(){
       page.title('登录');
 
       store.vm = this;
@@ -200,29 +205,34 @@
       if (lstore.get_item('workid')) {
         store.workid = lstore.get_item('workid').val;
       }
+
+      if (!store.sitetype) {
+        store.sitetype = store.vm.$route.query.sitetype ? store.vm.$route.query.sitetype : 1;
+      }
+      //微信分享有关的
       store.sitetype = lstore.get_item('sitetype');//获取是哪一页
       if (store.sitetype) {
         store.sitetype = store.sitetype.val;
       }
-      if (!store.sitetype) {
-        store.sitetype = store.vm.$route.query.sitetype ? store.vm.$route.query.sitetype : 1;
-      }
 
       if (lstore.get_item('openid')) {
         store.openid = lstore.get_item('openid').val;
+        store.form.openid = store.openid;
+        console.log("mounted",store.openid);
+        api.check_openid({openid:store.openid}).then(function (res) {
+          console.log("checkopenid");
+          if (!res.result || res.result == null || res.result == 'null') {
+            return false;
+          }
+          if (res.code == error.success) {
+            store.vm.$router.push({path: '/confirmOrder'});
+            console.log("aa");
+          }
+        });
       }
-      store.form.openid = store.openid;
 
 
-      api.check_openid({openid:store.openid}).then(function (res) {
-        if (!res.result || res.result == null || res.result == 'null') {
-          return false;
-        }
-        if (res.code == error.success) {
-          store.vm.$router.push({path: '/confirmOrder'});
-          console.log("aa");
-        }
-      });
+
     },
     methods: method
   }

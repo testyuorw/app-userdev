@@ -60,7 +60,7 @@
 <script>
   import api from '../../services/api'
   import lstore from '../../tools/lstore';
-  import user from '../../services/userinfo'
+  // import user from '../../services/userinfo'
   import error from '../../services/error'
   import page from '../page'
   import tool from '../../tools/tool'
@@ -146,7 +146,7 @@
       share_id:store.share_id,
       share_type:store.share_type
     };
-
+    console.log("confirm",store.form);
     api.share_can_buy(store.form).then(function (res) {
       if (res.code == error.success){
         method.diff(store.goodsInfoLists.saleprice, res.result.saleprice);
@@ -231,6 +231,7 @@
   };
   //支付
   method.paymoneys = function () {
+    console.log("支付的时候",lstore.get_item('openid').val);
     //  支付
     const tradeform = {
       order_type: store.order_type,//订单类型
@@ -282,7 +283,7 @@ export default {
   mounted() {
     page.title("确认订单");
     lstore.set_item('sitetype',5);
-    user.login_page = false;
+    // user.login_page = false;
     //存分享的信息
     store.link_id = this.$route.query.link_id;
     store.shop_sn = this.$route.query.shop_sn;
@@ -314,11 +315,14 @@ export default {
     store.shareUser = lstore.get_item("shareUser");
     if (store.shareUser) {
       store.shareUser = lstore.get_item("shareUser").val;
+
       store.area = store.shareUser.area_id;//页面加载完成时区域id
       store.utype = store.shareUser.sign_type;//页面加载完成时用户类型
       store.user_id = store.shareUser.id;//页面加载完成时用户id
 
     }
+
+    console.log("shareUser",store.shareUser);
     //取商品信息
     store.goodsInfo = lstore.get_item("shareProductInfo");
     if (store.goodsInfo){
@@ -345,10 +349,11 @@ export default {
     }
     initInfo();//初始化信息
 
-
     // store.cookie = cookie.get.call(this,'openid');
-    store.cookie = cookie.get.call(this,'sharezjbird');
+    store.cookie = cookie.get.call(this,'zjbird');
+
     method.canBuy();
+
     if(store.cookie){
       return false;
     }

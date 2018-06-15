@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="h100">
-    <router-view></router-view>
+    <router-view ></router-view>
   </div>
 </template>
 <script>
@@ -38,7 +38,8 @@
       //没分享要登录
       if (CheckLogin) {
         if (fullPath == '/login') {
-          var url = {'true': '/userInfo', 'false': {1: '/allWorker', 2: '/manyOrders',3:'/allProduct'}};
+          console.log("fu");
+          var url = {'true': '/userInfo', 'false': {1: '/allWorker', 2: '/manyOrders',3:'/allProduct',5:'/confirmOrder'}};
           let location_url = url['false'];
           if ('object' == typeof  location_url) {
             location_url = location_url[sitetype];
@@ -47,8 +48,13 @@
         }
       }
       else {
-        console.log('run'+Math.random());
-        this.$router.push({path: '/login'})
+        console.log('run1'+Math.random());
+        console.log("跳了吧");
+        if(sitetype !== 5){
+          console.log("runnn");
+          this.$router.push({path: '/login'});
+        }
+
       }
 
     }
@@ -73,6 +79,7 @@
       console.log("appvue",openid);
       console.log(openid);
       if (!openid) {
+
         if (query.hasOwnProperty('openid')) {
           const openid = query['openid'];
           cookie.set.call(this, 'openid', openid);

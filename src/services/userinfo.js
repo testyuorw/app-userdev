@@ -22,5 +22,5 @@ user.shareInfo = function () {
 user.logout = function () {
   cookie.remove.call(this,'zjbird');
 };
-user.login_page = true;
+// user.login_page = true;
 export default user;

@@ -21,7 +21,7 @@
     <div v-show="lists.length" class="oh">
       <refresh :on-refresh="onRefresh" :on-infinite="onInfinite"  :loadingText="loadingText">
         <ul class="mall-products-box">
-          <router-link ta="li" class="mall-product-item" v-for="item in lists" :to="{path:'/productDetail',query:{shop_sn:item.shop_id,link_id:item.link_id}}">
+          <router-link ta="li" class="mall-product-item" v-for="item in lists" :key="item.id" :to="{path:'/productDetail',query:{shop_sn:item.shop_id,link_id:item.link_id}}">
             <div class="mall-img-box">
               <img :src="item.photo" alt="无" v-if="item.photo != ''">
               <img src="../../assets/images/noheader.png" alt="无" v-else>
@@ -125,7 +125,7 @@
   store.lists = [];
   store.filterlists = [];
 
-  store.show = true;//判断综合还是价格 
+  store.show = true;//判断综合还是价格
   store.price = true;//价格是不是上还是下
   store.priceShow = false;//价格颜色及是否出现小三角
 

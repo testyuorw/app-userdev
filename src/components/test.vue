@@ -5,7 +5,7 @@
   <!--<div class="img-box"><img src="http://dist.zjbird.com/active/icon.png" alt=""></div>-->
 
 <!--</div>-->
-  <a href="http://192.168.10.22:8080/#/confirmOrder?link_id=8846&shop_sn=701704">aaaaaa</a>
+  <a href="http://192.168.10.22:8080/#/confirmOrder?shop_sn=701764&link_id=3759&area=542621&custid=22512">aaaaaa</a>
   <!--<router-link :to="{ path: '/confirmOrder', query: { link_id:8846,shop_sn:701704}}">立即购买</router-link>-->
 </template>
 
