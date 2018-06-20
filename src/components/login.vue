@@ -148,6 +148,7 @@
         var result = res.result;
         if (error.success == res.code) {
           lstore.set_item('shareUser', result);
+          cookie.set.call(store.vm,'shareUser',result);
           try {
             store.vm.$router.push({path: '/confirmOrder'});
           } catch (e) {
@@ -157,7 +158,7 @@
         else if(error.error == res.code){
           store.vm.$toast(res.msg, 'bottom');
         }
-        cookie.set.call(store.vm, 'zjbird', res.result,1000);//设置为已登录cookie
+        cookie.set.call(store.vm, 'sharezjbird', res.result, 1000);//设置为已登录cookie
       });
     }
     else{
@@ -218,15 +219,17 @@
         store.openid = lstore.get_item('openid').val;
         store.form.openid = store.openid;
         console.log("mounted",store.openid);
-        api.check_openid({openid:store.openid}).then(function (res) {
-          console.log("checkopenid");
-          if (!res.result || res.result == null || res.result == 'null') {
-            return false;
-          }
-          if (res.code == error.success) {
-            store.vm.$router.push({path: '/confirmOrder'});
-          }
-        });
+        // api.check_openid({openid:store.openid}).then(function (res) {
+        //   console.log("checkopenid");
+        //   if (!res.result || res.result == null || res.result == 'null') {
+        //     return false;
+        //   }
+        //   if (res.code == error.success) {
+        //     console.log("查看openid存在");
+        //     lstore.set_item('shareUser', res.result);
+        //     store.vm.$router.push({path: '/confirmOrder'});
+        //   }
+        // });
       }
 
 

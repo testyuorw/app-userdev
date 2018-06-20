@@ -26,18 +26,21 @@
             <li class="all-orders-item" v-for="item in orderLists" :class="{mbp:!weShare}">
               <!-- share before start -->
               <div class="one" v-show="!weShare">
-                <div> <span class="darkOrange">订单编号：</span><span class="c9" v-text="item.id"></span></div>
-                <a href="javascript:void(0);" class="btn-orange-share" @click="open=true" v-show="item.showContent">分享</a>
+                <div><span class="darkOrange">订单编号：</span><span class="c9" v-text="item.id"></span></div>
+                <a href="javascript:void(0);" class="btn-orange-share" @click="open=true"
+                   v-show="item.showContent">分享</a>
               </div>
               <div class="two" v-show="!weShare">
                 <div class="flex-ajc">
                   <p style="margin-right: 1rem;">工友：<span class="c9" v-text="item.worker.name"></span></p>
                   <p class="c9" v-text="item.time.date"></p>
                 </div>
-                <p v-text="moneyList[item.workstatus]" :class="[(item.workstatus < 1 || item.workstatus == 11 ) ? 'c9' : 'darkOrange']"></p>
+                <p v-text="moneyList[item.workstatus]"
+                   :class="[(item.workstatus < 1 || item.workstatus == 11 ) ? 'c9' : 'darkOrange']"></p>
               </div>
               <div class="btn-group" v-show="!weShare">
-                <a href="javascript:void (0);" class="btn btn-orange" v-show="item.paybtn" @click="go(item.workstatus,item)" v-text="item.statusText"></a>
+                <a href="javascript:void (0);" class="btn btn-orange" v-show="item.paybtn"
+                   @click="go(item.workstatus,item)" v-text="item.statusText"></a>
                 <a href="javascript:void (0);" class=" btn cancel" v-show="item.cancelbtn" @click="canOrder(item.id)">取消订单</a>
               </div>
               <!-- share before end -->
@@ -50,7 +53,8 @@
                 <div class="work-area" v-show="item.workstatus > 3" :class="{mt3:!weShare}">
                   <div class="work-title flex-space-between">
                     <p class="darkOrange">工地详情</p>
-                    <a href="javascript:void(0);" class="flex-ac" style="margin-right: 1rem;"  @click="item.showWork=!item.showWork">
+                    <a href="javascript:void(0);" class="flex-ac" style="margin-right: 1rem;"
+                       @click="item.showWork=!item.showWork">
                       <span v-if="item.showWork == true" class="c9">点击收起</span>
                       <span v-else class="c9">点击查看</span>
                       <i class="icon-arrows" :class="[ item.showWork ? 'arrow-up': 'arrow-down']"></i>
@@ -65,7 +69,8 @@
                 <div class="material-details">
                   <div class="material-title flex-space-between">
                     <p class="darkOrange">材料详情</p>
-                    <a href="javascript:void(0);" class="flex-ac" style="margin-right: 1rem;" @click="showMaterial(item)">
+                    <a href="javascript:void(0);" class="flex-ac" style="margin-right: 1rem;"
+                       @click="showMaterial(item)">
                       <span v-if="item.showMaterial == true" class="c9">点击收起</span>
                       <span v-else class="c9">点击查看</span>
                       <i class="icon-arrows" :class="[ item.showMaterial ? 'arrow-up': 'arrow-down']"></i>
@@ -94,22 +99,28 @@
                       <p>合计:¥{{ (Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
                     </div>
                     <!--未付款-->
-                    <div class="payed flex-space-between border-t" v-show="paydetailList.paystatus == 0||paydetailList.paystatus == 1">
+                    <div class="payed flex-space-between border-t"
+                         v-show="paydetailList.paystatus == 0||paydetailList.paystatus == 1">
                       <p>未付款</p>
                       <div class="flex-ac">
                         <p class="c9 mr2" v-show=" paydetailList.paystatus == 1">*70%</p>
-                        <p v-show="paydetailList.paystatus == 1">合计：¥{{(Number(paydetailList.feepay70) + Number(paydetailList.materialsfee70)).toFixed(2) }}</p>
-                        <p v-show="paydetailList.paystatus == 0">合计：¥{{(Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
+                        <p v-show="paydetailList.paystatus == 1">合计：¥{{(Number(paydetailList.feepay70) +
+                          Number(paydetailList.materialsfee70)).toFixed(2) }}</p>
+                        <p v-show="paydetailList.paystatus == 0">合计：¥{{(Number(paydetailList.fee) +
+                          Number(paydetailList.materialsfee)).toFixed(2) }}</p>
                       </div>
                     </div>
                     <!--已付款-->
-                    <div class="payed flex-space-between border-t" v-show="paydetailList.paystatus == 1||paydetailList.paystatus == 2">
+                    <div class="payed flex-space-between border-t"
+                         v-show="paydetailList.paystatus == 1||paydetailList.paystatus == 2">
                       <p v-show="paydetailList.paystatus == 1">已付款</p>
                       <p v-show="paydetailList.paystatus == 2">已结清</p>
                       <div class="flex-ac">
                         <p class="c9 mr2" v-show="paydetailList.paystatus == 1">*30%</p>
-                        <p v-show="paydetailList.paystatus == 1">合计：¥{{(Number(paydetailList.feepay30) + Number(paydetailList.materialsfee30)).toFixed(2) }}</p>
-                        <p v-show="paydetailList.paystatus == 2">合计：¥{{(Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
+                        <p v-show="paydetailList.paystatus == 1">合计：¥{{(Number(paydetailList.feepay30) +
+                          Number(paydetailList.materialsfee30)).toFixed(2) }}</p>
+                        <p v-show="paydetailList.paystatus == 2">合计：¥{{(Number(paydetailList.fee) +
+                          Number(paydetailList.materialsfee)).toFixed(2) }}</p>
                       </div>
                     </div>
                   </div>
@@ -124,7 +135,8 @@
                     <div class="flex-ac mt2">
                       <p class="c9" v-text="item.comment_time.date"></p>
                       <div class="ml3">
-                        <star-rating :rating="item.comment_star" :show-rating="false" :star-size="20" :read-only="true" :increment="0.1"></star-rating>
+                        <star-rating :rating="item.comment_star" :show-rating="false" :star-size="20" :read-only="true"
+                                     :increment="0.1"></star-rating>
                       </div>
                     </div>
                   </div>
@@ -204,7 +216,7 @@
   store.paydetailList = {};
   store.money = '';
   store.moneyList = StatusCode.order;
-//  store.wechat_share = false;
+  //  store.wechat_share = false;
   store.form = {};
   store.payform = {};
   store.orderId = '';
@@ -214,113 +226,117 @@
     store.form = {custid: '', offset: 1};
   };
 
-//  取消订单，只有3状态会显示按钮
+  //  取消订单，只有3状态会显示按钮
   method.canOrder = function (oid) {
     var self = this;
     //获取原因
-    api.cancel_reson({use:'howner_service'}).then(function (res) {
+    api.cancel_reson({use: 'howner_service'}).then(function (res) {
       store.cancel_id = res.result[0].id;
     });
 
     this.$messagebox.show(
-      {'title':'温馨提示','describe':'是否取消订单'},
-      {cb:function () {
-        api.cancelorder({id:oid,custid:store.form.custid,cancel_id:store.cancel_id}).then(function (res) {
-          if(res.code == error.success){
-            self.$router.push({path:'/manyOrders'});
-          }
-        });
-        method.getList();
-        this.cancle();
-      }, buttonName:['是','否']});
+      {'title': '温馨提示', 'describe': '是否取消订单'},
+      {
+        cb: function () {
+          api.cancelorder({id: oid, custid: store.form.custid, cancel_id: store.cancel_id}).then(function (res) {
+            if (res.code == error.success) {
+              self.$router.push({path: '/manyOrders'});
+            }
+          });
+          method.getList();
+          this.cancle();
+        }, buttonName: ['是', '否']
+      });
   };
 
 
   //  黄色的那个按钮，各种状态
-  var comment  = function (all) {
+  var comment = function (all) {
     let self = this;
     self.$router.push({
-      path:'/evaluationOfWorkers',
-      query:{id:all.id,worker_id:all.workid}
+      path: '/evaluationOfWorkers',
+      query: {id: all.id, worker_id: all.workid}
     })
   };
   var confirm = function (all) {
     var self = this;
     const params = {
-      'id':all.id,
-      'custid':store.user.user_id
+      'id': all.id,
+      'custid': store.user.user_id
     };
     self.$messagebox.show(
-      {'title':'温馨提示','describe':'您的工地是否已经完工?'},
-      {cb:function () {
-        api.order_confirm(params).then(function (response) {
-          if (error.success == response.code) {
-            method.getList();
-          }
-        });
-        this.cancle();
-      }, buttonName:['确定','取消']});
+      {'title': '温馨提示', 'describe': '您的工地是否已经完工?'},
+      {
+        cb: function () {
+          api.order_confirm(params).then(function (response) {
+            if (error.success == response.code) {
+              method.getList();
+            }
+          });
+          this.cancle();
+        }, buttonName: ['确定', '取消']
+      });
 
   };
-  var paymoney  = function (all) {
-      var self = this;
-    if(all.paytype == 0){//全额付款
-        store.money = parseFloat(all.fee) + parseFloat(all.materialsfee);
+  var paymoney = function (all) {
+    var self = this;
+    if (all.paytype == 0) {//全额付款
+      store.money = parseFloat(all.fee) + parseFloat(all.materialsfee);
     }
-    else if(all.paytype == 1){//分两次付款
-        if(all.paystatus == 0){//没付钱
-          store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30);
-        }else if (all.paystatus == 1){//付了一部分
-          store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70);
-        }
+    else if (all.paytype == 1) {//分两次付款
+      if (all.paystatus == 0) {//没付钱
+        store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30);
+      } else if (all.paystatus == 1) {//付了一部分
+        store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70);
+      }
     }
-  //  获取交易编号
+    //  获取交易编号
     var then = method.getpayorder(all.id);
     then.then(function () {
-        const tradeform = {
-          order_type: store.ordertype,
-          need_pay_price: store.money,
-          order_sn: all.id
-        };
-        api.get_trade(tradeform).then(function (res) {
-          store.trade_sn = res.result.trade_sn;
-          lstore.set_item('trade_sn', store.trade_sn);
-          if (store.trade_sn) {
-            try {
-              const params = {
-                'openid': lstore.get_item('openid').val,
-                'trade_sn': store.trade_sn,
-                'title': '测试',
-                'uid': store.user.user_id,
-                'wait_pay_price':store.money
-              };
-              api.get_jsapi(params).then(function (response) {
-                store.jsapi = JSON.parse(response.result.js);
-                var def = wxpay(store.jsapi);
-                def.then(function (response) {
-                  console.log(response);
-                  if (response === 'ok') {
-                    self.$router.push({
-                      path: '/manyOrders'
-                    });
-                  }
-                });
+      const tradeform = {
+        order_type: store.ordertype,
+        need_pay_price: store.money,
+        order_sn: all.id
+      };
+      api.get_trade(tradeform).then(function (res) {
+        store.trade_sn = res.result.trade_sn;
+        lstore.set_item('trade_sn', store.trade_sn);
+        if (store.trade_sn) {
+          try {
+            const params = {
+              'openid': tool.get.call(store.vm, 'openid'),
+              'trade_sn': store.trade_sn,
+              'title': '测试',
+              'uid': store.user.user_id,
+              'wait_pay_price': store.money
+            };
+            api.get_jsapi(params).then(function (response) {
+              store.jsapi = JSON.parse(response.result.js);
+              var def = wxpay(store.jsapi);
+              def.then(function (response) {
+                console.log(response);
+                if (response === 'ok') {
+                  self.$router.push({
+                    path: '/manyOrders'
+                  });
+                }
               });
-            } catch (e) {
-              console.log(e.message)
-            }
+            });
+          } catch (e) {
+            console.log(e.message)
           }
-        });
+        }
+      });
 
     });
   };
-//各种状态对应的方法
+  //各种状态对应的方法
   var TaskHandleCallback = {};
   TaskHandleCallback[3] = function (item) {
-      item.showContent = true;
-      item.paybtn = true;
-      item.cancelbtn = true;
-      item.statusText = '立即付款';
+    item.showContent = true;
+    item.paybtn = true;
+    item.cancelbtn = true;
+    item.statusText = '立即付款';
 //      paymoney();
   };
   TaskHandleCallback[7] = function (item) {
@@ -356,7 +372,7 @@
     item.showContent = true;
   };
 
-//  默认的一些设置
+  //  默认的一些设置
   var TaskBtnHandle = function (item) {
     item.showContent = false;//材料详情和工地详情
     item.paybtn = false;
@@ -368,26 +384,26 @@
   };
 
   var task = {
-    11:TaskBtnHandle,
-    10:comment,
-    9:confirm,
-    8:TaskBtnHandle,
-    7:paymoney,
-    3:paymoney,
+    11: TaskBtnHandle,
+    10: comment,
+    9: confirm,
+    8: TaskBtnHandle,
+    7: paymoney,
+    3: paymoney,
   };
   var BtnTask = {
-    11:TaskBtnHandle,
-    10:TaskBtnHandle,
-    9:TaskBtnHandle,
-    8:TaskBtnHandle,
-    7:TaskBtnHandle,
-    3:TaskBtnHandle
+    11: TaskBtnHandle,
+    10: TaskBtnHandle,
+    9: TaskBtnHandle,
+    8: TaskBtnHandle,
+    7: TaskBtnHandle,
+    3: TaskBtnHandle
 
   };
   //黄色按钮显示的方法
-  method.go = function (workerstatus,oid) {
+  method.go = function (workerstatus, oid) {
     if (task.hasOwnProperty(workerstatus)) {
-        task[workerstatus].call(this,oid);
+      task[workerstatus].call(this, oid);
     }
   };
   //  各种订单状态的显示，及方法
@@ -408,7 +424,7 @@
     api.get_orderlists(store.form).then(function (response) {
 //      store.workerid = response.result.workid;
 //      store.order_sn = response.result.id;
-      if(response.code == error.success){
+      if (response.code == error.success) {
 //          控制点击收起
         response.result.forEach(function (item) {
           if (item.worker == null) {
@@ -437,7 +453,7 @@
           item.time = date;
         });
 
-        store.orderLists = loadmore.push(response.result,store.form.offset);
+        store.orderLists = loadmore.push(response.result, store.form.offset);
       }
     });
   };
@@ -454,33 +470,33 @@
   };
   //材料详情点击展示
   method.showMaterial = function (item) {
-    item.showMaterial=!item.showMaterial;
-    if (item.showMaterial == true){
+    item.showMaterial = !item.showMaterial;
+    if (item.showMaterial == true) {
       method.getpayorder(item.id);
     }
   };
-//  method.showWorkerArea = function (id) {
-//    store.orderId = id;
-//  };
+  //  method.showWorkerArea = function (id) {
+  //    store.orderId = id;
+  //  };
 
   //  格式化时间
-  function formartDate (time)  {
-      try{
-        if (time) {
-          time = time.replace(/-/g, '/');
-        }
-        let formart = new Date(time || 0);
-        formart.date = formart.getFullYear() + '-' + (formart.getMonth() + 1) + '-' + formart.getDate();
-        formart.alldate = formart.getFullYear() + '年' + (formart.getMonth() + 1) + '月' + formart.getDate() + '日';
-        formart.time = formart.getHours() + ':' + formart.getMinutes();
-        return formart;
-      }catch (e){
-
+  function formartDate(time) {
+    try {
+      if (time) {
+        time = time.replace(/-/g, '/');
       }
-      return {date: '', time: '', alldate: ''}
+      let formart = new Date(time || 0);
+      formart.date = formart.getFullYear() + '-' + (formart.getMonth() + 1) + '-' + formart.getDate();
+      formart.alldate = formart.getFullYear() + '年' + (formart.getMonth() + 1) + '月' + formart.getDate() + '日';
+      formart.time = formart.getHours() + ':' + formart.getMinutes();
+      return formart;
+    } catch (e) {
+
+    }
+    return {date: '', time: '', alldate: ''}
   }
 
-//  刷新
+  //  刷新
   method.onRefresh = function (done) {
     store.form.offset = 1;
     method.getList();
@@ -501,22 +517,22 @@
   method.servicephone = function () {
     api.service_phone().then(function (res) {
       var result = res.result;
-      store.phone = 'tel:'+result.service_phone;
+      store.phone = 'tel:' + result.service_phone;
     })
   };
 
 
-export default {
+  export default {
     name: 'allOrders',
-    data(){
+    data() {
       return store;
     },
     methods: method,
     watch: {
-      '$route':init
+      '$route': init
     },
     components: {
-      refresh,orderdetail,starRating
+      refresh, orderdetail, starRating
     },
     mounted: function () {
       store.vm = this;
@@ -525,14 +541,13 @@ export default {
 
       store.user = user.info.apply(this);
       var custid = store.user.user_id;
-      if(store.weShare == false){//没有分享
-       // store.form.custid = 22512;
+      if (store.weShare == false) {//没有分享
+        // store.form.custid = 22512;
         store.form.custid = store.user.user_id;
-        this.$router.push({query:{custid:custid}});
-      }else if(store.weShare == true){
+        this.$router.push({query: {custid: custid}});
+      } else if (store.weShare == true) {
         store.form.custid = this.$route.query.custid;
       }
-
 
 
       method.getList();

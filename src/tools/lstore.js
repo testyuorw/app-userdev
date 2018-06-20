@@ -10,7 +10,7 @@ lstore.set_item = function (key, value, time) {
     var obj = JSON.stringify(data);
     localStorage.setItem(key, obj);
   } catch (e) {
-
+      console.log('setitem',e.message)
   }
 };
 var _get_item = function (key) {
@@ -18,15 +18,15 @@ var _get_item = function (key) {
   try {
     data = JSON.parse(localStorage.getItem(key));
   } catch (e) {
-
+      console.log('getItem',e.message)
   }
   return data;
 };
 lstore.remove = function (key) {
-    localStorage.removeItem(key);
+    // localStorage.removeItem(key);
 };
 lstore.autoClear = function (key) {
-  try {
+ /* try {
     var _data = _getItem(key);
     if (!_data) {
       return false;
@@ -40,14 +40,14 @@ lstore.autoClear = function (key) {
     }
   } catch (e) {
 
-  }
+  }*/
 };
 lstore.get_item = function (key) {
   try{
-    lstore.autoClear(key);
+    // lstore.autoClear(key);
     return  _get_item(key);
   }catch(e){
-
+    console.log('getItem',e.message)
   }
 };
 

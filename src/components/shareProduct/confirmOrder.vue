@@ -52,7 +52,7 @@
     </div>
 
     <!--立即购买-->
-    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" :class="{'disabled': showOne}">立即购买</a>
+    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买1</a>
   </div>
 
 </template>
@@ -80,7 +80,7 @@
   store.openid = '';//opennid
 
   store.money = '';
-  store.showOne = false;
+  // store.showOne = true;
 
   //初始化信息
   var initInfo = function(){
@@ -196,7 +196,7 @@
 
   //生成四种订单
   method.creat_share_order = function(){
-    store.showOne = true;//不能一直点
+    // store.showOne = true;//不能一直点
     var params = {
       shop_sn:store.shop_sn,
       link_id:store.link_id,
@@ -218,40 +218,59 @@
     };
     api.creat_share_order(params).then(function (res) {
       if(res.code == error.success){
+        console.log("分享生成订单了");
         store.order_type = res.result.ordertype;
         store.order_sn = res.result.id;
-        setTimeout(function () {
-          store.showOne = false;
-        },3000);
+        // setTimeout(function () {
+        //   store.showOne = false;
+        // },3000);
+        try {
+          method.paymoneys();
+        }catch (e) {
+          console.log(e.message)
+        }
 
-        method.paymoneys();
     }
     })
 
   };
   //支付
   method.paymoneys = function () {
-    console.log("支付的时候",lstore.get_item('openid').val);
+    console.log("支付的时候");
     //  支付
     const tradeform = {
       order_type: store.order_type,//订单类型
       need_pay_price: store.money * store.num,
       order_sn: store.order_sn//订单id
     };
+
     // 获取支付流水
     api.get_trade(tradeform).then(function (res) {
+
       store.trade_sn = res.result.trade_sn;
+      console.log("trade_sn",store.trade_sn);
       lstore.set_item('trade_sn', store.trade_sn);
+      console.log("生成订单的openid",lstore.get_item('openid'));
       if (store.trade_sn) {
         try {
+          store.openid = tool.get.call(store.vm, 'openid');
+          /*if(store.openid){
+            store.openid = lstore.get_item('openid').val;
+            console.log("local");
+          }else {
+            console.log("cookie");
+            store.openid = cookie.get.call(store.vm,'openid');
+          }*/
           const params = {
-            'openid': lstore.get_item('openid').val,
+            'openid': store.openid,
             'trade_sn': store.trade_sn,
             'title': '测试',
             'uid': store.user_id,
             'wait_pay_price':store.money * store.num
           };
+          console.log("params",params);
           api.get_jsapi(params).then(function (res) {
+            console.log("jsapi");
             store.jsapi = JSON.parse(res.result.js);
             var def = wxpay(store.jsapi);
             def.then(function (response) {
@@ -263,7 +282,7 @@
             });
           });
         } catch (e) {
-
+          console.log(e.message);
         }
       }
     });
@@ -279,80 +298,86 @@ export default {
   beforeMount(){
     store.vm = this;
     store.openid = cookie.get.call(this,'openid');//取openid
+    console.log("beforemounted",store.openid);
   },
   mounted() {
-    page.title("确认订单");
-    lstore.set_item('sitetype',5);
-    // user.login_page = false;
-    //存分享  的信息
-    store.link_id = this.$route.query.link_id;
-    store.shop_sn = this.$route.query.shop_sn;
-    store.workid = this.$route.query.workid;
-    store.custid = this.$route.query.custid;
-    store.shareArea = this.$route.query.area;
+    try{
+      page.title("确认订单");
+      lstore.set_item('sitetype',5);
+      // user.login_page = false;
+      //存分享  的信息
+      store.link_id = this.$route.query.link_id;
+      store.shop_sn = this.$route.query.shop_sn;
+      store.workid = this.$route.query.workid;
+      store.custid = this.$route.query.custid;
+      store.shareArea = this.$route.query.area;
 
-    //分享链接得到的内容
-    store.shareProductInfo = {
-      link_id:store.link_id,
-      shop_sn:store.shop_sn,
-      workid:store.workid,
-      custid:store.custid,
-      shareArea:store.shareArea
-    };
-    //存入分享的信息
-    if(store.link_id  && store.shop_sn){//商品信息存在的话
-      lstore.set_item('shareProductInfo', store.shareProductInfo);
-    }
-    //判断是否登录
-    // if (store.openid){
-    //   store.openid = lstore.get_item('openid').val
-    // }
-    //  查openid
+      //分享链接得到的内容
+      store.shareProductInfo = {
+        link_id:store.link_id,
+        shop_sn:store.shop_sn,
+        workid:store.workid,
+        custid:store.custid,
+        shareArea:store.shareArea
+      };
+      //存入分享的信息
+      if(store.link_id  && store.shop_sn){//商品信息存在的话
+        lstore.set_item('shareProductInfo', store.shareProductInfo);
+      }
+      //判断是否登录
+      // if (store.openid){
+      //   store.openid = lstore.get_item('openid').val
+      // }
+      //  查openid
 
 
 
-    //取用户信息
-    store.shareUser = lstore.get_item("shareUser");
-    if (store.shareUser) {
-      store.shareUser = lstore.get_item("shareUser").val;
+      //取用户信息
+      store.shareUser = tool.get.call(store.vm,"shareUser");
+      if (store.shareUser) {
+        //store.shareUser = store.shareUser;
 
-      store.area = store.shareUser.area_id;//页面加载完成时区域id
-      store.utype = store.shareUser.sign_type;//页面加载完成时用户类型
-      store.user_id = store.shareUser.id;//页面加载完成时用户id
-
-    }
-
-    console.log("shareUser",store.shareUser);
-    //取商品信息
-    store.goodsInfo = lstore.get_item("shareProductInfo");
-    if (store.goodsInfo){
-      store.goodsInfo = lstore.get_item("shareProductInfo").val;
-      store.link_id = store.goodsInfo.link_id;
-      store.shop_sn = store.goodsInfo.shop_sn;
-
-      //存入信息生成订单的时候所要的信息
-      store.workid = store.goodsInfo.workid;
-      store.custid = store.goodsInfo.custid;
-      if(store.workid){
-        store.share_id = store.workid;
-        store.share_type = 0;
-      }else if(store.custid){
-        store.share_id = store.custid;
-        store.share_type = 1;
-
-        if(store.shareUser.area == ''){
-          store.area = store.goodsInfo.shareArea;
-        }
+        store.area = store.shareUser.area_id;//页面加载完成时区域id
+        store.utype = store.shareUser.sign_type;//页面加载完成时用户类型
+        store.user_id = store.shareUser.id;//页面加载完成时用户id
 
       }
 
+      console.log("shareUser",store.shareUser);
+      //取商品信息
+      store.goodsInfo = lstore.get_item("shareProductInfo");
+      console.log("商品信息",store.goodsInfo);
+      if (store.goodsInfo){
+        store.goodsInfo = lstore.get_item("shareProductInfo").val;
+        store.link_id = store.goodsInfo.link_id;
+        store.shop_sn = store.goodsInfo.shop_sn;
+
+        //存入信息生成订单的时候所要的信息
+        store.workid = store.goodsInfo.workid;
+        store.custid = store.goodsInfo.custid;
+        if(store.workid){
+          store.share_id = store.workid;
+          store.share_type = 0;
+        }else if(store.custid){
+          store.share_id = store.custid;
+          store.share_type = 1;
+
+          if(store.shareUser.area == ''){
+            store.area = store.goodsInfo.shareArea;
+          }
+
+        }
+
+      }
+      initInfo();//初始化信息
+
+      // store.cookie = cookie.get.call(this,'openid');
+      store.cookie = cookie.get.call(this,'sharezjbird');
+
+      method.canBuy();
+    }catch (e) {
+      console.log(e.message)
     }
-    initInfo();//初始化信息
-
-    // store.cookie = cookie.get.call(this,'openid');
-    store.cookie = cookie.get.call(this,'zjbird');
-
-    method.canBuy();
 
     if(store.cookie){
       return false;

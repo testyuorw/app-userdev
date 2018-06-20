@@ -1,7 +1,7 @@
 import cookie from '../tools/cookie'
 var user = {};
-user.info = function () {
-  var res = cookie.get.call(this, 'zjbird');
+user.info = function (name = 'zjbird') {
+  var res = cookie.get.call(this, name);
   if (res) {
     user.store  = res;
     return res;
