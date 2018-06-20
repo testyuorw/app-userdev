@@ -22,6 +22,12 @@
   };
   var fetchData = function () {
     var fullPath = this.$route.fullPath;
+    let query = this.$route.query;
+    if (query.hasOwnProperty('openid')) {
+      const openid = query['openid'];
+      cookie.set.call(this, 'openid', openid);
+      lstore.set_item('openid', openid);
+    }
     console.log(fullPath);
     loadmore.clear();
     setSiteType(fullPath);
@@ -50,13 +56,10 @@
       else {
         console.log('run1'+Math.random());
         console.log("跳了吧");
-        if(sitetype !== 5){
-          console.log("runnn");
+        if (sitetype !== 5) {
           this.$router.push({path: '/login'});
         }
-
       }
-
     }
   };
   export default {
@@ -77,14 +80,8 @@
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
       console.log("appvue",openid);
-      console.log(openid);
       if (!openid) {
-
-        if (query.hasOwnProperty('openid')) {
-          const openid = query['openid'];
-          cookie.set.call(this, 'openid', openid);
-          lstore.set_item('openid', openid);
-        } else {
+        if (!query.hasOwnProperty('openid')) {
           window.location.href = auth;
         }
       }

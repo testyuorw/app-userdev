@@ -102,7 +102,7 @@
   //选择区域
   method.getareas = function (p,pname,city,cname,area,aname) {
     lstore.remove('citys');
-    lstore.set_item('citys', {'city': city, 'area': area,'name':aname});
+    lstore.set_item('citys', {'city': city, 'area': area, 'name': aname});
     store.userForm.city = pname + cname + aname;
     store.area = area;
 
@@ -284,7 +284,7 @@ export default {
     page.title("确认订单");
     lstore.set_item('sitetype',5);
     // user.login_page = false;
-    //存分享的信息
+    //存分享  的信息
     store.link_id = this.$route.query.link_id;
     store.shop_sn = this.$route.query.shop_sn;
     store.workid = this.$route.query.workid;

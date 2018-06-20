@@ -205,12 +205,11 @@
       if (lstore.get_item('workid')) {
         store.workid = lstore.get_item('workid').val;
       }
-
+      //微信分享有关的
+       store.sitetype = lstore.get_item('sitetype');//获取是哪一页
       if (!store.sitetype) {
         store.sitetype = store.vm.$route.query.sitetype ? store.vm.$route.query.sitetype : 1;
       }
-      //微信分享有关的
-      store.sitetype = lstore.get_item('sitetype');//获取是哪一页
       if (store.sitetype) {
         store.sitetype = store.sitetype.val;
       }
@@ -226,7 +225,6 @@
           }
           if (res.code == error.success) {
             store.vm.$router.push({path: '/confirmOrder'});
-            console.log("aa");
           }
         });
       }
