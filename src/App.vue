@@ -80,12 +80,12 @@
         // }
       }
       else {
-        console.log('run1' + Math.random());
-        console.log("跳了吧");
-        console.log(sitetype);
-        console.log(typeof sitetype);
-        if (sitetype != "5") {
-          console.log("不等于5sitetype");
+        // console.log('run1' + Math.random());
+        // console.log("跳了吧");
+        // console.log(sitetype);
+        // console.log(typeof sitetype);
+        if (sitetype != "5" && store.weShare == false) {
+          console.log("不等于5sitetype1111");
           this.$router.push({path: '/login'});
         }
         else if (sitetype == "5") {
@@ -108,8 +108,6 @@
           } catch (e) {
             console.log(e.message);
           }
-
-
         }
       }
     }

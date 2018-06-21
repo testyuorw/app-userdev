@@ -223,6 +223,7 @@
   };
   method.canOrder = function () {
     var CheckLogin = user.info.apply(this);
+    lstore.set_item('sitetype', 4);
     var self = this;
       if(CheckLogin){//登录了
         try{
@@ -349,7 +350,7 @@
       var workid = self.$route.query.workid;//其他案例和优秀案例要传的工友id
       store.form.worker_id = workid;
       store.form.user_id = self.$route.query.workid;//工友详情接口传的工友id
-      var user_id = self.$route.query.workid;
+      var user_id = self.$route.query.custid;
 
       method.getWorkerInfo();
       page.title('工友详情');
@@ -362,6 +363,7 @@
       store.nextRouter = this.$route.path;
       store.nextQuery = this.$route.query;
       method.saveRouter();
+      console.log("run");
 
     }
 
