@@ -346,7 +346,6 @@
       store.weShare = page.WechatShare();
       store.user = user.info.apply(this);
       store.custid = store.user.user_id;
-
       var workid = self.$route.query.workid;//其他案例和优秀案例要传的工友id
       store.form.worker_id = workid;
       store.form.user_id = self.$route.query.workid;//工友详情接口传的工友id
