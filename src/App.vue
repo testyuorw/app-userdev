@@ -46,7 +46,7 @@
       this.$router.push({path: '/userProtocol'})
     }
     else if (store.weShare == false) {
-      let cookie_name = 'zjbird'
+      let cookie_name = 'zjbird';
       if (sitetype == 5) {
         cookie_name = 'sharezjbird';
       }
@@ -57,7 +57,7 @@
           console.log("fu");
           var url = {
             'true': '/userInfo',
-            'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct', 5: '/confirmOrder'}
+            'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',4:'/workerDetail', 5: '/confirmOrder'}
           };
           let location_url = url['false'];
           if ('object' == typeof  location_url) {
@@ -91,6 +91,8 @@
         else if (sitetype == "5") {
           console.log("sitetype=5");
           try {
+            store.openid = tool.get.call(store.vm, 'openid');
+            console.log("查看openid接口的openid",store.openid);
             api2.check_openid({openid: store.openid}).then(function (res) {
               console.log("checkopenid");
               if (!res.result || res.result == null || res.result == 'null') {
@@ -111,6 +113,9 @@
         }
       }
     }
+    else if(store.weShare == true){
+      console.log("我是分享");
+    }
   };
   export default {
     name: 'app',
@@ -126,6 +131,7 @@
       }
     },
     mounted: function () {
+      store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');

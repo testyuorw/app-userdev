@@ -52,7 +52,7 @@
     </div>
 
     <!--立即购买-->
-    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买1</a>
+    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买2</a>
   </div>
 
 </template>
@@ -379,15 +379,15 @@ export default {
       console.log(e.message)
     }
 
-    if(store.cookie){
-      return false;
-    }
-    store.vm.$messagebox.show(
-      {'title':'温馨提示','describe':'已切换至您所在地区'},
-      {cb:function () {
-          this.cancle();
-        }, buttonName:['确定']});
-    //请求商品信息
+    // if(store.cookie){
+    //   return false;
+    // }
+    // store.vm.$messagebox.show(
+    //   {'title':'温馨提示','describe':'已切换至您所在地区'},
+    //   {cb:function () {
+    //       this.cancle();
+    //     }, buttonName:['确定']});
+    // //请求商品信息
 
   },
   components: {

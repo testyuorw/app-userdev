@@ -341,12 +341,16 @@
         });
       })*/
       var self = this;
+      lstore.set_item('sitetype', 4);
       store.weShare = page.WechatShare();
       store.user = user.info.apply(this);
-      store.form.user_id = self.$route.query.workid;
       store.custid = store.user.user_id;
-      var workid = self.$route.query.workid;
+
+      var workid = self.$route.query.workid;//其他案例和优秀案例要传的工友id
       store.form.worker_id = workid;
+      store.form.user_id = self.$route.query.workid;//工友详情接口传的工友id
+      var user_id = self.$route.query.workid;
+
       method.getWorkerInfo();
       page.title('工友详情');
       method.getOrderList();
