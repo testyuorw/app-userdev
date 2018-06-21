@@ -52,7 +52,7 @@
     </div>
 
     <!--立即购买-->
-    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买1</a>
+    <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买</a>
   </div>
 
 </template>
