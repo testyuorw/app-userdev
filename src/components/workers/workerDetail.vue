@@ -350,7 +350,6 @@
       store.form.worker_id = workid;
       store.form.user_id = self.$route.query.workid;//工友详情接口传的工友id
       var user_id = self.$route.query.custid;
-
       method.getWorkerInfo();
       page.title('工友详情');
       method.getOrderList();
