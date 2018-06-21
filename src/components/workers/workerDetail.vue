@@ -312,34 +312,6 @@
       starRating
     },
     mounted:function () {
-     /* api.share({url:window.location.href}).then(function (response) {
-        const  result = response.result;
-        const config = {
-          debug: false,
-          appId: "wxfd64a509f4267819",
-          timestamp: result['timestamp'],
-          nonceStr: result['noncestr'],
-          signature: result['signature'],
-          jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
-        }
-        wx.config(config);
-        wx.ready(function () {
-          var shareData = {
-            title: '测试',
-            desc: '测试',
-            link: window.location.href,
-            imgUrl: 'http://dist.zjbird.com/active/icon.png?v2',
-            success:function () {
-              alert('aaa');
-            }
-          };
-          wx.onMenuShareAppMessage(shareData);
-          wx.onMenuShareTimeline(shareData);
-        });
-        wx.error(function(res){
-          console.log(res)
-        });
-      })*/
       var self = this;
       store.weShare = page.WechatShare();
       store.user = user.info.apply(this);
