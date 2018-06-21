@@ -54,7 +54,6 @@
       //没分享要登录
       if (CheckLogin) {
         if (fullPath == '/login') {
-          console.log("fu");
           var url = {
             'true': '/userInfo',
             'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct', 5: '/confirmOrder'}
@@ -66,39 +65,19 @@
           this.$router.push({path: location_url})
         }
 
-        // if (sitetype == 5 && path == '/confirmOrder' && path != '/login') {
-        //   console.log('again login');
-        //   const shareUser = cookie.get.call(this, 'shareUser');
-        //   if (!shareUser) {
-        //     console.log('again login 2');
-        //     try{
-        //       this.$router.push({path: '/login'});
-        //     }catch (e) {
-        //         console.log(e.message)
-        //     }
-        //   }
-        // }
       }
       else {
-        console.log('run1' + Math.random());
-        console.log("跳了吧");
-        console.log(sitetype);
-        console.log(typeof sitetype);
         if (sitetype != "5") {
-          console.log("不等于5sitetype");
           this.$router.push({path: '/login'});
         }
         else if (sitetype == "5") {
-          console.log("sitetype=5");
           try {
             api2.check_openid({openid: store.openid}).then(function (res) {
-              console.log("checkopenid");
               if (!res.result || res.result == null || res.result == 'null') {
                 $this.$router.push({path: '/login'});
                 return false;
               }
               if (res.code == error.success) {
-                console.log("查看openid存在");
                 lstore.set_item('shareUser', res.result);
                 store.vm.$router.push({path: '/confirmOrder'});
               }
@@ -129,7 +108,6 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      console.log("appvue", openid);
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           window.location.href = auth;

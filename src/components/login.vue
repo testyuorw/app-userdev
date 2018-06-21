@@ -137,14 +137,12 @@
     }
     if (store.sitetype == 5){
       //表示是商品分享的登录接口
-      console.log("form",store.form);
 
       if (lstore.get_item('openid')) {
         store.openid = lstore.get_item('openid').val;
       }
       store.form.openid =  store.openid;
       api.share_login(store.form).then(function (res) {
-        console.log(res);
         var result = res.result;
         if (error.success == res.code) {
           lstore.set_item('shareUser', result);
@@ -184,7 +182,6 @@
   };
   var fetchData = function () {
     var fullPath = store.vm.$route.fullPath;
-    console.log("123",fullPath);
   };
   export default{
     name: 'login',
@@ -218,18 +215,7 @@
       if (lstore.get_item('openid')) {
         store.openid = lstore.get_item('openid').val;
         store.form.openid = store.openid;
-        console.log("mounted",store.openid);
-        // api.check_openid({openid:store.openid}).then(function (res) {
-        //   console.log("checkopenid");
-        //   if (!res.result || res.result == null || res.result == 'null') {
-        //     return false;
-        //   }
-        //   if (res.code == error.success) {
-        //     console.log("查看openid存在");
-        //     lstore.set_item('shareUser', res.result);
-        //     store.vm.$router.push({path: '/confirmOrder'});
-        //   }
-        // });
+
       }
 
 
