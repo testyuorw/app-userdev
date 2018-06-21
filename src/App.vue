@@ -26,10 +26,12 @@
     }
   };
   var fetchData = function () {
+    store.weShare = page.WechatShare();//判断是不是分享的
     const $this = this;
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
+    alert(fullPath);
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -65,28 +67,13 @@
           }
           this.$router.push({path: location_url})
         }
-
-        // if (sitetype == 5 && path == '/confirmOrder' && path != '/login') {
-        //   console.log('again login');
-        //   const shareUser = cookie.get.call(this, 'shareUser');
-        //   if (!shareUser) {
-        //     console.log('again login 2');
-        //     try{
-        //       this.$router.push({path: '/login'});
-        //     }catch (e) {
-        //         console.log(e.message)
-        //     }
-        //   }
-        // }
       }
       else {
-        // console.log('run1' + Math.random());
-        // console.log("跳了吧");
-        // console.log(sitetype);
-        // console.log(typeof sitetype);
         if (sitetype != "5" && store.weShare == false) {
           console.log("不等于5sitetype1111");
+          console.log(store.weShare);
           this.$router.push({path: '/login'});
+          alert('to13')
         }
         else if (sitetype == "5") {
           console.log("sitetype=5");
@@ -97,6 +84,7 @@
               console.log("checkopenid");
               if (!res.result || res.result == null || res.result == 'null') {
                 $this.$router.push({path: '/login'});
+                alert('to2')
                 return false;
               }
               if (res.code == error.success) {
@@ -112,7 +100,11 @@
       }
     }
     else if(store.weShare == true){
-      console.log("我是分享");
+      alert(store.weShare);
+      if (path == '/confirmOrder' && !CheckLogin) {
+        $this.$router.push({path: '/login'});
+        alert('to1')
+      }
     }
   };
   export default {
@@ -136,7 +128,15 @@
       console.log("appvue", openid);
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
-          window.location.href = auth;
+          console.log("我要授权");
+          let sitetype = lstore.get_item('sitetype');
+          if (sitetype) {
+            sitetype = sitetype.val;
+          }
+          if(sitetype != "4"){
+            window.location.href = auth;
+          }
+
         }
       }
       fetchData.apply(this);
