@@ -31,7 +31,7 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    alert(fullPath);
+    // alert(fullPath);
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -73,7 +73,7 @@
           console.log("不等于5sitetype1111");
           console.log(store.weShare);
           this.$router.push({path: '/login'});
-          alert('to13')
+          // alert('to13')
         }
         else if (sitetype == "5") {
           console.log("sitetype=5");
@@ -84,7 +84,7 @@
               console.log("checkopenid");
               if (!res.result || res.result == null || res.result == 'null') {
                 $this.$router.push({path: '/login'});
-                alert('to2')
+                // alert('to2')
                 return false;
               }
               if (res.code == error.success) {
@@ -100,10 +100,10 @@
       }
     }
     else if(store.weShare == true){
-      alert(store.weShare);
+      // alert(store.weShare);
       if (path == '/confirmOrder' && !CheckLogin) {
         $this.$router.push({path: '/login'});
-        alert('to1')
+        // alert('to1')
       }
     }
   };
