@@ -148,7 +148,10 @@ api.creat_share_order = function (params) {
 api.check_openid = function (params) {
   return http('post', '/api/howner/checkOpenid', params);
 };
+// api.share = function (params) {
+//   return http('get', '/api/micro/share', params);
+// }
 api.share = function (params) {
-  return http('get', '/api/micro/share', params);
-}
+  return http('get', 'http://192.168.50.199:8080/wechat/share_support', params,true);
+};
 export default api;

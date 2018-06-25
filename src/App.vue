@@ -56,7 +56,6 @@
       //没分享要登录
       if (CheckLogin) {
         if (fullPath == '/login') {
-          console.log("fu");
           var url = {
             'true': '/userInfo',
             'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',4:'/workerDetail', 5: '/confirmOrder'}
@@ -70,31 +69,23 @@
       }
       else {
         if (sitetype != "5" && store.weShare == false) {
-          console.log("不等于5sitetype1111");
-          console.log(store.weShare);
           this.$router.push({path: '/login'});
-          // alert('to13')
         }
         else if (sitetype == "5") {
-          console.log("sitetype=5");
           try {
             store.openid = tool.get.call(store.vm, 'openid');
-            console.log("查看openid接口的openid",store.openid);
             api2.check_openid({openid: store.openid}).then(function (res) {
-              console.log("checkopenid");
               if (!res.result || res.result == null || res.result == 'null') {
                 $this.$router.push({path: '/login'});
                 // alert('to2')
                 return false;
               }
               if (res.code == error.success) {
-                console.log("查看openid存在");
                 lstore.set_item('shareUser', res.result);
                 store.vm.$router.push({path: '/confirmOrder'});
               }
             });
           } catch (e) {
-            console.log(e.message);
           }
         }
       }
@@ -125,10 +116,8 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      console.log("appvue", openid);
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
-          console.log("我要授权");
           let sitetype = lstore.get_item('sitetype');
           if (sitetype) {
             sitetype = sitetype.val;

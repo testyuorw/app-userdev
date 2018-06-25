@@ -146,7 +146,6 @@
       share_id:store.share_id,
       share_type:store.share_type
     };
-    console.log("confirm",store.form);
     api.share_can_buy(store.form).then(function (res) {
       if (res.code == error.success){
         method.diff(store.goodsInfoLists.saleprice, res.result.saleprice);
@@ -218,7 +217,6 @@
     };
     api.creat_share_order(params).then(function (res) {
       if(res.code == error.success){
-        console.log("分享生成订单了");
         store.order_type = res.result.ordertype;
         store.order_sn = res.result.id;
         // setTimeout(function () {
@@ -227,7 +225,6 @@
         try {
           method.paymoneys();
         }catch (e) {
-          console.log(e.message)
         }
 
     }
@@ -236,7 +233,6 @@
   };
   //支付
   method.paymoneys = function () {
-    console.log("支付的时候");
     //  支付
     const tradeform = {
       order_type: store.order_type,//订单类型
@@ -248,29 +244,18 @@
     api.get_trade(tradeform).then(function (res) {
 
       store.trade_sn = res.result.trade_sn;
-      console.log("trade_sn",store.trade_sn);
       lstore.set_item('trade_sn', store.trade_sn);
-      console.log("生成订单的openid",lstore.get_item('openid'));
       if (store.trade_sn) {
         try {
           store.openid = tool.get.call(store.vm, 'openid');
-          /*if(store.openid){
-            store.openid = lstore.get_item('openid').val;
-            console.log("local");
-          }else {
-            console.log("cookie");
-            store.openid = cookie.get.call(store.vm,'openid');
-          }*/
           const params = {
             'openid': store.openid,
             'trade_sn': store.trade_sn,
-            'title': '测试',
+            'title': '住建鸟',
             'uid': store.user_id,
             'wait_pay_price':store.money * store.num
           };
-          console.log("params",params);
           api.get_jsapi(params).then(function (res) {
-            console.log("jsapi");
             store.jsapi = JSON.parse(res.result.js);
             var def = wxpay(store.jsapi);
             def.then(function (response) {
@@ -282,7 +267,6 @@
             });
           });
         } catch (e) {
-          console.log(e.message);
         }
       }
     });
@@ -298,7 +282,6 @@ export default {
   beforeMount(){
     store.vm = this;
     store.openid = cookie.get.call(this,'openid');//取openid
-    console.log("beforemounted",store.openid);
   },
   mounted() {
     try{
@@ -343,10 +326,8 @@ export default {
 
       }
 
-      console.log("shareUser",store.shareUser);
       //取商品信息
       store.goodsInfo = lstore.get_item("shareProductInfo");
-      console.log("商品信息",store.goodsInfo);
       if (store.goodsInfo){
         store.goodsInfo = lstore.get_item("shareProductInfo").val;
         store.link_id = store.goodsInfo.link_id;
@@ -376,7 +357,6 @@ export default {
 
       method.canBuy();
     }catch (e) {
-      console.log(e.message)
     }
 
     // if(store.cookie){
