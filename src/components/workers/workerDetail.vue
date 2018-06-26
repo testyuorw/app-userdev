@@ -319,7 +319,7 @@
           console.log(response);
           const  result = response.result;
           const config = {
-            debug: true,
+            debug: false,
             appId: "wxfd64a509f4267819",
             timestamp: result['timestamp'],
             nonceStr: result['noncestr'],
