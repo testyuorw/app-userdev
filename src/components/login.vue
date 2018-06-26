@@ -18,7 +18,7 @@
         <div class="form-group mt200">
           <a href="javascript:void(0)" class="btn-login" @click="login">立即登录</a>
           <div class="agree">
-            <router-link to="/userProtocol" class="agree-protocol">1注册/登录即代表同意《住建鸟用户使用协议》</router-link>
+            <router-link to="/userProtocol" class="agree-protocol">注册/登录即代表同意《住建鸟用户使用协议》</router-link>
           </div>
         </div>
       </form>
@@ -184,7 +184,6 @@
   };
   var fetchData = function () {
     var fullPath = store.vm.$route.fullPath;
-    console.log("123",fullPath);
   };
   export default{
     name: 'login',

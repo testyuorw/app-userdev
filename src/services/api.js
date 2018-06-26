@@ -151,7 +151,7 @@ api.check_openid = function (params) {
 // api.share = function (params) {
 //   return http('get', '/api/micro/share', params);
 // }
-api.share = function (params) {
-  return http('get', 'http://192.168.50.199:8080/wechat/share_support', params,true);
-};
+// api.share = function (params) {
+//   return http('get', 'http://api4j.e1.fat.zjbird.com/wechat/share_support', params,true);
+// };
 export default api;
