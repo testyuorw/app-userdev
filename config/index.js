@@ -13,8 +13,8 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     // assetsPublicPath: 'http://uapp.zjbird.com/',
-    // assetsPublicPath: 'http://dist.zjbird.com/',
-    assetsPublicPath: '/',
+    assetsPublicPath: 'http://dist.zjbird.com/',
+    // assetsPublicPath: '/',
     // assetsPublicPath: public_path,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
