@@ -123,7 +123,7 @@
             sitetype = sitetype.val;
           }
           if(sitetype != "4"){
-            window.location.href = auth;
+            // window.location.href = auth;
           }
 
         }

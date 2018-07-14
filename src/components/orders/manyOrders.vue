@@ -39,9 +39,14 @@
                    :class="[(item.workstatus < 1 || item.workstatus == 11 ) ? 'c9' : 'darkOrange']"></p>
               </div>
               <div class="btn-group" v-show="!weShare">
-                <a href="javascript:void (0);" class="btn btn-orange" v-show="item.paybtn"
-                   @click="go(item.workstatus,item)" v-text="item.statusText"></a>
-                <a href="javascript:void (0);" class=" btn cancel" v-show="item.cancelbtn" @click="canOrder(item.id)">取消订单</a>
+                <a href="javascript:void (0);"
+                   class="btn"
+                   v-show="item.paybtn"
+                   @click="go(item.workstatus,item)"
+                   v-text="item.payer ==1 ? '等待工友付款': item.statusText"
+                   :class="item.payer == 2 ? 'btn-orange' : 'btn-default'"></a>
+
+                <a href="javascript:void (0);" class=" btn cancel" v-show="item.cancelbtn || item.payer == 2" @click="canOrder(item.id)">取消订单</a>
               </div>
               <!-- share before end -->
 
@@ -91,14 +96,21 @@
                           <p v-text="item.name">世丰PPR管冷热水管 白色管材</p>
                           <p class="c9">单价：{{item.price}}元/{{item.measure}}*{{item.amount}}</p>
                         </div>
-                        <p v-text=" '¥'+ item.mny">¥50</p>
+                        <p v-text=" '¥'+ item.mny"></p>
                       </li>
                     </ul>
                     <!--合计-->
                     <div class="total-money">
-                      <p>合计:¥{{ (Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
+                      <p class="i-one">订单总额：¥{{ (Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
+                      <p class="notice fz14 i-two">优惠：<span class="notice">-¥{{ Number(paydetailList.coupon_amount)}}</span></p>
+                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 1">实付款：¥{{(Number( paydetailList.fee30) + Number(paydetailList.materialsfee30) - Number(paydetailList.coupon_amount30)).toFixed(2)}}</p>
+                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 2">实付款：¥{{(Number( paydetailList.fee) + Number(paydetailList.materialsfee) - Number(paydetailList.coupon_amount)).toFixed(2)}}</p>
+
                     </div>
+
+                    <!--产品说不考虑二次付款的情况，全部按全额付款来算-->
                     <!--未付款-->
+                    <!--
                     <div class="payed flex-space-between border-t"
                          v-show="paydetailList.paystatus == 0||paydetailList.paystatus == 1">
                       <p>未付款</p>
@@ -109,8 +121,9 @@
                         <p v-show="paydetailList.paystatus == 0">合计：¥{{(Number(paydetailList.fee) +
                           Number(paydetailList.materialsfee)).toFixed(2) }}</p>
                       </div>
-                    </div>
+                    </div>-->
                     <!--已付款-->
+                    <!--
                     <div class="payed flex-space-between border-t"
                          v-show="paydetailList.paystatus == 1||paydetailList.paystatus == 2">
                       <p v-show="paydetailList.paystatus == 1">已付款</p>
@@ -122,7 +135,7 @@
                         <p v-show="paydetailList.paystatus == 2">合计：¥{{(Number(paydetailList.fee) +
                           Number(paydetailList.materialsfee)).toFixed(2) }}</p>
                       </div>
-                    </div>
+                    </div>-->
                   </div>
 
                 </div>
@@ -281,13 +294,19 @@
   var paymoney = function (all) {
     var self = this;
     if (all.paytype == 0) {//全额付款
-      store.money = parseFloat(all.fee) + parseFloat(all.materialsfee);
+      store.money = parseFloat(all.fee) + parseFloat(all.materialsfee) - parseFloat(all.coupon_amount);
+      console.log("全额",store.money);
     }
     else if (all.paytype == 1) {//分两次付款
       if (all.paystatus == 0) {//没付钱
-        store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30);
+        store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30) - parseFloat(all.coupon_amount30);
+        console.log(parseFloat(all.feepay30));
+        console.log(parseFloat(all.materialsfee30));
+        console.log(parseFloat(all.coupon_amount30));
+        console.log("部分1",store.money);
       } else if (all.paystatus == 1) {//付了一部分
-        store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70);
+        store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70) - parseFloat(all.coupon_amount70);
+        console.log("部分2",store.money);
       }
     }
     //  获取交易编号
@@ -306,7 +325,7 @@
             const params = {
               'openid': tool.get.call(store.vm, 'openid'),
               'trade_sn': store.trade_sn,
-              'title': '测试',
+              'title': '住建鸟',
               'uid': store.user.user_id,
               'wait_pay_price': store.money
             };
@@ -334,9 +353,25 @@
   var TaskHandleCallback = {};
   TaskHandleCallback[3] = function (item) {
     item.showContent = true;
+
     item.paybtn = true;
-    item.cancelbtn = true;
+    item.cancelbtn = false;
     item.statusText = '立即付款';
+    // item.forEach(function (it) {
+    //   if(item.payer === '1'){//是工友代付
+    //     console.log("工友代付");
+    //     item.statusText = '等待工友付款';
+    //     item.paybtn = true;
+    //     item.cancelbtn = false;
+    //   }
+    //   else if(item.payer === '2') {//业主自己付款
+    //     console.log('业主自己付钱');
+    //     item.paybtn = true;
+    //     item.cancelbtn = true;
+    //     item.statusText = '立即付款';
+    //   }
+    // });
+
 //      paymoney();
   };
   TaskHandleCallback[7] = function (item) {

@@ -8,7 +8,9 @@
           <!--</wc-slide>-->
         <!--</wc-swiper>-->
         <slick ref="slick" :options="opt">
-          <a href="javascript:void(0);" class="w100" v-for="item in goodslists.banner"> <img class="w100" :src="item" alt="啊哦~没有找到哦~"></a>
+          <a href="javascript:void(0);" class="w100" v-for="item in goodslists.banner">
+            <img class="w100" :src="item" alt="啊哦~没有找到哦~">
+          </a>
         </slick>
         <div v-show="!goodslists.banner">
           <img class="w100" src="../../assets/images/noheader.png" alt="啊哦~没有找到哦~">

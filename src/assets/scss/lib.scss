@@ -182,6 +182,12 @@
   //color:#fff;
   border-radius: 0.6rem;
 }
+.btn-default{
+  background-color: #999;
+  border-radius: 0.6rem;
+  color: #fff;
+  pointer-events: none;
+}
 .mt200{
   margin-top:20rem;
 }
