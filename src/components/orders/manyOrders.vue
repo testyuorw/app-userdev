@@ -23,7 +23,7 @@
       <div style="overflow: hidden;">
         <refresh :on-refresh="onRefresh" :on-infinite="onInfinite" :class="{top45:!weShare}">
           <ul class="all-orders-box">
-            <li class="all-orders-item" v-for="item in orderLists" :class="{mbp:!weShare}">
+            <li class="all-orders-item" v-for="(item,index) in orderLists" :class="{mbp:!weShare} " :key="item.id">
               <!-- share before start -->
               <div class="one" v-show="!weShare">
                 <div><span class="darkOrange">订单编号：</span><span class="c9" v-text="item.id"></span></div>
@@ -43,10 +43,10 @@
                    class="btn"
                    v-show="item.paybtn"
                    @click="go(item.workstatus,item)"
-                   v-text="item.payer ==1 ? '等待工友付款': item.statusText"
-                   :class="item.payer == 2 ? 'btn-orange' : 'btn-default'"></a>
+                   v-text="item.statusText"
+                   :class="item.statusText == '等待工友付款' ? 'btn-default' : 'btn-orange'"></a>
 
-                <a href="javascript:void (0);" class=" btn cancel" v-show="item.cancelbtn || item.payer == 2" @click="canOrder(item.id)">取消订单</a>
+                <a href="javascript:void (0);" class=" btn cancel" v-show="item.cancelbtn " @click="canOrder(item.id)">取消订单</a>
               </div>
               <!-- share before end -->
 
@@ -75,7 +75,7 @@
                   <div class="material-title flex-space-between">
                     <p class="darkOrange">材料详情</p>
                     <a href="javascript:void(0);" class="flex-ac" style="margin-right: 1rem;"
-                       @click="showMaterial(item)">
+                       @click="showMaterial(item,index)">
                       <span v-if="item.showMaterial == true" class="c9">点击收起</span>
                       <span v-else class="c9">点击查看</span>
                       <i class="icon-arrows" :class="[ item.showMaterial ? 'arrow-up': 'arrow-down']"></i>
@@ -102,9 +102,9 @@
                     <!--合计-->
                     <div class="total-money">
                       <p class="i-one">订单总额：¥{{ (Number(paydetailList.fee) + Number(paydetailList.materialsfee)).toFixed(2) }}</p>
-                      <p class="notice fz14 i-two">优惠：<span class="notice">-¥{{ Number(paydetailList.coupon_amount)}}</span></p>
-                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 1">实付款：¥{{(Number( paydetailList.fee30) + Number(paydetailList.materialsfee30) - Number(paydetailList.coupon_amount30)).toFixed(2)}}</p>
-                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 2">实付款：¥{{(Number( paydetailList.fee) + Number(paydetailList.materialsfee) - Number(paydetailList.coupon_amount)).toFixed(2)}}</p>
+                      <p class="notice fz14 i-two" v-show="paydetailList.sale_amount != 0 && paydetailList.payer != 1">总优惠：<span class="notice">-¥{{ Number(paydetailList.sale_amount)}}</span></p>
+                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 1 ">实付款：¥{{(Number( paydetailList.feepay30) + Number(paydetailList.materialsfee30) - Number(paydetailList.sale_amount30)).toFixed(2)}}</p>
+                      <p class="fz17 i-three" v-show="paydetailList.paystatus == 2">实付款：¥{{(Number( paydetailList.fee) + Number(paydetailList.materialsfee) - Number(paydetailList.sale_amount)).toFixed(2)}}</p>
 
                     </div>
 
@@ -251,18 +251,28 @@
       {'title': '温馨提示', 'describe': '是否取消订单'},
       {
         cb: function () {
-          api.cancelorder({id: oid, custid: store.form.custid, cancel_id: store.cancel_id}).then(function (res) {
+          store.form.offset = 1;
+          if (store.weShare == false) {//没有分享
+            store.form.custid = store.user.user_id;
+          } else if (store.weShare == true) {
+            store.form.custid = store.vm.$route.query.custid;
+          }
+          var params = {
+            id: oid,
+            custid: store.form.custid,
+            cancel_id: store.cancel_id
+          };
+          console.log("取消弹窗的",params);
+          api.cancelorder(params).then(function (res) {
             if (res.code == error.success) {
-              self.$router.push({path: '/manyOrders'});
+              self.$router.push({path: '/manyOrders',query:{custid: store.form.custid}});
+              method.getList();
             }
           });
-          method.getList();
           this.cancle();
         }, buttonName: ['是', '否']
       });
   };
-
-
   //  黄色的那个按钮，各种状态
   var comment = function (all) {
     let self = this;
@@ -294,18 +304,18 @@
   var paymoney = function (all) {
     var self = this;
     if (all.paytype == 0) {//全额付款
-      store.money = parseFloat(all.fee) + parseFloat(all.materialsfee) - parseFloat(all.coupon_amount);
+      store.money = parseFloat(all.fee) + parseFloat(all.materialsfee) - parseFloat(all.sale_amount);
       console.log("全额",store.money);
     }
     else if (all.paytype == 1) {//分两次付款
       if (all.paystatus == 0) {//没付钱
-        store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30) - parseFloat(all.coupon_amount30);
+        store.money = parseFloat(all.feepay30) + parseFloat(all.materialsfee30) - parseFloat(all.sale_amount30);
         console.log(parseFloat(all.feepay30));
         console.log(parseFloat(all.materialsfee30));
-        console.log(parseFloat(all.coupon_amount30));
+        console.log(parseFloat(all.sale_amount30));
         console.log("部分1",store.money);
       } else if (all.paystatus == 1) {//付了一部分
-        store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70) - parseFloat(all.coupon_amount70);
+        store.money = parseFloat(all.feepay70) + parseFloat(all.materialsfee70) - parseFloat(all.sale_amount70);
         console.log("部分2",store.money);
       }
     }
@@ -353,26 +363,15 @@
   var TaskHandleCallback = {};
   TaskHandleCallback[3] = function (item) {
     item.showContent = true;
-
     item.paybtn = true;
-    item.cancelbtn = false;
-    item.statusText = '立即付款';
-    // item.forEach(function (it) {
-    //   if(item.payer === '1'){//是工友代付
-    //     console.log("工友代付");
-    //     item.statusText = '等待工友付款';
-    //     item.paybtn = true;
-    //     item.cancelbtn = false;
-    //   }
-    //   else if(item.payer === '2') {//业主自己付款
-    //     console.log('业主自己付钱');
-    //     item.paybtn = true;
-    //     item.cancelbtn = true;
-    //     item.statusText = '立即付款';
-    //   }
-    // });
-
-//      paymoney();
+    // item.payer = 1?
+    if(item.payer == 1){
+      item.cancelbtn = false;
+      item.statusText = '等待工友付款';
+    }else {
+      item.cancelbtn = true;
+      item.statusText = '立即付款';
+    }
   };
   TaskHandleCallback[7] = function (item) {
     var PayCondition = {};
@@ -456,9 +455,13 @@
   store.showDefault = false;
   //  获取数据
   method.getList = function () {
+    if (store.weShare == false) {//没有分享
+      store.form.custid = store.user.user_id;
+    } else if (store.weShare == true) {
+      store.form.custid = store.vm.$route.query.custid;
+    }
+    console.log("lists",store.form);
     api.get_orderlists(store.form).then(function (response) {
-//      store.workerid = response.result.workid;
-//      store.order_sn = response.result.id;
       if (response.code == error.success) {
 //          控制点击收起
         response.result.forEach(function (item) {
@@ -487,7 +490,6 @@
           }
           item.time = date;
         });
-
         store.orderLists = loadmore.push(response.result, store.form.offset);
       }
     });
@@ -504,15 +506,23 @@
     });
   };
   //材料详情点击展示
-  method.showMaterial = function (item) {
+  method.showMaterial = function (item,index) {
+    console.log("11",item);
+    console.log("112",index);
+    store.orderLists.forEach(function (items,key) {
+      if(key!=index){
+        items.showMaterial = false;
+      }
+    });
+    // store.orderLists[index].showMaterial = true;
     item.showMaterial = !item.showMaterial;
+    //store.orderLists[index].showMaterial =  !store.orderLists[index].showMaterial;
+    console.log("33",store.orderLists[index].showMaterial);
+    console.log("44",item.showMaterial);
     if (item.showMaterial == true) {
       method.getpayorder(item.id);
     }
   };
-  //  method.showWorkerArea = function (id) {
-  //    store.orderId = id;
-  //  };
 
   //  格式化时间
   function formartDate(time) {
@@ -575,6 +585,7 @@
       store.weShare = page.WechatShare();
 
       store.user = user.info.apply(this);
+      console.log(store.user);
       var custid = store.user.user_id;
       if (store.weShare == false) {//没有分享
         // store.form.custid = 22512;
