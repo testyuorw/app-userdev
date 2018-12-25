@@ -69,7 +69,7 @@
   };
   method.getCode = function () {
 
-    var phone = {mobile: store.form.mobile};
+    var phone = {mobile: store.form.mobile,captcha:store.form.code};
     var errorconf = {
       "mobile": {
         "required": true,
@@ -85,13 +85,12 @@
     let $this = this;
     store.showbox = '';
     promise.then(function (response) {
-        var rescode = response.code;
+        var rescode = error.hour_status;
       if (rescode == error.success) {//正常出现验证
         verifyCodeHandle.call($this, response);
       }
       else if (rescode == error.hour_status) {//一小时验证超过上限，出验证码弹出框
-        store.uuid = new Date().getTime();
-        store.img = apiUrl + '/api/get_verify_img?uuid=' + store.uuid;
+        store.img = apiUrl + '/api/imgCode?mobile=' + store.form.mobile;
         ResetGetVerifyCode();
         var callback = function (code) {
           console.log("点击确定要验证验证码是否正确");

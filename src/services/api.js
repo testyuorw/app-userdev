@@ -18,7 +18,7 @@ api.login = function (params) {
 };
 //多次请求的时候验证码接口
 api.get_verify_img = function (params) {
-  return http('get', '/api/get_verify_img', params);
+  return http('get', '/api/imgCode', params);
 };
 //检查验证码是否正确
 api.captcha_check = function (params) {
