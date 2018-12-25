@@ -101,7 +101,9 @@ method.getCode = function() {
   var callback = function(code) {
     var phone = { mobile: store.form.mobile, captcha: code };
     var promise = api.get_phone(phone);
+    var self = this;
     promise.then(function(response) {
+      self.cancel();
       if (response.code == error.success) {
         //正常出现验证
         verifyCodeHandle.call($this, response);
