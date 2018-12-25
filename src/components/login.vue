@@ -103,7 +103,7 @@ method.getCode = function() {
     var promise = api.get_phone(phone);
     var self = this;
     promise.then(function(response) {
-      self.cancel();
+      self.cancle();
       if (response.code == error.success) {
         //正常出现验证
         verifyCodeHandle.call($this, response);
