@@ -97,6 +97,7 @@
     }
     store.img = apiUrl + '/api/imgCode?mobile=' + store.form.mobile;
     ResetGetVerifyCode();
+
     var callback = function (code) {
         var phone = {mobile: store.form.mobile,captcha:code};
         var promise = api.get_phone(phone);
@@ -104,10 +105,9 @@
             var rescode = error.hour_status;
             if (rescode == error.success) {//正常出现验证
               verifyCodeHandle.call($this, response);
-            }
-      }
+            };
+      });
     };
-
     $this.$messagebox.show(
           {'title': '验证码'},
           {cb: callback, buttonName: ['确定'], showalert: true, vimg: store.img});
