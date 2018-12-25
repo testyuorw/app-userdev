@@ -43,7 +43,7 @@ export default new Router({
   routes: [
     {
       path:'/',
-      name:'allWorker',
+      name:'index',
       component:allWorker
     },
     {

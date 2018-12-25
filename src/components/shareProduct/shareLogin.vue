@@ -80,41 +80,59 @@
     if (!SubmitOk) {
       return false;
     }
+store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile;
+  ResetGetVerifyCode();
 
+  var callback = function(code) {
+    var phone = { mobile: store.form.mobile, captcha: code };
     var promise = api.get_phone(phone);
-    let $this = this;
-    store.showbox = '';
-    promise.then(function (response) {
-        var rescode = error.hour_status;
-      if (rescode == error.success) {//正常出现验证
+    promise.then(function(response) {
+      if (response.code == error.success) {
+        //正常出现验证
         verifyCodeHandle.call($this, response);
-      }
-      else if (rescode == error.hour_status) {//一小时验证超过上限，出验证码弹出框
-        store.img = apiUrl + '/api/imgCode?mobile=' + store.form.mobile;
-        ResetGetVerifyCode();
-        var callback = function (code) {
-          console.log("点击确定要验证验证码是否正确");
-          var self = this;
-          store.usercode = code;
-          store.code = {uuid:store.uuid,mobile:store.form.mobile,captcha:store.usercode};
-          console.log(store.code);
-          api.captcha_check(store.code).then(function (res) {
-            if(res.code == error.success){
-              self.cancle();
-              verifyCodeHandle.call($this, response);
-            }else if(res.code == error.error){
-              $this.$toast(res.msg,'bottom');
-            }
-          });
-        };
-        $this.$messagebox.show(
-          {'title': '验证码'},
-          {cb: callback, buttonName: ['确定'], showalert: true, vimg: store.img});
-      }
-      else if (rescode == error.day_status) {//一天验证超过上限
-        $this.$toast('获取验证码次数已达上限', 'bottom');
+      }else{
+        store.vm.$toast(response.msg,'bottom');
       }
     });
+  };
+  this.$messagebox.show(
+    { title: "验证码" },
+    { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
+  );
+    // var promise = api.get_phone(phone);
+    // let $this = this;
+    // store.showbox = '';
+    // promise.then(function (response) {
+    //     var rescode = error.hour_status;
+    //   if (rescode == error.success) {//正常出现验证
+    //     verifyCodeHandle.call($this, response);
+    //   }
+    //   else if (rescode == error.hour_status) {//一小时验证超过上限，出验证码弹出框
+    //     store.img = apiUrl + '/api/imgCode?mobile=' + store.form.mobile;
+    //     ResetGetVerifyCode();
+    //     var callback = function (code) {
+    //       console.log("点击确定要验证验证码是否正确");
+    //       var self = this;
+    //       store.usercode = code;
+    //       store.code = {uuid:store.uuid,mobile:store.form.mobile,captcha:store.usercode};
+    //       console.log(store.code);
+    //       api.captcha_check(store.code).then(function (res) {
+    //         if(res.code == error.success){
+    //           self.cancle();
+    //           verifyCodeHandle.call($this, response);
+    //         }else if(res.code == error.error){
+    //           $this.$toast(res.msg,'bottom');
+    //         }
+    //       });
+    //     };
+    //     $this.$messagebox.show(
+    //       {'title': '验证码'},
+    //       {cb: callback, buttonName: ['确定'], showalert: true, vimg: store.img});
+    //   }
+    //   else if (rescode == error.day_status) {//一天验证超过上限
+    //     $this.$toast('获取验证码次数已达上限', 'bottom');
+    //   }
+    // });
   };
   //点击登录按钮
   method.login = function () {

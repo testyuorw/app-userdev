@@ -1,8 +1,5 @@
 <template>
   <div id="app" class="h100">
-    <div>
-      <input type="text" ref="customer" /> <input type="button" value="转到" @click="goto()"/>
-    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -112,9 +109,6 @@
     methods: {
       fetchData() {
         fetchData.apply(this);
-      },
-      goto:function(){
-        window.location.href = this.$refs.customer.value;
       }
     },
     mounted: function () {
@@ -125,6 +119,7 @@
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
+          
           if (sitetype) {
             sitetype = sitetype.val;
           }
