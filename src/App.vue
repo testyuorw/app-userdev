@@ -119,11 +119,15 @@
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
-          
+          let wx = lstore.get_item('wx');
           if (sitetype) {
             sitetype = sitetype.val;
           }
-          if(sitetype != "4"){
+          if (wx) {
+            wx = wx.val;
+          }
+          console.log(wx);
+          if(sitetype != "4" && wx){
             window.location.href = auth;
           }
 
