@@ -14,7 +14,6 @@
             v-model="form.mobile"
             placeholder="手机号"
             class="user-input user-phone"
-            value="18516187662"
             maxlength="11"
           >
         </div>
@@ -99,6 +98,10 @@ method.getCode = function() {
   ResetGetVerifyCode();
 
   var callback = function(code) {
+    if(!code || code.length < 1) {
+      store.vm.$toast('请输入图形验证码！','bottom');
+      return;
+    }   
     var phone = { mobile: store.form.mobile, captcha: code };
     var promise = api.get_phone(phone);
     var self = this;
@@ -111,6 +114,8 @@ method.getCode = function() {
         store.vm.$toast(response.msg,'bottom');
         if(response.code != error.error){
           self.cancle();
+        }else{
+            self.refresh(store.img);;
         }
       }
     });

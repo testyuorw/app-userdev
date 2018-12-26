@@ -84,6 +84,10 @@ store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile;
   ResetGetVerifyCode();
 
   var callback = function(code) {
+    if(!code || code.length < 4) {
+      store.vm.$toast('请输入图形验证码！','bottom');
+      return;
+    }   
     var phone = { mobile: store.form.mobile, captcha: code };
     var promise = api.get_phone(phone);
     var self = this;
@@ -96,6 +100,8 @@ store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile;
         store.vm.$toast(response.msg,'bottom');
         if(response.code != error.error){
           self.cancle();
+        }else{
+          self.refresh(store.img);;
         }
       }
     });
