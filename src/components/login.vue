@@ -105,7 +105,7 @@ method.getCode = function() {
     promise.then(function(response) {
       if (response.code == error.success) {
         //正常出现验证
-        verifyCodeHandle.call($this, response);
+        verifyCodeHandle.call(self, response);
         self.cancle();
       }else{
         store.vm.$toast(response.msg,'bottom');
