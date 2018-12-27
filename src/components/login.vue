@@ -121,7 +121,7 @@ method.getCode = function() {
     });
   };
   this.$messagebox.show(
-    { title: "验证码",height: this.$refs['login-box'].offsetHeight + 'px' },
+    { title: "验证码" },
     { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
   );
 
@@ -281,6 +281,3 @@ export default {
   methods: method
 };
 </script>
-<style>
-
-</style>
