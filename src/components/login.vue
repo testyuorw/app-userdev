@@ -115,13 +115,13 @@ method.getCode = function() {
         if(response.code != error.error){
           self.cancle();
         }else{
-            self.refresh(store.img);;
+            self.refresh(store.img);
         }
       }
     });
   };
   this.$messagebox.show(
-    { title: "验证码" },
+    { title: "验证码",height:'1516px' },
     { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
   );
 
@@ -281,3 +281,8 @@ export default {
   methods: method
 };
 </script>
+<style>
+.login-box {
+  height: 1516px;
+}
+</style>

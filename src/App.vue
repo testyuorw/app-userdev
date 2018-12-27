@@ -126,7 +126,6 @@
           if (wx) {
             wx = wx.val;
           }
-          console.log(wx);
           if(sitetype != "4" && wx){
             window.location.href = auth;
           }

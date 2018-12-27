@@ -80,7 +80,7 @@
     if (!SubmitOk) {
       return false;
     }
-store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile;
+store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile + 'r=' + Math.random();
   ResetGetVerifyCode();
 
   var callback = function(code) {
@@ -107,7 +107,7 @@ store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile;
     });
   };
   this.$messagebox.show(
-    { title: "验证码" },
+    { title: "验证码",height:'1516px' },
     { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
   );
     // var promise = api.get_phone(phone);

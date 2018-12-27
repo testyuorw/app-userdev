@@ -1,5 +1,5 @@
 <template>
-    <section class="messagebox-container">
+    <section class="messagebox-container" v-bind:style="message.height?'height:' + message.height : ''">
         <div class="messagebox" v-bind:class="[visible?'fade-in':'fade-out']">
           <div class="alert-header">
             <h2 class="alert-header-title">{{message.title}}</h2>
@@ -30,7 +30,8 @@
                     title:'',
                     describe:'',
                     describes:'',
-                    showButton:''
+                    showButton:'',
+                    height:''
                 },
                 options:{
                     buttonName:[],
@@ -63,7 +64,6 @@
             }
 
         }
-
     }
 </script>
 
