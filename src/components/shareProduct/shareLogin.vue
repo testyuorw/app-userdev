@@ -107,7 +107,7 @@ store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile + 'r=' + Math.ra
     });
   };
   this.$messagebox.show(
-    { title: "验证码",height:'1516px' },
+    { title: "验证码",height: this.$refs['login-box'].offsetHeight + 'px'  },
     { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
   );
     // var promise = api.get_phone(phone);

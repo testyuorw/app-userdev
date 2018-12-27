@@ -1,6 +1,6 @@
 <template>
   <div class="container h100">
-    <div class="login-box w100">
+    <div class="login-box w100" ref="login-box">
       <div>
         <a href="javascript:void (0);">
           <img src="../assets/images/login-bg.png" alt="住建鸟-登录" class="login-banner">
@@ -121,7 +121,7 @@ method.getCode = function() {
     });
   };
   this.$messagebox.show(
-    { title: "验证码",height:'1516px' },
+    { title: "验证码",height: this.$refs['login-box'].offsetHeight + 'px' },
     { cb: callback, buttonName: ["确定"], showalert: true, vimg: store.img }
   );
 
@@ -282,7 +282,5 @@ export default {
 };
 </script>
 <style>
-.login-box {
-  height: 1516px;
-}
+
 </style>
