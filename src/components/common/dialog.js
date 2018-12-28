@@ -68,6 +68,10 @@ messagebox.install = function (Vue, options) {
 
   }
 
+  Vue.prototype.$messagebox['refresh'] = function(img){
+    instance.options.vimg = img; 
+    instance.times(instance.options);
+  }
 };
 export default messagebox;
 

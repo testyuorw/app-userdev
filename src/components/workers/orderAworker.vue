@@ -1,5 +1,5 @@
 <template>
-  <div class="container w100 h100">
+  <div class="container w100 h100 bgf">
     <!--导航栏-->
     <ul class="nav-header  border-b">
       <li class="nav-header-item" @click="tolast()">

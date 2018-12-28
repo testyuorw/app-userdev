@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
+import Login from '@/components/login'
 import userInfo from '@/components/userInfo'
 import settings from '@/components/settings'
 import userInfoSucc from '@/components/userInfoSucc'
@@ -43,7 +43,7 @@ export default new Router({
   routes: [
     {
       path:'/',
-      name:'allWorker',
+      name:'index',
       component:allWorker
     },
     {

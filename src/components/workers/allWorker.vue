@@ -149,26 +149,26 @@
   store.ok=true;
   method.workcheck = function () {
     this.$selectbox.show(
-        {'name':'工种筛选','ind':true},
-        {
-          cshow:function (id,name){
-             store.worktype = id;
-             store.form.worktype = store.worktype;
-             lstore.remove('worktype');
-             lstore.set_item('worktype',{id:store.worktype,'name':name});
-             store.wtypename = name;
-          },
-          cb:function () {
-            store.form.keyword = '';
-            api.allworkers(store.form).then(function (response) {
-              var res = response.result;
-              store.lists = res;
-              console.log(res);
-            })
-          },
-          selectData:store.workerType,
-        }
-        );
+      {'name':'工种筛选','ind':true},
+      {
+        cshow:function (id,name){
+          store.worktype = id;
+          store.form.worktype = store.worktype;
+          lstore.remove('worktype');
+          lstore.set_item('worktype',{id:store.worktype,'name':name});
+          store.wtypename = name;
+        },
+        cb:function () {
+          store.form.keyword = '';
+          api.allworkers(store.form).then(function (response) {
+            var res = response.result;
+            store.lists = res;
+            console.log(res);
+          })
+        },
+        selectData:store.workerType,
+      }
+    );
   };
 
 method.getareas = function (p,pname,city,cname,area,aname) {

@@ -18,7 +18,7 @@ api.login = function (params) {
 };
 //多次请求的时候验证码接口
 api.get_verify_img = function (params) {
-  return http('get', '/api/get_verify_img', params);
+  return http('get', '/api/imgCode', params);
 };
 //检查验证码是否正确
 api.captcha_check = function (params) {
@@ -148,7 +148,10 @@ api.creat_share_order = function (params) {
 api.check_openid = function (params) {
   return http('post', '/api/howner/checkOpenid', params);
 };
+// api.share = function (params) {
+//   return http('get', '/api/micro/share', params);
+// }
 api.share = function (params) {
-  return http('get', '/api/micro/share', params);
-}
+  return http('post', 'http://api4j.zjbird.com/serviceapi/wechat/share_support', params,true);
+};
 export default api;

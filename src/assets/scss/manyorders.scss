@@ -106,9 +106,18 @@
 }
 .total-money{
   padding-right: 2%;
-  p{
+  .i-one{
     text-align: right;
-    line-height: 4rem;
+    line-height: 3.6rem;
+  }
+  .i-two{
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+  .i-three{
+    margin-top: 1rem;
+    font-weight: bold;
+    text-align: right;
   }
 
 }

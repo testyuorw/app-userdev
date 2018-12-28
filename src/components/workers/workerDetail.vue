@@ -181,6 +181,7 @@
   store.orderLists= {};
   store.otherCase = {};
   store.open = false;
+  store.desc = "住建鸟认证工友";
 
 //  store.canorder = false;
 
@@ -193,23 +194,20 @@
   };
 
   method.getWorkerInfo = function () {
+    console.log("我是工友信息");
     var self = this;
     api.workerDetail(store.form).then(function (response) {
-//        console.log(response);
       store.workerdata = response.result;
+      console.log("worl",store.workerdata);
       store.name =  response.result.name;
       store.isbusy = response.result.busy_status;
       store.orderOne = store.isbusy ? "预约其他工友":"预约他";
-//      if (store.isbusy == true){
-//        store.orderOne = "预约其他工友";
-//      }else if(store.isbusy == false){
-//        store.orderOne = "预约他";
-//      }
-
+      method.weChatShare();
     });
+
+
   };
   method.toast =function () {
-//      console.log(store.ischeck);
     var self = this;
     this.$messagebox.show(
       {'title':'温馨提示','describe':'是否立即预约工友'+store.name},
@@ -223,6 +221,7 @@
   };
   method.canOrder = function () {
     var CheckLogin = user.info.apply(this);
+    lstore.set_item('sitetype', 4);
     var self = this;
       if(CheckLogin){//登录了
         try{
@@ -238,14 +237,11 @@
           }
         }catch(e){}
       }else if(!CheckLogin){//没登录
-        console.log(store.form.worker_id);
-        console.log('run');
           self.$router.push({
             path: '/login',
             query: {workid: store.form.worker_id}
           });
         lstore.set_item('sitetype', 4);
-        console.log("runcheck");
         lstore.set_item('workid', store.form.worker_id);
       }
 
@@ -293,7 +289,6 @@
       });
     }
 
-
   };
   //  存路径
   method.saveRouter = function () {
@@ -301,6 +296,44 @@
       lstore.set_item('router',store.nextRouter);
       lstore.set_item('query',store.nextQuery);
     },1000);
+  };
+
+  //微信分享的方法
+  method.weChatShare = function () {
+    try {
+      api.share({url:window.location.href}).then(function (response) {
+        const  result = response.result;
+        const config = {
+          debug: false,
+          appId: result['appid'],
+          timestamp: result['timestamp'],
+          nonceStr: result['nonceStr'],
+          signature: result['signature'],
+          jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
+        };
+        wx.config(config);
+        if(store.workerdata.comment != ''){
+          store.desc = store.workerdata.comment;
+        }
+        wx.ready(function () {
+          var shareData = {
+            title: store.name + '个人档案',
+            desc: store.desc,
+            link: window.location.href,
+            imgUrl: store.workerdata.avator,
+            success:function () {
+            }
+          };
+          wx.onMenuShareAppMessage(shareData);
+          wx.onMenuShareTimeline(shareData);
+        });
+        wx.error(function(res){
+          console.log(res)
+        });
+      })
+    }catch (e) {
+      console.log(e.message);
+    }
   };
   export default {
     name:'workerDetail',
@@ -312,54 +345,32 @@
       starRating
     },
     mounted:function () {
-     /* api.share({url:window.location.href}).then(function (response) {
-        const  result = response.result;
-        const config = {
-          debug: false,
-          appId: "wxfd64a509f4267819",
-          timestamp: result['timestamp'],
-          nonceStr: result['noncestr'],
-          signature: result['signature'],
-          jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
-        }
-        wx.config(config);
-        wx.ready(function () {
-          var shareData = {
-            title: '测试',
-            desc: '测试',
-            link: window.location.href,
-            imgUrl: 'http://dist.zjbird.com/active/icon.png?v2',
-            success:function () {
-              alert('aaa');
-            }
-          };
-          wx.onMenuShareAppMessage(shareData);
-          wx.onMenuShareTimeline(shareData);
-        });
-        wx.error(function(res){
-          console.log(res)
-        });
-      })*/
       var self = this;
+      lstore.set_item('sitetype', 4);
       store.weShare = page.WechatShare();
       store.user = user.info.apply(this);
-      store.form.user_id = self.$route.query.workid;
       store.custid = store.user.user_id;
-      var workid = self.$route.query.workid;
+      var workid = self.$route.query.workid;//其他案例和优秀案例要传的工友id
       store.form.worker_id = workid;
+      store.form.user_id = self.$route.query.workid;//工友详情接口传的工友id
+      var user_id = self.$route.query.custid;
       method.getWorkerInfo();
+
       page.title('工友详情');
       method.getOrderList();
       method.getOther();
 //    取路由和参数
       store.router = lstore.get_item('router').val;
       store.query = lstore.get_item('query').val;
-
       store.nextRouter = this.$route.path;
       store.nextQuery = this.$route.query;
       method.saveRouter();
+      console.log("run");
+      // method.weChatShare();//微信分享
+
 
     }
+
 
   }
 
