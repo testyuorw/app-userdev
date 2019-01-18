@@ -260,7 +260,6 @@
             'wait_pay_price':store.money * store.num
           };
           api.get_jsapi(params).then(function (res) {
-            console.log(res);
             store.jsapi = JSON.parse(res.result.js);
             var def = wxpay(store.jsapi);
             def.then(function (response) {
@@ -307,6 +306,7 @@ export default {
       store.shareArea = this.$route.query.area;
       store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0 ;
       lstore.set_item('sharetype',store.sharetype);
+      console.log("store.sharetype:"+store.sharetype);
       //分享链接得到的内容
       store.shareProductInfo = {
         link_id:store.link_id,
