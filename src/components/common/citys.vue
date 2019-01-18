@@ -20,6 +20,7 @@
   import api from '../../services/api'
   import error from '../../services/error'
   import _areadata from './area'
+  import lstore from '../../tools/lstore';
   
   // import cityServ from '../../services/cityServ'
   var method = {};
@@ -63,12 +64,6 @@
         },
         citymodel:function () {
             this.choosecity();
-        },
-      },
-      props:{
-        shareType : {
-          type:Number,
-          default: 0
         }
       },
       data(){
@@ -82,7 +77,7 @@
         _stroe.city = areadata[0]['child'];
         _stroe.county = areadata[0]['child'][0]['child'];
         _stroe.countrymodel = _stroe.county[0];
-        let sType = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0;
+        let sType = lstore.get_item("sharetype");
         if(typeof(sType) == undefined || sType == 0){
           try {
             api.showCities().then(function (res) {

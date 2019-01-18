@@ -1,6 +1,5 @@
 <template>
   <div class="container w100 h100 bgf5">
-    {{userForm.shareType}}
     <!--表单内容-->
     <form action="" class="share-product">
       <div class="form-group">
@@ -16,7 +15,7 @@
         <div class="share-info-text flex-ajc" @click="areacheck">
           <div class="w100 b-no" :class="(userForm.city =='请选择所在区域') ? 'c9' : 'c3' " v-text="userForm.city" ></div>
           <i class="icon-arrow"  @click="areacheck()"></i>
-          <citys v-show="selectArea" @select="closearea" @areas="getareas" :shareType="userForm.shareType">
+          <citys v-show="selectArea" @select="closearea" @areas="getareas">
             
           </citys>
         </div>
@@ -266,9 +265,15 @@
             var def = wxpay(store.jsapi);
             def.then(function (response) {
               if (response === 'ok') {
-                store.vm.$router.push({
-                  path: '/paySucc'
-                });
+                if(store.sharetype == 0){
+                  store.vm.$router.push({
+                    path: '/paySucc'
+                  });
+                }else{
+                  store.vm.$router.push({
+                    path: '/sharePaySucc'
+                  });
+                }                
               }
             });
           });
@@ -300,8 +305,8 @@ export default {
       store.workid = this.$route.query.workid;
       store.custid = this.$route.query.custid;
       store.shareArea = this.$route.query.area;
-      store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 123 ;
-
+      store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0 ;
+      lstore.set_item('sharetype',store.sharetype);
       //分享链接得到的内容
       store.shareProductInfo = {
         link_id:store.link_id,

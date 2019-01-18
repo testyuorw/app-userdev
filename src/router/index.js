@@ -186,9 +186,11 @@ export default new Router({
       name:'paySucc',
       component:paySucc
     },
-
-
-
+    {
+      path:'/sharePaySucc',
+      name:'sharePaySucc',
+      component: resolve  => require(['@/components/shareProduct/sharePaySucc'],resolve)
+    },
     {
       path:'/test',
       name:'test',
