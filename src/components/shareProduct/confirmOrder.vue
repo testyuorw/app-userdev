@@ -292,6 +292,9 @@ export default {
   beforeMount(){
     store.vm = this;
     store.openid = cookie.get.call(this,'openid');//取openid
+    store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0 ;
+    lstore.set_item('sharetype',store.sharetype);
+    console.log("store.sharetype:"+store.sharetype);
   },
   mounted() {
     try{
@@ -304,9 +307,6 @@ export default {
       store.workid = this.$route.query.workid;
       store.custid = this.$route.query.custid;
       store.shareArea = this.$route.query.area;
-      store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0 ;
-      lstore.set_item('sharetype',store.sharetype);
-      console.log("store.sharetype:"+store.sharetype);
       //分享链接得到的内容
       store.shareProductInfo = {
         link_id:store.link_id,

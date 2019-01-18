@@ -77,8 +77,9 @@
         _stroe.city = areadata[0]['child'];
         _stroe.county = areadata[0]['child'][0]['child'];
         _stroe.countrymodel = _stroe.county[0];
-        let sType = lstore.get_item("sharetype");
-        console.log("sType:" + sType);
+        let sType = lstore.get_item("sharetype") ==null ? 0 : lstore.get_item("sharetype").val;
+        console.log("sType:");
+        console.log(sType);
         if(typeof(sType) == undefined || sType == 0){
           try {
             api.showCities().then(function (res) {
