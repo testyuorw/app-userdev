@@ -1,5 +1,6 @@
 <template>
   <div class="container w100 h100 bgf5">
+    {{userForm.shareType}}
     <!--表单内容-->
     <form action="" class="share-product">
       <div class="form-group">
@@ -15,7 +16,9 @@
         <div class="share-info-text flex-ajc" @click="areacheck">
           <div class="w100 b-no" :class="(userForm.city =='请选择所在区域') ? 'c9' : 'c3' " v-text="userForm.city" ></div>
           <i class="icon-arrow"  @click="areacheck()"></i>
-          <citys v-show="selectArea" @select="closearea" @areas="getareas"></citys>
+          <citys v-show="selectArea" @select="closearea" @areas="getareas" :shareType="userForm.shareType">
+            
+          </citys>
         </div>
 
       </div>
@@ -88,7 +91,8 @@
       linkman:store.shareUser.name,
       tel:store.shareUser.mobile,
       city:store.shareUser.province + store.shareUser.city + store.shareUser.area,
-      address:store.shareUser.address
+      address:store.shareUser.address,
+      shareType : store.sharetype
     };
     if(store.shareUser.area == null || store.shareUser.area == ''){
       store.userForm.city = "请选择所在区域";
@@ -225,6 +229,7 @@
         try {
           method.paymoneys();
         }catch (e) {
+          console.log(e);
         }
 
     }
@@ -256,6 +261,7 @@
             'wait_pay_price':store.money * store.num
           };
           api.get_jsapi(params).then(function (res) {
+            console.log(res);
             store.jsapi = JSON.parse(res.result.js);
             var def = wxpay(store.jsapi);
             def.then(function (response) {
@@ -294,6 +300,7 @@ export default {
       store.workid = this.$route.query.workid;
       store.custid = this.$route.query.custid;
       store.shareArea = this.$route.query.area;
+      store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 123 ;
 
       //分享链接得到的内容
       store.shareProductInfo = {
