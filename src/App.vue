@@ -54,7 +54,17 @@
       }
       var CheckLogin = userinfo.info.call(this,cookie_name);
       //没分享要登录
+      console.log('check login' + sitetype);
       if (CheckLogin) {
+        if(sitetype == 5){
+          if(store.sharetype == 1){
+            store.vm.$messagebox.show(
+            {'title':'温馨提示','describe':'目前商品只支持','describes':'江苏、浙江、上海地区发货'},
+            {cb:function () {
+                this.cancle();
+              }, buttonName:['确定']});
+          }
+        }
         if (fullPath == '/login') {
           var url = {
             'true': '/userInfo',
@@ -77,7 +87,7 @@
             api2.check_openid({openid: store.openid}).then(function (res) {
               if (!res.result || res.result == null || res.result == 'null') {
                 $this.$router.push({path: '/login'});
-                // alert('to2')
+                //alert('to2')
                 return false;
               }
               if (res.code == error.success) {
@@ -85,6 +95,7 @@
                 store.vm.$router.push({path: '/confirmOrder'});
               }
             });
+            
           } catch (e) {
           }
         }
@@ -111,6 +122,9 @@
         fetchData.apply(this);
       }
     },
+    beforeMount(){
+      //console.log(this.$router.currentRoute);
+    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
@@ -128,6 +142,7 @@
           }
           if(sitetype != "4" && wx){
             window.location.href = auth;
+            return;
           }
 
         }

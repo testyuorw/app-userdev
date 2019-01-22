@@ -195,6 +195,7 @@ method.login = function() {
     }
     store.form.openid = store.openid;
     api.share_login(store.form).then(function(res) {
+      console.log("share_login");
       console.log(res);
       var result = res.result;
       if (error.success == res.code) {

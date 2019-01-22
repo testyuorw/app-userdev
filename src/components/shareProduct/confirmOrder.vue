@@ -292,20 +292,20 @@ export default {
   beforeMount(){
     store.vm = this;
     store.openid = cookie.get.call(this,'openid');//取openid
-    store.sharetype = !isNaN(this.$route.query.sharetype) ? parseInt(this.$route.query.sharetype) : 0 ;
+
+    let storedSharetype = 0;
+    if(lstore.get_item("sharetype")){
+      storedSharetype = lstore.get_item("sharetype").val;
+    }
+    if(isNaN(this.$route.query.sharetype)){
+      store.sharetype = storedSharetype;
+    }else{
+      store.sharetype = parseInt(this.$route.query.sharetype);
+    }
     lstore.set_item('sharetype',store.sharetype);
-    console.log("store.sharetype:"+store.sharetype);
   },
   mounted() {
     try{
-      if(store.sharetype == 1){
-        store.vm.$messagebox.show(
-        {'title':'温馨提示','describe':'目前商品只支持','describes':'江苏、浙江、上海地区发货'},
-        {cb:function () {
-            this.cancle();
-          }, buttonName:['确定']});
-      }
-      
       page.title("确认订单");
       lstore.set_item('sitetype',5);
       // user.login_page = false;
@@ -324,6 +324,8 @@ export default {
         shareArea:store.shareArea,
         sharetype:store.sharetype
       };
+      console.log('存入共享信息');
+      console.log(store.shareProductInfo);
       //存入分享的信息
       if(store.link_id  && store.shop_sn){//商品信息存在的话
         lstore.set_item('shareProductInfo', store.shareProductInfo);
@@ -349,6 +351,8 @@ export default {
 
       //取商品信息
       store.goodsInfo = lstore.get_item("shareProductInfo");
+      console.log("store.goodsInfo");
+       console.log(store.goodsInfo);
       if (store.goodsInfo){
         store.goodsInfo = lstore.get_item("shareProductInfo").val;
         store.link_id = store.goodsInfo.link_id;
