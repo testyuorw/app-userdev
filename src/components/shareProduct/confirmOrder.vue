@@ -298,6 +298,14 @@ export default {
   },
   mounted() {
     try{
+      if(store.sharetype == 1){
+        store.vm.$messagebox.show(
+        {'title':'温馨提示','describe':'目前商品只支持','describes':'江苏、浙江、上海地区发货'},
+        {cb:function () {
+            this.cancle();
+          }, buttonName:['确定']});
+      }
+      
       page.title("确认订单");
       lstore.set_item('sitetype',5);
       // user.login_page = false;
@@ -313,7 +321,8 @@ export default {
         shop_sn:store.shop_sn,
         workid:store.workid,
         custid:store.custid,
-        shareArea:store.shareArea
+        shareArea:store.shareArea,
+        sharetype:store.sharetype
       };
       //存入分享的信息
       if(store.link_id  && store.shop_sn){//商品信息存在的话
@@ -344,7 +353,8 @@ export default {
         store.goodsInfo = lstore.get_item("shareProductInfo").val;
         store.link_id = store.goodsInfo.link_id;
         store.shop_sn = store.goodsInfo.shop_sn;
-
+        if(store.goodsInfo.sharetype)
+          store.sharetype = store.goodsInfo.sharetype;
         //存入信息生成订单的时候所要的信息
         store.workid = store.goodsInfo.workid;
         store.custid = store.goodsInfo.custid;
