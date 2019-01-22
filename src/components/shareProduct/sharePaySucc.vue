@@ -7,8 +7,8 @@
         <p class="fz14 mt3">关注<span class="paysuccesstext">“住建鸟公众号”</span>查看订单状态</p>
         <p class="fz14 mt3">注：住建鸟公众号—我的服务—我的订单</p>
       </div>
-        <div style="margin-top:30px">
-            <img src="../../assets/images/zjn-dimension.png" alt="成功" >
+        <div style="margin-top:30px;width:14rem;height:14rem;">
+            <img src="../../assets/images/zjn-dimension.png" style="max-width:100%" alt="成功" >
         </div>
     </div>
   </div>
