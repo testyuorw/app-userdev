@@ -60,6 +60,7 @@
 </template>
 
 <script>
+  import userinfo from '@/services/userinfo'
   import api from '../../services/api'
   import lstore from '../../tools/lstore';
   // import user from '../../services/userinfo'
@@ -347,6 +348,14 @@ export default {
         store.utype = store.shareUser.sign_type;//页面加载完成时用户类型
         store.user_id = store.shareUser.id;//页面加载完成时用户id
 
+          if(store.sharetype == 1){
+            console.log("show msg");
+            store.vm.$messagebox.show(
+            {'title':'温馨提示','describe':'目前商品只支持','describes':'江苏、浙江、上海地区发货'},
+            {cb:function () {
+                this.cancle();
+              }, buttonName:['确定']});
+          }
       }
 
       //取商品信息

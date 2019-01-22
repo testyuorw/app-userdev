@@ -56,15 +56,6 @@
       //没分享要登录
       console.log('check login' + sitetype);
       if (CheckLogin) {
-        if(sitetype == 5){
-          if(store.sharetype == 1){
-            store.vm.$messagebox.show(
-            {'title':'温馨提示','describe':'目前商品只支持','describes':'江苏、浙江、上海地区发货'},
-            {cb:function () {
-                this.cancle();
-              }, buttonName:['确定']});
-          }
-        }
         if (fullPath == '/login') {
           var url = {
             'true': '/userInfo',
