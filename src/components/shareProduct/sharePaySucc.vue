@@ -4,8 +4,8 @@
       <div class="success-content">
         <img src="../../assets/images/successbg.png" alt="成功" class="success-img">
         <p class="fz19 mt4">支付成功</p>
-        <p class="fz14 mt3">关注<span class="paysuccesstext">“住建鸟公众号”</span>查看订单状态</p>
-        <p class="fz14 mt3">注：住建鸟公众号—我的服务—我的订单</p>
+        <p class="fz14 mt3">下载<span class="paysuccesstext">“住建鸟APP”</span>查看订单状态</p>
+        <p class="fz14 mt3">注：住建鸟APP—我的—我的订单—业主自选</p>
       </div>
         <div style="margin-top:30px;width:14rem;height:14rem;">
             <img src="../../assets/images/zjn-dimension.png" style="max-width:100%" alt="成功" >
