@@ -37,6 +37,15 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
+    if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      this.$router.push({
+        path: '/paySweepCode',
+        params: {
+          id: query.id || ''
+        }
+      })
+      return
+    }
     loadmore.clear();
     setSiteType(fullPath);
     let sitetype = lstore.get_item('sitetype');
@@ -86,7 +95,7 @@
                 store.vm.$router.push({path: '/confirmOrder'});
               }
             });
-            
+
           } catch (e) {
           }
         }

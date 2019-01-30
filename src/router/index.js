@@ -12,6 +12,7 @@ import workerDetail from '@/components/workers/workerDetail'
 import orderAworker from '@/components/workers/orderAworker'
 import historyOrder from '@/components/workers/historyOrder'
 
+import paySweepCode from '@/components/orders/paySweepCode'
 import manyOrders from '@/components/orders/manyOrders'
 import allOrders from '@/components/orders/allOrders'
 import orderDetail from '@/components/orders/orderDetail'
@@ -95,6 +96,11 @@ export default new Router({
       path:'/historyOrder',
       name:'historyOrder',
       component:historyOrder
+    },
+    {
+      path:'/paySweepCode/:id?',
+      name:'paySweepCode',
+      component:paySweepCode
     },
     {
       path:'/manyOrders',
