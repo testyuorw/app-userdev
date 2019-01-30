@@ -62,9 +62,10 @@
   method.weixinPay = function () {
     var self = this
     if (store.orderdetail.id) {
-      api.get_trade({
-        id: store.orderdetail.id
-      }).then(function (res) {
+      store.form.need_pay_price = store.orderdetail.totalmoney;
+      store.form.order_sn = store.orderdetail.id;
+      store.form.order_type = store.orderdetail.ordertype;
+      api.get_trade(store.form).then(function (res) {
         if (res.code == 200) {
           store.trade_sn = res.result.trade_sn;
           lstore.set_item('trade_sn',store.trade_sn);
