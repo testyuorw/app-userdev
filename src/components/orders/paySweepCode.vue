@@ -137,7 +137,6 @@
       var self = this;
       if (self.$route.query.id) {
         store.orderdetail.id = self.$route.query.id;
-        lstore.set_item('codeId', store.orderdetail.id);
         method.getorder();
       }
     }
