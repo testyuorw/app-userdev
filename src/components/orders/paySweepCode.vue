@@ -42,10 +42,13 @@
         </li>
       </ul>
     </div>
-<!-- v-if="orderdetail.paystatus != 2"-->
     <a href="javascript:void (0);"
        class="btn-order pf w100"
+       v-if="orderdetail.paystatus != 2"
        @click="weixinPay">确认付款</a>
+    <a href="javascript:void (0);"
+       class="btn-order pf w100 bg-black-40"
+       v-else>已支付</a>
   </div>
 </template>
 
@@ -67,13 +70,10 @@
   store.reqSuccess = false
   //点击支付按钮
   method.weixinPay = function () {
-    var self = this
     if (store.orderdetail.id) {
       store.form.need_pay_price = store.orderdetail.totalmoney;
       store.form.order_sn = store.orderdetail.id;
       store.form.order_type = store.orderdetail.ordertype;
-      console.log(store.form)
-      console.log(lstore.get_item('openid').val)
       api.get_trade(store.form).then(function (res) {
         if (res.code == 200) {
           store.trade_sn = res.result.trade_sn;
@@ -83,11 +83,11 @@
               const params = {
                 'openid': lstore.get_item('openid').val,
                 'trade_sn': store.trade_sn,
-                'title': '测试',
+                'title': '住建鸟',
                 'uid': ''
               };
-              api.get_jsapi(params).then(function (response) {
-                store.jsapi = JSON.parse(response.result.js);
+              api.get_jsapi(params).then(function (res) {
+                store.jsapi = JSON.parse(res.result.js);
                 var def = wxpay(store.jsapi);
                 def.then(function (response) {
                   if (response === 'ok') {
@@ -160,7 +160,7 @@
     ul{
       padding: 0 0.8rem;
       .h3rem{
-        padding: 1.4rem 0.8rem;
+        padding: 1.6rem 0.8rem;
         align-items: flex-start;
       }
     }
@@ -168,22 +168,25 @@
       border-bottom: 20px solid #f5f5f5;
       .flex-space-between{
         margin: 1rem 0;
+        input,a{
+          width: 66%;
+          height: 4rem;
+          line-height: 4rem;
+          border-radius:8px;
+        }
         input{
-          width: 20rem;
-          height: 3rem;
           background:rgba(255,209,2,0);
           border:1px solid rgba(51, 51, 51, 1);
-          border-radius:8px;
           padding: 0.8rem 1rem;
         }
         a{
-          width: 10rem;
-          border-radius:8px;
-          height: 3rem;
-          line-height: 3rem;
+          width: 30%;
           font-size: 1.4rem;
         }
       }
     }
+  }
+  .pf{
+    line-height: 4.8rem;
   }
 </style>
