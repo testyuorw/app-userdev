@@ -56,6 +56,7 @@
   var method = {};
   var store = {};
   store.orderdetail = {id: ''};
+  store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
   store.reqSuccess = false
   //点击支付按钮
@@ -65,6 +66,8 @@
       store.form.need_pay_price = store.orderdetail.totalmoney;
       store.form.order_sn = store.orderdetail.id;
       store.form.order_type = store.orderdetail.ordertype;
+      console.log(store.form)
+      console.log(lstore.get_item('openid').val)
       api.get_trade(store.form).then(function (res) {
         if (res.code == 200) {
           store.trade_sn = res.result.trade_sn;
