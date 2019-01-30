@@ -51,7 +51,13 @@
 
 <script>
   import api from '../../services/api'
+  import user from '../../services/userinfo'
+  import error from '../../services/error'
+  import cookie from '../../tools/cookie'
   import page from '../page'
+  import hook from '../../tools/hook'
+  import info from '../../tools/info'
+  import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
   var method = {};
   var store = {};
