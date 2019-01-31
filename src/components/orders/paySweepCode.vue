@@ -1,7 +1,7 @@
 <template>
   <div class="container w100 h100 bgf5">
     <div class="orderBox">
-      <div class="h3rem bdb" v-if="orderdetail.paystatus != 2">
+      <div class="h3rem bdb" v-if="orderdetail.paystatus != 2 || !orderdetail.id">
         <div>销售订单编号:</div>
         <div class="flex-space-between">
           <input type="text" placeholder="请输入销售订单编号" v-model="orderdetail.id">
@@ -9,7 +9,7 @@
         </div>
       </div>
       <ul>
-        <li class="flex-space-between h3rem" v-if="reqSuccess && orderdetail.paystatus == 2">
+        <li class="flex-space-between h3rem" v-if="queryId && reqSuccess && orderdetail.id">
           <div>销售订单编号</div>
           <div>{{orderdetail.id}}</div>
         </li>
@@ -19,7 +19,7 @@
         </li>
         <li class="flex-space-between h3rem">
           <div>销售单位</div>
-          <div>{{reqSuccess?orderdetail.custid:'暂无'}}</div>
+          <div>{{reqSuccess?orderdetail.orgname:'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>联系人</div>
@@ -68,6 +68,13 @@
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
   store.reqSuccess = false
+  store.queryId = false
+  method.clearStore = function () {
+    store.orderdetail = {id: ''};
+    store.form = {order_type: '', need_pay_price: '', order_sn: ''};
+    store.money = '';
+    store.reqSuccess = false
+  }
   //点击支付按钮
   method.weixinPay = function () {
     if (store.orderdetail.id) {
@@ -110,7 +117,7 @@
 
   };
   method.getorder = function () {
-    // 90003032
+    // 90003032   //90000856
     if (store.orderdetail.id) {
       api.get_orderdetail(store.orderdetail).then(function (res) {
         if (res.code == 200) {
@@ -120,6 +127,8 @@
           store.reqSuccess = false
           store.vm.$toast(res.msg, "center");
         }
+      },function (err) {
+        store.vm.$toast('订单号错误', "center");
       })
     } else {
       store.vm.$toast('订单号错误', "center");
@@ -136,6 +145,7 @@
       store.vm = this;
       var self = this;
       if (self.$route.query.id) {
+        store.queryId = true
         store.orderdetail.id = self.$route.query.id;
         method.getorder();
       }
