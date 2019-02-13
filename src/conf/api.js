@@ -1,5 +1,5 @@
 import lstore from '@/tools/lstore';
-var api = 'http://apiv2.e1.fat.zjbird.com';
+var api = '';
 // var api = 'http://apiv2.zjbird.com';
 lstore.set_item("wx", true);
 if (window.location.hostname.indexOf('uapp') > -1) {
