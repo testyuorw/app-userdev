@@ -99,12 +99,7 @@
                 var def = wxpay(store.jsapi);
                 def.then(function (response) {
                   if (response === 'ok') {
-                    store.vm.$router.push({
-                      path: '/paySweepCode',
-                      params: {
-                        id: store.orderdetail.id
-                      }
-                    });
+                    method.getorder();
                   }
                 });
               });
