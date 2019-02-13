@@ -7,6 +7,7 @@ if (window.location.hostname.indexOf('uapp') > -1) {
 } else {
   api = 'http://apiv2.e2.fat.zjbird.com';
 }
+alert(api)
 if (window.location.hostname == 'localhost') {
   lstore.set_item("wx", false);
 }
