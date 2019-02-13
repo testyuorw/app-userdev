@@ -100,7 +100,10 @@
                 def.then(function (response) {
                   if (response === 'ok') {
                     store.vm.$router.push({
-                      path: '/sharePaySucc'
+                      path: '/paySweepCode',
+                      params: {
+                        id: store.orderdetail.id
+                      }
                     });
                   }
                 });
