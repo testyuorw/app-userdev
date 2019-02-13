@@ -25,6 +25,7 @@
       lstore.set_item('sitetype', val[fullPath]);
     }
   };
+  console.log(api);
   var fetchData = function () {
     store.weShare = page.WechatShare();//判断是不是分享的
     const $this = this;
