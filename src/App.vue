@@ -25,7 +25,6 @@
       lstore.set_item('sitetype', val[fullPath]);
     }
   };
-  console.log(api);
   var fetchData = function () {
     store.weShare = page.WechatShare();//判断是不是分享的
     const $this = this;
@@ -45,7 +44,6 @@
           id: query.id || ''
         }
       })
-      return
     }
     loadmore.clear();
     setSiteType(fullPath);
@@ -56,8 +54,7 @@
 
     if (fullPath == '/userProtocol') {
       this.$router.push({path: '/userProtocol'})
-    }
-    else if (store.weShare == false) {
+    } else if (store.weShare == false) {
       let cookie_name = 'zjbird';
       if (sitetype == 5) {
         cookie_name = 'sharezjbird';
@@ -77,12 +74,10 @@
           }
           this.$router.push({path: location_url})
         }
-      }
-      else {
+      } else {
         if (sitetype != "5" && store.weShare == false) {
           this.$router.push({path: '/login'});
-        }
-        else if (sitetype == "5") {
+        } else if (sitetype == "5") {
           try {
             store.openid = tool.get.call(store.vm, 'openid');
             api2.check_openid({openid: store.openid}).then(function (res) {
@@ -101,8 +96,7 @@
           }
         }
       }
-    }
-    else if(store.weShare == true){
+    } else if(store.weShare == true){
       // alert(store.weShare);
       if (path == '/confirmOrder' && !CheckLogin) {
         $this.$router.push({path: '/login'});
@@ -131,6 +125,7 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
+      alert(`mounted:${openid};`${query.hasOwnProperty('openid')});
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');

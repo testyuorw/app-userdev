@@ -154,6 +154,7 @@
 <style lang="scss" scoped>
   .orderBox{
     background-color: #fff;
+    margin-bottom: 5rem;
     .h3rem{
       padding: 1.4rem 0.8rem;
       font-size: 1.4rem;
