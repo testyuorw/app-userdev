@@ -129,6 +129,7 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
+      alert(this.$route.fullPath);
       alert("mounted:\nopenid--"+openid+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
       if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
         alert('this.$route.fullPath.includes(\'paySweepCode\')');
