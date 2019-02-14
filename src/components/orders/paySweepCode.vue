@@ -9,7 +9,7 @@
         </div>
       </div>
       <ul>
-        <li class="flex-space-between h3rem" v-if="queryId && reqSuccess && orderdetail.id">
+        <li class="flex-space-between h3rem" v-if="reqSuccess && orderdetail.id">
           <div>销售订单编号</div>
           <div>{{orderdetail.id}}</div>
         </li>
@@ -159,7 +159,7 @@
 <style lang="scss" scoped>
   .orderBox{
     background-color: #fff;
-    margin-bottom: 5rem;
+    padding-bottom: 5rem;
     .h3rem{
       padding: 1.4rem 0.8rem;
       font-size: 1.4rem;
