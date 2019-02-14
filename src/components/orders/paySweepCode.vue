@@ -117,7 +117,6 @@
   method.getorder = function () {
     // 90003032   //90000856
     if (store.orderdetail.id) {
-      alert(JSON.stringify(store.orderdetail));
       api.get_orderdetail(store.orderdetail).then(function (res) {
         if (res.code == 200) {
           store.reqSuccess = true
@@ -125,15 +124,18 @@
           localStorage.removeItem('paySweepCodeId');
         } else {
           store.reqSuccess = false
+          store.orderdetail = {id: ''};
           store.vm.$toast(res.msg, "center");
         }
       },function (err) {
         if(err){
-          store.vm.$toast('订单号错误', "top");
+          store.orderdetail = {id: ''};
+          store.vm.$toast('订单号错误~', "center");
         }
       })
     } else {
-      store.vm.$toast('订单号错误', "bottom");
+      store.orderdetail = {id: ''};
+      store.vm.$toast('订单号错误~~', "center");
     }
   };
   export default {
