@@ -128,6 +128,7 @@
           store.vm.$toast(res.msg, "center");
         }
       },function (err) {
+        alert(JSON.stringify(err));
         store.vm.$toast('订单号错误', "top");
       })
     } else {

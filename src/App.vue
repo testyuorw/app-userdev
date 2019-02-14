@@ -44,9 +44,7 @@
           id: localStorage.paySweepCodeId
         }
       })
-      store.vm.$toast(123, "top");
     }else{
-      store.vm.$toast(456, "top");
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
