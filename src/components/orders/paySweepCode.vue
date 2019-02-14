@@ -119,22 +119,19 @@
     if (store.orderdetail.id) {
       api.get_orderdetail(store.orderdetail).then(function (res) {
         if (res.code == 200) {
-          store.reqSuccess = true
+          store.reqSuccess = true;
           store.orderdetail = res.result;
           localStorage.removeItem('paySweepCodeId');
         } else {
-          store.reqSuccess = false
-          store.orderdetail = {id: ''};
+          store.reqSuccess = false;
           store.vm.$toast(res.msg, "center");
         }
       },function (err) {
         if(err){
-          store.orderdetail = {id: ''};
           store.vm.$toast('订单号错误~', "center");
         }
       })
     } else {
-      store.orderdetail = {id: ''};
       store.vm.$toast('订单号错误~~', "center");
     }
   };
