@@ -64,7 +64,7 @@
   import wxpay from '../../tools/pay'
   var method = {};
   var store = {};
-  store.orderdetail = {id: localStorage.paySweepCodeId || ''};
+  store.orderdetail = {id: ''};
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
   store.reqSuccess = false
@@ -143,9 +143,9 @@
       page.title('订单支付');
       store.vm = this;
       var self = this;
-      if (self.$route.query.id) {
+      if (self.$route.query.id||localStorage.paySweepCodeId) {
         store.queryId = true
-        store.orderdetail.id = self.$route.query.id;
+        store.orderdetail.id = self.$route.query.id || localStorage.paySweepCodeId;
         method.getorder();
       }
     }
