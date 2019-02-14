@@ -124,15 +124,12 @@
         } else {
           store.reqSuccess = false
           store.vm.$toast(res.msg, "center");
-          store.orderdetail = {id: ''};
         }
       },function (err) {
         store.vm.$toast('订单号错误', "center");
-        store.orderdetail = {id: ''};
       })
     } else {
       store.vm.$toast('订单号错误', "center");
-      store.orderdetail = {id: ''};
     }
   };
   export default {
