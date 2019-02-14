@@ -36,16 +36,17 @@
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
+      alert(openid)
     }
-    if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      this.$router.push({
-        path: '/paySweepCode',
-        params: {
-          id: query.id || ''
-        }
-      })
-      return
-    }
+    // if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
+    //   this.$router.push({
+    //     path: '/paySweepCode',
+    //     params: {
+    //       id: query.id || ''
+    //     }
+    //   })
+    //   return
+    // }
     loadmore.clear();
     setSiteType(fullPath);
     let sitetype = lstore.get_item('sitetype');
@@ -126,30 +127,24 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      alert("mounted:\nopenid--"+openid+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
-      if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-        alert('fullPath.includes(\'paySweepCode\')');
-        fetchData.apply(this);
-      }else{
-        if (!openid) {
-          if (!query.hasOwnProperty('openid')) {
-            let sitetype = lstore.get_item('sitetype');
-            let wx = lstore.get_item('wx');
-            if (sitetype) {
-              sitetype = sitetype.val;
-            }
-            if (wx) {
-              wx = wx.val;
-            }
-            if(sitetype != "4" && wx){
-              window.location.href = auth;
-              return;
-            }
-
+      if (!openid) {
+        if (!query.hasOwnProperty('openid')) {
+          let sitetype = lstore.get_item('sitetype');
+          let wx = lstore.get_item('wx');
+          if (sitetype) {
+            sitetype = sitetype.val;
           }
+          if (wx) {
+            wx = wx.val;
+          }
+          if(sitetype != "4" && wx){
+            window.location.href = auth;
+            return;
+          }
+
         }
-        fetchData.apply(this);
       }
+      fetchData.apply(this);
     }
   }
 </script>
