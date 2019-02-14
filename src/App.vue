@@ -134,7 +134,10 @@
         alert('this.$route.fullPath.includes(\'paySweepCode\')');
         fetchData.apply(this);
       }else{
+        alert(1);
         if (!openid) {
+
+          alert(2);
           if (!query.hasOwnProperty('openid')) {
             let sitetype = lstore.get_item('sitetype');
             let wx = lstore.get_item('wx');
