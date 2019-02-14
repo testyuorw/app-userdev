@@ -80,6 +80,7 @@
         }
       } else {
         if (sitetype != "5" && store.weShare == false) {
+          alert('nnd');
           this.$router.push({path: '/login'});
         } else if (sitetype == "5") {
           try {

@@ -64,7 +64,7 @@
   import wxpay from '../../tools/pay'
   var method = {};
   var store = {};
-  store.orderdetail = {id: ''};
+  store.orderdetail = {id: localStorage.paySweepCodeId || ''};
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
   store.reqSuccess = false
