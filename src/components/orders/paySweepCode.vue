@@ -127,10 +127,10 @@
           store.vm.$toast(res.msg, "center");
         }
       },function (err) {
-        store.vm.$toast('订单号错误', "center");
+        store.vm.$toast('订单号错误', "top");
       })
     } else {
-      store.vm.$toast('订单号错误', "center");
+      store.vm.$toast('订单号错误', "bottom");
     }
   };
   export default {

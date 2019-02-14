@@ -38,13 +38,12 @@
       lstore.set_item('openid', openid);
     }
     if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      alert('*****'+localStorage.paySweepCodeId);
-      this.$router.push({
-        path: '/paySweepCode',
-        params: {
-          id: localStorage.paySweepCodeId
-        }
-      })
+      // this.$router.push({
+      //   path: '/paySweepCode',
+      //   params: {
+      //     id: localStorage.paySweepCodeId
+      //   }
+      // })
     }else{
       loadmore.clear();
       setSiteType(fullPath);
