@@ -37,7 +37,9 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
+    alert(localStorage.paySweepCodeId);
     if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      alert('*****'+localStorage.paySweepCodeId);
       this.$router.push({
         path: '/paySweepCode',
         params: {
@@ -127,9 +129,6 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-        localStorage.paySweepCodeId = query.id;
-      }
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
@@ -139,6 +138,9 @@
           }
           if (wx) {
             wx = wx.val;
+          }
+          if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
+            localStorage.paySweepCodeId = query.id;
           }
           if(sitetype != "4" && wx){
             window.location.href = auth;
