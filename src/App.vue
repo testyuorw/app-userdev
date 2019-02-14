@@ -125,7 +125,7 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      alert(`mounted:${openid};`${query.hasOwnProperty('openid')});
+      alert("mounted:\nopenid--"+openid+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
