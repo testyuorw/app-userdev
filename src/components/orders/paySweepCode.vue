@@ -155,7 +155,6 @@
 </script>
 <style lang="scss" scoped>
   .orderBox{
-    background-color: #fff;
     padding-bottom: 5rem;
     .h3rem{
       padding: 1.4rem 0.8rem;
@@ -171,6 +170,7 @@
     }
     ul{
       padding: 0 0.8rem;
+      background-color: #fff;
       .h3rem{
         padding: 1.6rem 0.8rem;
         align-items: flex-start;
