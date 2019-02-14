@@ -37,74 +37,71 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    alert("fetchData:\nopenid--"+query['openid']+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
     if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      alert('router jump');
       this.$router.push({
         path: '/paySweepCode',
         params: {
           id: query.id || ''
         }
       })
+      return
     }
-    else {
-      loadmore.clear();
-      setSiteType(fullPath);
-      let sitetype = lstore.get_item('sitetype');
-      if (sitetype) {
-        sitetype = sitetype.val;
+    loadmore.clear();
+    setSiteType(fullPath);
+    let sitetype = lstore.get_item('sitetype');
+    if (sitetype) {
+      sitetype = sitetype.val;
+    }
+
+    if (fullPath == '/userProtocol') {
+      this.$router.push({path: '/userProtocol'})
+    } else if (store.weShare == false) {
+      let cookie_name = 'zjbird';
+      if (sitetype == 5) {
+        cookie_name = 'sharezjbird';
       }
-
-      if (fullPath == '/userProtocol') {
-        this.$router.push({path: '/userProtocol'})
-      } else if (store.weShare == false) {
-        let cookie_name = 'zjbird';
-        if (sitetype == 5) {
-          cookie_name = 'sharezjbird';
-        }
-        var CheckLogin = userinfo.info.call(this,cookie_name);
-        //没分享要登录
-        console.log('check login' + sitetype);
-        if (CheckLogin) {
-          if (fullPath == '/login') {
-            var url = {
-              'true': '/userInfo',
-              'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',4:'/workerDetail', 5: '/confirmOrder'}
-            };
-            let location_url = url['false'];
-            if ('object' == typeof  location_url) {
-              location_url = location_url[sitetype];
-            }
-            this.$router.push({path: location_url})
+      var CheckLogin = userinfo.info.call(this,cookie_name);
+      //没分享要登录
+      console.log('check login' + sitetype);
+      if (CheckLogin) {
+        if (fullPath == '/login') {
+          var url = {
+            'true': '/userInfo',
+            'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',4:'/workerDetail', 5: '/confirmOrder'}
+          };
+          let location_url = url['false'];
+          if ('object' == typeof  location_url) {
+            location_url = location_url[sitetype];
           }
-        } else {
-          if (sitetype != "5" && store.weShare == false) {
-            this.$router.push({path: '/login'});
-          } else if (sitetype == "5") {
-            try {
-              store.openid = tool.get.call(store.vm, 'openid');
-              api2.check_openid({openid: store.openid}).then(function (res) {
-                if (!res.result || res.result == null || res.result == 'null') {
-                  $this.$router.push({path: '/login'});
-                  //alert('to2')
-                  return false;
-                }
-                if (res.code == error.success) {
-                  lstore.set_item('shareUser', res.result);
-                  store.vm.$router.push({path: '/confirmOrder'});
-                }
-              });
+          this.$router.push({path: location_url})
+        }
+      } else {
+        if (sitetype != "5" && store.weShare == false) {
+          this.$router.push({path: '/login'});
+        } else if (sitetype == "5") {
+          try {
+            store.openid = tool.get.call(store.vm, 'openid');
+            api2.check_openid({openid: store.openid}).then(function (res) {
+              if (!res.result || res.result == null || res.result == 'null') {
+                $this.$router.push({path: '/login'});
+                //alert('to2')
+                return false;
+              }
+              if (res.code == error.success) {
+                lstore.set_item('shareUser', res.result);
+                store.vm.$router.push({path: '/confirmOrder'});
+              }
+            });
 
-            } catch (e) {
-            }
+          } catch (e) {
           }
         }
-      } else if(store.weShare == true){
-        // alert(store.weShare);
-        if (path == '/confirmOrder' && !CheckLogin) {
-          $this.$router.push({path: '/login'});
-          // alert('to1')
-        }
+      }
+    } else if(store.weShare == true){
+      // alert(store.weShare);
+      if (path == '/confirmOrder' && !CheckLogin) {
+        $this.$router.push({path: '/login'});
+        // alert('to1')
       }
     }
   };
@@ -153,7 +150,6 @@
         }
         fetchData.apply(this);
       }
-
     }
   }
 </script>
