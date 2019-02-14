@@ -36,17 +36,16 @@
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
-      alert(openid)
     }
-    // if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-    //   this.$router.push({
-    //     path: '/paySweepCode',
-    //     params: {
-    //       id: query.id || ''
-    //     }
-    //   })
-    //   return
-    // }
+    if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      this.$router.push({
+        path: '/paySweepCode',
+        params: {
+          id: localStorage.paySweepCodeId
+        }
+      })
+      return
+    }
     loadmore.clear();
     setSiteType(fullPath);
     let sitetype = lstore.get_item('sitetype');
@@ -56,7 +55,8 @@
 
     if (fullPath == '/userProtocol') {
       this.$router.push({path: '/userProtocol'})
-    } else if (store.weShare == false) {
+    }
+    else if (store.weShare == false) {
       let cookie_name = 'zjbird';
       if (sitetype == 5) {
         cookie_name = 'sharezjbird';
@@ -127,6 +127,9 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
+      if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
+        localStorage.paySweepCodeId = query.id;
+      }
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
