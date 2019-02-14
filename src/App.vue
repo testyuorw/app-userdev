@@ -77,7 +77,9 @@
           }
         } else {
           if (sitetype != "5" && store.weShare == false) {
-            this.$router.push({path: '/login'});
+            if (!localStorage.paySweepCodeId) {
+              this.$router.push({path: '/login'});
+            }
           } else if (sitetype == "5") {
             try {
               store.openid = tool.get.call(store.vm, 'openid');
