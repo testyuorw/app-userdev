@@ -37,9 +37,8 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    alert("fetchData:\nopenid--"+query['openid']+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
     if (fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      alert('router jump');
+      alert("router jump:\nopenid--"+query['openid']+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
       this.$router.push({
         path: '/paySweepCode',
         params: {
@@ -129,9 +128,7 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      alert("mounted:\nopenid--"+openid+";\nquery.hasOwnProperty--"+query.hasOwnProperty('openid'));
       if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-        alert('fullPath.includes(\'paySweepCode\')');
         fetchData.apply(this);
       }else{
         if (!openid) {
