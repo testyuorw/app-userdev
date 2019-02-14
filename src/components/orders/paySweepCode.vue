@@ -75,7 +75,6 @@
     store.money = '';
     store.reqSuccess = false
   }
-  console.log(api)
   //点击支付按钮
   method.weixinPay = function () {
     if (store.orderdetail.id) {
