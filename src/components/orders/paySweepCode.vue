@@ -117,6 +117,7 @@
   method.getorder = function () {
     // 90003032   //90000856
     if (store.orderdetail.id) {
+      alert(JSON.stringify(store.orderdetail));
       api.get_orderdetail(store.orderdetail).then(function (res) {
         if (res.code == 200) {
           store.reqSuccess = true
