@@ -39,82 +39,82 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-      loadmore.clear();
-      setSiteType(fullPath);
-      let sitetype = lstore.get_item('sitetype');
-        if (sitetype) {
-        sitetype = sitetype.val;
-      }
-      alert(sitetype+'\n'+fullPath+'\n'+JSON.stringify(val)+'\n'+JSON.stringify(lstore));
-      console.log('check login:' + sitetype);
-      if (fullPath == '/userProtocol') {
-        this.$router.push({path: '/userProtocol'})
-      }
-      else if (store.weShare == false) {
-        let cookie_name = 'zjbird';
-        if (sitetype == 5) {
-          cookie_name = 'sharezjbird';
-        }else if(sitetype == 6){
-          this.$router.push({
-            path: '/paySweepCode',
-            params: {
-              id: localStorage.paySweepCodeId
+    loadmore.clear();
+    setSiteType(fullPath);
+    let sitetype = lstore.get_item('sitetype');
+      if (sitetype) {
+      sitetype = sitetype.val;
+    }
+    alert(sitetype+'\n'+fullPath+'\n'+JSON.stringify(val)+'\n'+JSON.stringify(lstore));
+    console.log('check login:' + sitetype);
+    if (fullPath == '/userProtocol') {
+      this.$router.push({path: '/userProtocol'})
+    }
+    else if (store.weShare == false) {
+      let cookie_name = 'zjbird';
+      if (sitetype == 5) {
+        cookie_name = 'sharezjbird';
+      }else if(sitetype == 6){
+        this.$router.push({
+          path: '/paySweepCode',
+          params: {
+            id: localStorage.paySweepCodeId
+          }
+        })
+      }else{
+        var CheckLogin = userinfo.info.call(this,cookie_name);
+        //没分享要登录
+        if (CheckLogin) {
+          if (fullPath == '/login') {
+            var url = {
+              'true': '/userInfo',
+              'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',
+                4:'/workerDetail', 5: '/confirmOrder'}
+            };
+            let location_url = url['false'];
+            if ('object' == typeof  location_url) {
+              location_url = location_url[sitetype];
             }
-          })
-        }else{
-          var CheckLogin = userinfo.info.call(this,cookie_name);
-          //没分享要登录
-          if (CheckLogin) {
-            if (fullPath == '/login') {
-              var url = {
-                'true': '/userInfo',
-                'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',
-                  4:'/workerDetail', 5: '/confirmOrder'}
-              };
-              let location_url = url['false'];
-              if ('object' == typeof  location_url) {
-                location_url = location_url[sitetype];
-              }
-              this.$router.push({path: location_url})
-            }
-          } else {
-            if (sitetype != "5" && store.weShare == false) {
-              alert(2)
-              this.$router.push({path: '/login'});
-            } else if (sitetype == "5") {
-              try {
-                store.openid = tool.get.call(store.vm, 'openid');
-                api2.check_openid({openid: store.openid}).then(function (res) {
-                  if (!res.result || res.result == null || res.result == 'null') {
-                    alert(3)
-                    $this.$router.push({path: '/login'});
-                    return false;
-                  }
-                  if (res.code == error.success) {
-                    lstore.set_item('shareUser', res.result);
-                    store.vm.$router.push({path: '/confirmOrder'});
-                  }
-                });
-              } catch (e) {
-              }
+            this.$router.push({path: location_url})
+          }
+        } else {
+          if (sitetype != "5" && store.weShare == false) {
+            alert(2)
+            this.$router.push({path: '/login'});
+          } else if (sitetype == "5") {
+            try {
+              store.openid = tool.get.call(store.vm, 'openid');
+              api2.check_openid({openid: store.openid}).then(function (res) {
+                if (!res.result || res.result == null || res.result == 'null') {
+                  alert(3)
+                  $this.$router.push({path: '/login'});
+                  return false;
+                }
+                if (res.code == error.success) {
+                  lstore.set_item('shareUser', res.result);
+                  store.vm.$router.push({path: '/confirmOrder'});
+                }
+              });
+            } catch (e) {
             }
           }
         }
       }
-      else if(store.weShare == true){
-        // alert(store.weShare);
-        if (path == '/confirmOrder' && !CheckLogin) {
-          $this.$router.push({path: '/login'});
-          // alert('to1')
-        }else if(sitetype==6){
-          this.$router.push({
-            path: '/paySweepCode',
-            params: {
-              id: localStorage.paySweepCodeId
-            }
-          })
-        }
+    }
+    else if(store.weShare == true){
+      // alert(store.weShare);
+      if (path == '/confirmOrder' && !CheckLogin) {
+        $this.$router.push({path: '/login'});
+        // alert('to1')
+      }else if(sitetype==6){
+        this.$router.push({
+          path: '/paySweepCode',
+          params: {
+            id: localStorage.paySweepCodeId
+          }
+        })
       }
+    }
   };
   export default {
     name: 'app',
@@ -149,6 +149,7 @@
             wx = wx.val;
           }
           if(sitetype != "4" && wx){
+            setSiteType(this.$route.fullPath);
             window.location.href = auth;
             return;
           }
