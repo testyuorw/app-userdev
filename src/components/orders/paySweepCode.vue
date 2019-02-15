@@ -62,6 +62,7 @@
   import info from '../../tools/info'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
+  const auth = api + '/api/h5/openid';
   var method = {};
   var store = {};
   store.id = '';
@@ -148,6 +149,7 @@
     },
     methods: method,
     mounted: function () {
+      window.location.href = auth;
       page.title('订单支付');
       store.vm = this;
       var self = this;
