@@ -19,7 +19,7 @@
 
   var store = {};
   const setSiteType = function (fullPath) {
-    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3};
+    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
       lstore.remove('sitetype');
       lstore.set_item('sitetype', val[fullPath]);
@@ -37,7 +37,7 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+    if (sitetype&&lstore.get_item('sitetype').val==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
       this.$router.push({
         path: '/paySweepCode',
         params: {
@@ -103,7 +103,7 @@
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
           // alert('to1')
-        }
+      }
       }
     }
 
@@ -149,8 +149,9 @@
           }
         }
       }else{
-        localStorage.removeItem('paySweepCodeId');
+        setSiteType(this.$route.fullPath);
       }
+      localStorage.removeItem('paySweepCodeId');
       fetchData.apply(this);
     }
   }
