@@ -169,7 +169,7 @@ method.login = function() {
       2: "/manyOrders",
       3: "/allProduct",
       4: "workerDetail/?workid=" + store.workid,
-      6:'/paySweepCode'
+      6:'/paySweepCode?id=' + localStorage.paySweepCodeId || ''
     }
   };
   // const self = this;

@@ -103,7 +103,7 @@
       }
     }
     else if(store.weShare == true){
-      // alert(store.weShare);
+      alert(store.weShare);
       if (path == '/confirmOrder' && !CheckLogin) {
         $this.$router.push({path: '/login'});
         // alert('to1')
@@ -149,13 +149,13 @@
             wx = wx.val;
           }
           if(sitetype != "4" && wx){
-            setSiteType(this.$route.fullPath);
             window.location.href = auth;
             return;
           }
 
         }
       }
+      alert(22)
       fetchData.apply(this);
     }
   }
