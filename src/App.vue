@@ -51,6 +51,7 @@
           id: localStorage.paySweepCodeId || ''
         }
       })
+      alert(location.href)
       return
     }
     localStorage.removeItem('paySweepCodeId');

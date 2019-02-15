@@ -149,6 +149,7 @@
     methods: method,
     mounted: function () {
       page.title('订单支付');
+      alert(location.href)
       store.vm = this;
       var self = this;
       lstore.set_item('sitetype', 6);
