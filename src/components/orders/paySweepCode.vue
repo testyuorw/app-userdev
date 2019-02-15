@@ -117,7 +117,7 @@
   method.getorder = function () {
     // 90003032   //90000856
     if(!lstore.get_item('openid')||!lstore.get_item('openid').val){
-      store.vm.$toast('用戶用户收取信息获取失败，请重新获取授权~', "center");
+      store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return
     }
     if (store.orderdetail.id) {
