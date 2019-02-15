@@ -45,6 +45,7 @@
       }
       alert(sitetype+':'+(sitetype==6))
     if (sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      alert(localStorage.paySweepCodeId)
       this.$router.push({
         path: '/paySweepCode',
         params: {
