@@ -62,54 +62,54 @@
         let cookie_name = 'zjbird';
         if (sitetype == 5) {
           cookie_name = 'sharezjbird';
-        }
-        var CheckLogin = userinfo.info.call(this,cookie_name);
-        //没分享要登录
-        console.log('check login:' + sitetype);
-        if (CheckLogin) {
-          if (fullPath == '/login') {
-            var url = {
-              'true': '/userInfo',
-              'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',
-                4:'/workerDetail', 5: '/confirmOrder', '/paySweepCode':6}
-            };
-            let location_url = url['false'];
-            if ('object' == typeof  location_url) {
-              location_url = location_url[sitetype];
+        }else if(sitetype == 6){
+          this.$router.push({
+            path: '/paySweepCode',
+            params: {
+              id: localStorage.paySweepCodeId
             }
-            if(sitetype==6){
-                this.$router.push({
-                  path: '/paySweepCode',
-                  params: {
-                    id: localStorage.paySweepCodeId
-                  }
-                })
-            }else{
+          })
+        }else{
+          var CheckLogin = userinfo.info.call(this,cookie_name);
+          //没分享要登录
+          if (CheckLogin) {
+            if (fullPath == '/login') {
+              var url = {
+                'true': '/userInfo',
+                'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',
+                  4:'/workerDetail', 5: '/confirmOrder'}
+              };
+              let location_url = url['false'];
+              if ('object' == typeof  location_url) {
+                location_url = location_url[sitetype];
+              }
               this.$router.push({path: location_url})
             }
-          }
-        } else {
-          if (sitetype != "5" && store.weShare == false) {
-            this.$router.push({path: '/login'});
-          } else if (sitetype == "5") {
-            try {
-              store.openid = tool.get.call(store.vm, 'openid');
-              api2.check_openid({openid: store.openid}).then(function (res) {
-                if (!res.result || res.result == null || res.result == 'null') {
-                  $this.$router.push({path: '/login'});
-                  //alert('to2')
-                  return false;
-                }
-                if (res.code == error.success) {
-                  lstore.set_item('shareUser', res.result);
-                  store.vm.$router.push({path: '/confirmOrder'});
-                }
-              });
-            } catch (e) {
+          } else {
+            if (sitetype != "5" && store.weShare == false) {
+              this.$router.push({path: '/login'});
+            } else if (sitetype == "5") {
+              try {
+                store.openid = tool.get.call(store.vm, 'openid');
+                api2.check_openid({openid: store.openid}).then(function (res) {
+                  if (!res.result || res.result == null || res.result == 'null') {
+                    $this.$router.push({path: '/login'});
+                    //alert('to2')
+                    return false;
+                  }
+                  if (res.code == error.success) {
+                    lstore.set_item('shareUser', res.result);
+                    store.vm.$router.push({path: '/confirmOrder'});
+                  }
+                });
+              } catch (e) {
+              }
             }
           }
         }
-      } else if(store.weShare == true){
+        console.log('check login:' + sitetype);
+      }
+      else if(store.weShare == true){
         // alert(store.weShare);
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
