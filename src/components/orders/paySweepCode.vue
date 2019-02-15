@@ -148,15 +148,14 @@
       return store;
     },
     methods: method,
-    mounted: function () {
+    mounted () {
       page.title('订单支付');
       store.vm = this;
-      var self = this;
       lstore.set_item('sitetype', 6);
-      if (store.vm.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
-        alert(store.vm.$route.query.id)
+      if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
+        alert(this.$route.query.id)
         store.queryId = true
-        store.id = store.vm.$route.query.id || localStorage.paySweepCodeId || '';
+        store.id = this.$route.query.id || localStorage.paySweepCodeId || '';
         method.getorder();
       }
     }
