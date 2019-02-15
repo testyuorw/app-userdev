@@ -156,7 +156,7 @@
       if (store.vm.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
         alert(store.vm.$route.query.id)
         store.queryId = true
-        store.id = self.$route.query.id || localStorage.paySweepCodeId;
+        store.id = store.vm.$route.query.id || localStorage.paySweepCodeId || '';
         method.getorder();
       }
     }
