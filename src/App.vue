@@ -44,7 +44,7 @@
       if (sitetype) {
         sitetype = sitetype.val;
       }
-      alert(sitetype)
+      alert(sitetype+':'+sitetype==6)
     if (sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
       this.$router.push({
         path: '/paySweepCode',
@@ -52,6 +52,7 @@
           id: localStorage.paySweepCodeId || ''
         }
       })
+      return
     }
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
