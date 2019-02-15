@@ -37,7 +37,7 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+    if (localStorage.paySweepCodeId&&fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
       this.$router.push({
         path: '/paySweepCode',
         params: {
@@ -146,7 +146,6 @@
             window.location.href = auth;
             return;
           }
-
         }
       }
       fetchData.apply(this);
