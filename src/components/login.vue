@@ -101,7 +101,7 @@ method.getCode = function() {
     if(!code || code.length < 1) {
       store.vm.$toast('请输入图形验证码！','bottom');
       return;
-    }   
+    }
     var phone = { mobile: store.form.mobile, captcha: code };
     var promise = api.get_phone(phone);
     var self = this;
@@ -168,7 +168,8 @@ method.login = function() {
       1: "/allWorker",
       2: "/manyOrders",
       3: "/allProduct",
-      4: "workerDetail/?workid=" + store.workid
+      4: "workerDetail/?workid=" + store.workid,
+      6:'/paySweepCode'
     }
   };
   // const self = this;
