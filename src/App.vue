@@ -19,7 +19,7 @@
 
   var store = {};
   const setSiteType = function (fullPath) {
-    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3,'/paySweepCode':6};
+    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
       lstore.remove('sitetype');
       lstore.set_item('sitetype', val[fullPath]);
@@ -34,27 +34,19 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    // alert(fullPath);
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    // if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
-    //   this.$router.push({
-    //     path: '/paySweepCode',
-    //     params: {
-    //       id: localStorage.paySweepCodeId
-    //     }
-    //   })
-    // }else{
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-      if (sitetype) {
+        if (sitetype) {
         sitetype = sitetype.val;
       }
-
+      alert(sitetype+'\n'+fullPath+'\n'+JSON.stringify(val)+'\n'+JSON.stringify(lstore));
+      console.log('check login:' + sitetype);
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -87,14 +79,15 @@
             }
           } else {
             if (sitetype != "5" && store.weShare == false) {
+              alert(2)
               this.$router.push({path: '/login'});
             } else if (sitetype == "5") {
               try {
                 store.openid = tool.get.call(store.vm, 'openid');
                 api2.check_openid({openid: store.openid}).then(function (res) {
                   if (!res.result || res.result == null || res.result == 'null') {
+                    alert(3)
                     $this.$router.push({path: '/login'});
-                    //alert('to2')
                     return false;
                   }
                   if (res.code == error.success) {
@@ -107,7 +100,6 @@
             }
           }
         }
-        console.log('check login:' + sitetype);
       }
       else if(store.weShare == true){
         // alert(store.weShare);
@@ -123,8 +115,6 @@
           })
         }
       }
-    // }
-
   };
   export default {
     name: 'app',
