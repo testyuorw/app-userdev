@@ -65,6 +65,7 @@
         var CheckLogin = userinfo.info.call(this,cookie_name);
         //没分享要登录
         if (CheckLogin) {
+          alert(0)
           if (fullPath == '/login') {
             var url = {
               'true': '/userInfo',
@@ -137,7 +138,7 @@
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-
+alert(11);
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
