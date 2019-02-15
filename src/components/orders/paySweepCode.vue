@@ -4,7 +4,7 @@
       <div class="h3rem bdb" v-show="orderdetail.paystatus != 2 || !orderdetail.id">
         <div>销售订单编号:</div>
         <div class="flex-space-between">
-          <input type="text" placeholder="请输入销售订单编号" v-model="id">
+          <input type="text" placeholder="请输入销售订单编号" v-model="id||''">
           <a class="btn-order" @click="getorder">确认</a>
         </div>
       </div>
@@ -138,7 +138,7 @@
         }
       })
     } else {
-      store.vm.$toast('订单号错误~~', "center");
+      store.vm.$toast('请输入订单号~', "center");
     }
   };
   export default {
