@@ -53,6 +53,7 @@
       })
       return
     }
+      alert(123)
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
