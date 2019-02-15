@@ -4,7 +4,7 @@
       <div class="h3rem bdb" v-if="orderdetail.paystatus != 2 || !orderdetail.id">
         <div>销售订单编号:</div>
         <div class="flex-space-between">
-          <input type="text" placeholder="请输入销售订单编号" v-model="orderdetail.id">
+          <input type="text" placeholder="请输入销售订单编号" v-model="id">
           <a class="btn-order" @click="getorder">确认</a>
         </div>
       </div>
@@ -27,7 +27,7 @@
         </li>
         <li class="flex-space-between h3rem">
           <div>联系电话</div>
-          <div>{{reqSuccess?orderdetail.tel.slice(0,2)+'******'+orderdetail.tel.slice(-2):'暂无'}}</div>
+          <div>{{reqSuccess?orderdetail.tel.slice(0,3)+'****'+orderdetail.tel.slice(-4):'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>订单状态</div>
@@ -64,6 +64,7 @@
   import wxpay from '../../tools/pay'
   var method = {};
   var store = {};
+  store.id = '';
   store.orderdetail = {id: ''};
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
@@ -112,16 +113,18 @@
     } else {
       store.vm.$toast('订单号错误', "center");
     }
-
   };
   method.getorder = function () {
     // 90003032   //90000856
-    // if(!lstore.get_item('openid')||!lstore.get_item('openid').val){
-    //   store.vm.$toast('用户信息获取失败，请重新获取~', "center");
-    //   return
-    // }
-    if (store.orderdetail.id) {
-      api.get_orderdetail(store.orderdetail).then(function (res) {
+    if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost')){
+      store.vm.$toast('用户信息获取失败，请重新获取~', "center");
+      return
+    }
+    if (store.id) {
+      const formObj = {
+        id: store.id
+      }
+      api.get_orderdetail(formObj).then(function (res) {
         if (res.code == 200) {
           store.reqSuccess = true;
           store.orderdetail = res.result;
@@ -151,7 +154,7 @@
       var self = this;
       if (self.$route.query.id||localStorage.paySweepCodeId) {
         store.queryId = true
-        store.orderdetail.id = self.$route.query.id || localStorage.paySweepCodeId;
+        store.id = self.$route.query.id || localStorage.paySweepCodeId;
         method.getorder();
       }
     }
