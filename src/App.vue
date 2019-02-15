@@ -37,7 +37,6 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    alert(localStorage.paySweepCodeId);
     if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
       this.$router.push({
         path: '/paySweepCode',
@@ -132,6 +131,8 @@
       const openid = cookie.get.call(this, 'openid');
       if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
         localStorage.paySweepCodeId = query.id;
+      }else{
+        localStorage.removeItem('paySweepCodeId');
       }
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
@@ -147,6 +148,7 @@
             window.location.href = auth;
             return;
           }
+
         }
       }
       fetchData.apply(this);
