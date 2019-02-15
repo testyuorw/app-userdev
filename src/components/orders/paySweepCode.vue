@@ -68,8 +68,8 @@
   store.orderdetail = {id: ''};
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
-  store.reqSuccess = false
-  store.queryId = false
+  store.reqSuccess = false;
+  store.queryId = false;
   method.clearStore = function () {
     store.orderdetail = {id: ''};
     store.form = {order_type: '', need_pay_price: '', order_sn: ''};

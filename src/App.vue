@@ -37,21 +37,22 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+    loadmore.clear();
+    setSiteType(fullPath);
+    let sitetype = lstore.get_item('sitetype');
+    if (sitetype) {
+      sitetype = sitetype.val;
+    }
+    if (fullPath.includes('paySweepCode')) {
+      localStorage.paySweepCodeId = query.id ? query.id : '';
       this.$router.push({
         path: '/paySweepCode',
         params: {
           id: localStorage.paySweepCodeId
         }
       })
-    }else{
-      loadmore.clear();
-      setSiteType(fullPath);
-      let sitetype = lstore.get_item('sitetype');
-      if (sitetype) {
-        sitetype = sitetype.val;
-      }
-
+    }
+    else{
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -106,7 +107,6 @@
         }
       }
     }
-
   };
   export default {
     name: 'app',
@@ -121,16 +121,13 @@
         fetchData.apply(this);
       }
     },
-    beforeMount(){
-      //console.log(this.$router.currentRoute);
-    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-        localStorage.paySweepCodeId = query.id;
+      if (this.$route.fullPath.includes('paySweepCode')) {
+       // localStorage.paySweepCodeId = query.id;
       }else{
         localStorage.removeItem('paySweepCodeId');
       }
