@@ -116,7 +116,6 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    alert(store.id)
     if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost')){
       store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return

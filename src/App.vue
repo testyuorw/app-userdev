@@ -31,7 +31,6 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    // alert(fullPath);
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -44,7 +43,7 @@
       if (sitetype) {
         sitetype = sitetype.val;
       }
-      alert(sitetype+':'+sitetype==6)
+      alert(sitetype+':'+(sitetype==6))
     if (sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
       this.$router.push({
         path: '/paySweepCode',
@@ -86,7 +85,6 @@
               api2.check_openid({openid: store.openid}).then(function (res) {
                 if (!res.result || res.result == null || res.result == 'null') {
                   $this.$router.push({path: '/login'});
-                  //alert('to2')
                   return false;
                 }
                 if (res.code == error.success) {
@@ -99,10 +97,8 @@
           }
         }
       } else if(store.weShare == true){
-        // alert(store.weShare);
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
-          // alert('to1')
       }
       }
     // }
@@ -139,7 +135,6 @@
           }
           if(sitetype != "4" && wx){
             if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-              alert(this.$route.fullPath)
               localStorage.paySweepCodeId = query.id || '';
             }
             window.location.href = auth;
