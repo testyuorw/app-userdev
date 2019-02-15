@@ -253,16 +253,6 @@ export default {
     if (store.sitetype) {
       store.sitetype = store.sitetype.val;
     }
-   if (store.sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      this.$router.push({
-        path: '/paySweepCode',
-        params: {
-          id: localStorage.paySweepCodeId || ''
-        }
-      })
-     return
-    }
-    page.title("登录");
 
     store.vm = this;
     //判断有没有登录
@@ -288,6 +278,17 @@ export default {
       //   }
       // });
     }
+
+    if (store.sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      this.$router.push({
+        path: '/paySweepCode',
+        params: {
+          id: localStorage.paySweepCodeId || ''
+        }
+      })
+      return
+    }
+    page.title("登录");
   },
   methods: method
 };
