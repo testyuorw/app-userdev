@@ -78,14 +78,14 @@
           }
         } else {
           if (sitetype != "5" && store.weShare == false) {
-            if (!localStorage.paySweepCodeId) {
-              this.$router.push({path: '/login'});
-            }
+            store.vm.$toast(1, "center");
+            this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
             try {
               store.openid = tool.get.call(store.vm, 'openid');
               api2.check_openid({openid: store.openid}).then(function (res) {
                 if (!res.result || res.result == null || res.result == 'null') {
+                  store.vm.$toast(2, "center");
                   $this.$router.push({path: '/login'});
                   //alert('to2')
                   return false;
@@ -102,6 +102,7 @@
       } else if(store.weShare == true){
         // alert(store.weShare);
         if (path == '/confirmOrder' && !CheckLogin) {
+          store.vm.$toast(3, "center");
           $this.$router.push({path: '/login'});
           // alert('to1')
         }
