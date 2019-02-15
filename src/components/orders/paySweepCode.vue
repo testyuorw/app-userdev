@@ -116,11 +116,12 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost')){
+    if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
       store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return
     }
     if (store.id) {
+      store.id=store.id==undefined?'':store.id
       const formObj = {
         id: store.id
       }
@@ -152,7 +153,6 @@
       store.vm = this;
       lstore.set_item('sitetype', 6);
       if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
-        alert(this.$route.query.id)
         store.queryId = true
         store.id = this.$route.query.id || localStorage.paySweepCodeId || '';
         method.getorder();
