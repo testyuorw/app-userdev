@@ -36,7 +36,7 @@
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
-    }
+          }
     // else{
       loadmore.clear();
       setSiteType(fullPath);
@@ -44,7 +44,15 @@
       if (sitetype) {
         sitetype = sitetype.val;
       }
-
+      alert(sitetype)
+    if (sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      this.$router.push({
+        path: '/paySweepCode',
+        params: {
+          id: localStorage.paySweepCodeId || ''
+        }
+      })
+    }
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -112,15 +120,12 @@
         fetchData.apply(this);
       }
     },
-    beforeMount(){
-      //console.log(this.$router.currentRoute);
-    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-
+      alert(openid)
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
@@ -136,7 +141,6 @@
               alert(this.$route.fullPath)
               localStorage.paySweepCodeId = query.id || '';
             }
-            alert(22)
             window.location.href = auth;
             return;
           }
