@@ -9,9 +9,9 @@
         </div>
       </div>
       <ul>
-        <li class="flex-space-between h3rem" v-if="reqSuccess && orderdetail.id">
+        <li class="flex-space-between h3rem">
           <div>销售订单编号</div>
-          <div>{{orderdetail.id}}</div>
+          <div>{{reqSuccess?orderdetail.id:'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>销售日期</div>
@@ -151,8 +151,7 @@
       page.title('订单支付');
       store.vm = this;
       var self = this;
-      alert(JSON.stringify(store));
-      if (self.$route.query.id||localStorage.paySweepCodeId) {
+      if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
         store.queryId = true
         store.id = self.$route.query.id || localStorage.paySweepCodeId;
         method.getorder();
