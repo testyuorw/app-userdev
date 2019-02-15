@@ -117,6 +117,9 @@
         fetchData.apply(this);
       }
     },
+    beforeCreate () {
+      alert('beforeCreate:'+location.href)
+    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
