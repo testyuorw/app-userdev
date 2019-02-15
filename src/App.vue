@@ -142,6 +142,9 @@
         }
       }
       fetchData.apply(this);
+    },
+    destroyed() {
+      localStorage.removeItem('paySweepCodeId')
     }
   }
 </script>
