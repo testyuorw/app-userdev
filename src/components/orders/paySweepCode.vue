@@ -155,9 +155,10 @@
       if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
         store.queryId = true
         store.id = self.$route.query.id || localStorage.paySweepCodeId;
+        self.$route.query.id = store.id;
+        localStorage.removeItem('paySweepCodeId');
         method.getorder();
       }
-      localStorage.removeItem('paySweepCodeId');
     }
   }
 </script>

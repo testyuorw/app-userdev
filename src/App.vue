@@ -51,7 +51,6 @@
           id: localStorage.paySweepCodeId || ''
         }
       })
-      localStorage.removeItem('paySweepCodeId');
       return
     }
       if (fullPath == '/userProtocol') {
