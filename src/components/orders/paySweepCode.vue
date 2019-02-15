@@ -23,11 +23,11 @@
         </li>
         <li class="flex-space-between h3rem">
           <div>联系人</div>
-          <div>{{reqSuccess?orderdetail.linkman.slice(0,1)+'**':'暂无'}}</div>
+          <div>{{reqSuccess&&orderdetail.linkman?orderdetail.linkman.slice(0,1)+'**':'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>联系电话</div>
-          <div>{{reqSuccess?orderdetail.tel.slice(0,3)+'****'+orderdetail.tel.slice(-4):'暂无'}}</div>
+          <div>{{reqSuccess&&orderdetail.tel?orderdetail.tel.slice(0,3)+'****'+orderdetail.tel.slice(-4):'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>订单状态</div>
