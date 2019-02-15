@@ -37,14 +37,7 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    if (sitetype&&lstore.get_item('sitetype').val==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      this.$router.push({
-        path: '/paySweepCode',
-        params: {
-          id: localStorage.paySweepCodeId
-        }
-      })
-    }else{
+    // else{
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
@@ -105,7 +98,7 @@
           // alert('to1')
       }
       }
-    }
+    // }
 
   };
   export default {
@@ -149,7 +142,9 @@
             return;
           }
         }
-      }
+      }/*else{
+        localStorage.removeItem('paySweepCodeId');
+      }*/
       fetchData.apply(this);
     }
   }
