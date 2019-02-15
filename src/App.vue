@@ -19,10 +19,13 @@
 
   var store = {};
   const setSiteType = function (fullPath) {
-    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3};
+    const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3,'/paySweepCode':6};
     if (val.hasOwnProperty(fullPath)) {
       lstore.remove('sitetype');
       lstore.set_item('sitetype', val[fullPath]);
+      if (this.$route.fullPath.includes('paySweepCode')) {
+        localStorage.paySweepCodeId = query.id || '';
+      }
     }
   };
   var fetchData = function () {
@@ -37,23 +40,21 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    loadmore.clear();
-    store.vm.$toast(fullPath, "center");
-    setSiteType(fullPath);
-    let sitetype = lstore.get_item('sitetype');
-    if (sitetype) {
-      sitetype = sitetype.val;
-    }
-    if (fullPath.includes('paySweepCode')) {
-      localStorage.paySweepCodeId = query.id ? query.id : '';
-      this.$router.push({
-        path: '/paySweepCode',
-        params: {
-          id: localStorage.paySweepCodeId
-        }
-      })
-    }
-    else{
+    // if (localStorage.paySweepCodeId) { // 单独处理扫码支付订单业务 add on 2019/01/30
+    //   this.$router.push({
+    //     path: '/paySweepCode',
+    //     params: {
+    //       id: localStorage.paySweepCodeId
+    //     }
+    //   })
+    // }else{
+      loadmore.clear();
+      setSiteType(fullPath);
+      let sitetype = lstore.get_item('sitetype');
+      if (sitetype) {
+        sitetype = sitetype.val;
+      }
+
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -64,29 +65,37 @@
         }
         var CheckLogin = userinfo.info.call(this,cookie_name);
         //没分享要登录
-        console.log('check login' + sitetype);
+        console.log('check login:' + sitetype);
         if (CheckLogin) {
           if (fullPath == '/login') {
             var url = {
               'true': '/userInfo',
-              'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',4:'/workerDetail', 5: '/confirmOrder'}
+              'false': {1: '/allWorker', 2: '/manyOrders', 3: '/allProduct',
+                4:'/workerDetail', 5: '/confirmOrder', '/paySweepCode':6}
             };
             let location_url = url['false'];
             if ('object' == typeof  location_url) {
               location_url = location_url[sitetype];
             }
-            this.$router.push({path: location_url})
+            if(sitetype==6){
+                this.$router.push({
+                  path: '/paySweepCode',
+                  params: {
+                    id: localStorage.paySweepCodeId
+                  }
+                })
+            }else{
+              this.$router.push({path: location_url})
+            }
           }
         } else {
           if (sitetype != "5" && store.weShare == false) {
-            store.vm.$toast(1, "center");
             this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
             try {
               store.openid = tool.get.call(store.vm, 'openid');
               api2.check_openid({openid: store.openid}).then(function (res) {
                 if (!res.result || res.result == null || res.result == 'null') {
-                  store.vm.$toast(2, "center");
                   $this.$router.push({path: '/login'});
                   //alert('to2')
                   return false;
@@ -103,12 +112,19 @@
       } else if(store.weShare == true){
         // alert(store.weShare);
         if (path == '/confirmOrder' && !CheckLogin) {
-          store.vm.$toast(3, "center");
           $this.$router.push({path: '/login'});
           // alert('to1')
+        }else if(sitetype==6){
+          this.$router.push({
+            path: '/paySweepCode',
+            params: {
+              id: localStorage.paySweepCodeId
+            }
+          })
         }
       }
-    }
+    // }
+
   };
   export default {
     name: 'app',
@@ -123,16 +139,15 @@
         fetchData.apply(this);
       }
     },
+    beforeMount(){
+      //console.log(this.$router.currentRoute);
+    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
-      if (this.$route.fullPath.includes('paySweepCode')) {
-       // localStorage.paySweepCodeId = query.id;
-      }else{
-        localStorage.removeItem('paySweepCodeId');
-      }
+
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');

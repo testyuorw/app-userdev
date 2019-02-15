@@ -148,10 +148,6 @@ api.creat_share_order = function (params) {
 api.check_openid = function (params) {
   return http('post', '/api/howner/checkOpenid', params);
 };
-//获取openid接口
-api.get_openid = function (params) {
-  return http('post', '/api/h5/openid', params);
-};
 // api.share = function (params) {
 //   return http('get', '/api/micro/share', params);
 // }
