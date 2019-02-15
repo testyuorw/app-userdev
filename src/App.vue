@@ -144,14 +144,14 @@
             if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
               localStorage.paySweepCodeId = query.id || '';
             }
+            alert(this.$route.fullPath)
             window.location.href = auth;
             return;
           }
         }
       }else{
-        setSiteType(this.$route.fullPath);
+        localStorage.removeItem('paySweepCodeId');
       }
-      localStorage.removeItem('paySweepCodeId');
       fetchData.apply(this);
     }
   }

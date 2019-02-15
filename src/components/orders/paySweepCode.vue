@@ -152,7 +152,7 @@
       page.title('订单支付');
       store.vm = this;
       var self = this;
-      alert(3333333)
+      lstore.set_item('sitetype', 6);
       if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
         store.queryId = true
         store.id = self.$route.query.id || localStorage.paySweepCodeId;
