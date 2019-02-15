@@ -128,6 +128,7 @@
         if (res.code == 200) {
           store.reqSuccess = true;
           store.orderdetail = res.result;
+          localStorage.removeItem('paySweepCodeId');
         } else {
           store.reqSuccess = false;
           store.vm.$toast(res.msg, "center");
