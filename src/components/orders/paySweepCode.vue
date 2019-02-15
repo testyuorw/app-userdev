@@ -149,16 +149,18 @@
     },
     methods: method,
     mounted: function () {
-      window.location.href = auth;
-      page.title('订单支付');
-      store.vm = this;
-      var self = this;
-      if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
-        store.queryId = true
-        store.id = self.$route.query.id || localStorage.paySweepCodeId;
-        method.getorder();
-      }
-      localStorage.removeItem('paySweepCodeId');
+      api.get_openid().then(function () {
+        page.title('订单支付');
+        store.vm = this;
+        var self = this;
+        if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
+          store.queryId = true
+          store.id = self.$route.query.id || localStorage.paySweepCodeId;
+          method.getorder();
+        }
+        localStorage.removeItem('paySweepCodeId');
+      })
+
     }
   }
 </script>
