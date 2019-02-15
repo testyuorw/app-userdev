@@ -36,7 +36,6 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
           }
-    // else{
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
@@ -52,6 +51,7 @@
           id: localStorage.paySweepCodeId || ''
         }
       })
+      localStorage.removeItem('paySweepCodeId');
       return
     }
       if (fullPath == '/userProtocol') {
@@ -101,8 +101,7 @@
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
       }
-      }
-    // }
+    }
 
   };
   export default {
@@ -142,9 +141,7 @@
             return;
           }
         }
-      }/*else{
-        localStorage.removeItem('paySweepCodeId');
-      }*/
+      }
       fetchData.apply(this);
     }
   }
