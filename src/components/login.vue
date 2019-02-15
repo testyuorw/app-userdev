@@ -212,13 +212,6 @@ method.login = function() {
       }
       cookie.set.call(store.vm, "sharezjbird", res.result, 1000); //设置为已登录cookie
     });
-  }else if (store.sitetype.val==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
-    this.$router.push({
-      path: '/paySweepCode',
-      params: {
-        id: localStorage.paySweepCodeId || ''
-      }
-    })
   } else {
     api.login(store.form).then(function(response) {
       if (error.success == response.code) {
@@ -250,6 +243,15 @@ export default {
     $route: "fetchData"
   },
   mounted() {
+   if (store.sitetype.val==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
+      this.$router.push({
+        path: '/paySweepCode',
+        params: {
+          id: localStorage.paySweepCodeId || ''
+        }
+      })
+     return
+    }
     page.title("登录");
 
     store.vm = this;

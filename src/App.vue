@@ -70,9 +70,7 @@
           }
         } else {
           if (sitetype != "5" && store.weShare == false) {
-            if (!localStorage.paySweepCodeId) {
-              this.$router.push({path: '/login'});
-            }
+            this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
             try {
               store.openid = tool.get.call(store.vm, 'openid');
@@ -135,9 +133,10 @@
           }
           if(sitetype != "4" && wx){
             if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
+              alert(this.$route.fullPath)
               localStorage.paySweepCodeId = query.id || '';
             }
-            alert(this.$route.fullPath)
+            alert(22)
             window.location.href = auth;
             return;
           }
