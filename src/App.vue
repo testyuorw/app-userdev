@@ -38,6 +38,7 @@
       lstore.set_item('openid', openid);
     }
     loadmore.clear();
+    store.vm.$toast(fullPath, "center");
     setSiteType(fullPath);
     let sitetype = lstore.get_item('sitetype');
     if (sitetype) {
