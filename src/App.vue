@@ -77,7 +77,7 @@
             this.$router.push({path: location_url})
           }
         } else {
-          if (sitetype != "5" && store.weShare == false) {
+          if (sitetype != "5" && store.weShare == false && !fullPath.includes('paySweepCode')) {
             store.vm.$toast(1, "center");
             this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
