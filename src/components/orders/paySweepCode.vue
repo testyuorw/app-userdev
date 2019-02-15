@@ -62,7 +62,6 @@
   import info from '../../tools/info'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
-  const auth = api + '/api/h5/openid';
   var method = {};
   var store = {};
   store.id = '';
@@ -149,18 +148,15 @@
     },
     methods: method,
     mounted: function () {
-      api.get_openid().then(function () {
-        page.title('订单支付');
-        store.vm = this;
-        var self = this;
-        if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
-          store.queryId = true
-          store.id = self.$route.query.id || localStorage.paySweepCodeId;
-          method.getorder();
-        }
-        localStorage.removeItem('paySweepCodeId');
-      })
-
+      page.title('订单支付');
+      store.vm = this;
+      var self = this;
+      if (self.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
+        store.queryId = true
+        store.id = self.$route.query.id || localStorage.paySweepCodeId;
+        method.getorder();
+      }
+      localStorage.removeItem('paySweepCodeId');
     }
   }
 </script>
