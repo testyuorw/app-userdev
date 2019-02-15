@@ -1,7 +1,7 @@
 <template>
   <div class="container w100 h100 bgf5">
     <div class="orderBox">
-      <div class="h3rem bdb" v-if="orderdetail.paystatus != 2 || !orderdetail.id">
+      <div class="h3rem bdb" v-show="orderdetail.paystatus != 2 || !orderdetail.id">
         <div>销售订单编号:</div>
         <div class="flex-space-between">
           <input type="text" placeholder="请输入销售订单编号" v-model="id">
@@ -128,7 +128,6 @@
         if (res.code == 200) {
           store.reqSuccess = true;
           store.orderdetail = res.result;
-          localStorage.removeItem('paySweepCodeId');
         } else {
           store.reqSuccess = false;
           store.vm.$toast(res.msg, "center");
@@ -155,6 +154,7 @@
       if (self.$route.query.id||localStorage.paySweepCodeId) {
         store.queryId = true
         store.id = self.$route.query.id || localStorage.paySweepCodeId;
+        localStorage.removeItem('paySweepCodeId');
         method.getorder();
       }
     }
