@@ -23,11 +23,11 @@
         </li>
         <li class="flex-space-between h3rem">
           <div>联系人</div>
-          <div>{{reqSuccess?orderdetail.linkman:'暂无'}}</div>
+          <div>{{reqSuccess?orderdetail.linkman.slice(0,1)+'**':'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>联系电话</div>
-          <div>{{reqSuccess?orderdetail.tel:'暂无'}}</div>
+          <div>{{reqSuccess?orderdetail.tel.slice(0,2)+'******'+orderdetail.tel.slice(-2):'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>订单状态</div>
@@ -116,10 +116,10 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    if(!lstore.get_item('openid')||!lstore.get_item('openid').val){
-      store.vm.$toast('用户信息获取失败，请重新获取~', "center");
-      return
-    }
+    // if(!lstore.get_item('openid')||!lstore.get_item('openid').val){
+    //   store.vm.$toast('用户信息获取失败，请重新获取~', "center");
+    //   return
+    // }
     if (store.orderdetail.id) {
       api.get_orderdetail(store.orderdetail).then(function (res) {
         if (res.code == 200) {
