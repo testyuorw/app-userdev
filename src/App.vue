@@ -49,7 +49,9 @@
       //     id: localStorage.paySweepCodeId || ''
       //   }
       // })
-      location.href='/#/paySweepCode?id='+localStorage.paySweepCodeId || ''
+      location.href='/#/paySweepCode?id='+localStorage.paySweepCodeId || '';
+
+      localStorage.removeItem('paySweepCodeId');
       return
     }
     localStorage.removeItem('paySweepCodeId');
