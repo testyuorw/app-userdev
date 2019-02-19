@@ -147,6 +147,9 @@
     data(){
       return store;
     },
+    watch: {
+      '$route': 'fetchData'
+    },
     methods: method,
     mounted () {
       page.title('订单支付');
