@@ -105,6 +105,7 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
+    alert((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android'))
     if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
       store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return
@@ -181,6 +182,7 @@
       page.title('订单支付');
       store.vm = this;
       lstore.set_item('sitetype', 6);
+      alert(location.href);
       let query = this.$route.query;
       if (query.hasOwnProperty('openid')) {
         const openid = query['openid'];
