@@ -42,18 +42,6 @@
       if (sitetype) {
         sitetype = sitetype.val;
       }
-    if (sitetype==6) {
-      // this.$router.push({
-      //   path: '/paySweepCode',
-      //   params: {
-      //     id: localStorage.paySweepCodeId || ''
-      //   }
-      // })
-      localStorage.paySweepCodeId=localStorage.paySweepCodeId==undefined?'':localStorage.paySweepCodeId
-      location.href='/#/paySweepCode?id='+localStorage.paySweepCodeId;
-      return
-    }
-    localStorage.removeItem('paySweepCodeId');
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -135,11 +123,10 @@
           if (wx) {
             wx = wx.val;
           }
-          alert(sitetype);
-          if((sitetype != "4" && sitetype != '6') && wx){
-            if (this.$route.fullPath.includes('paySweepCode')) {
-              localStorage.paySweepCodeId = query.id;
-            }
+          if((sitetype != "4") && wx){
+            // if (this.$route.fullPath.includes('paySweepCode')) {
+            //   localStorage.paySweepCodeId = query.id;
+            // }
             window.location.href = auth;
             return;
           }
