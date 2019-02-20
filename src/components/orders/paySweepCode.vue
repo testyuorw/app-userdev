@@ -182,9 +182,8 @@
     methods: method,
     beforeCreate () {
       alert('pay' + location.href);
-
-      let urlArr = location.href.split('?');
-      alert(urlArr[0]+'---'+urlArr[1]+'---'+urlArr[2])
+      let urlArr = location.href.split('?').toString();
+      alert(urlArr)
     },
     mounted () {
       page.title('订单支付');
