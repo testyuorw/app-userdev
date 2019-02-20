@@ -180,6 +180,9 @@
       '$route': 'fetchData'
     },
     methods: method,
+    beforeCreate () {
+      alert('pay' + location.href)
+    },
     mounted () {
       page.title('订单支付');
       store.vm = this;
