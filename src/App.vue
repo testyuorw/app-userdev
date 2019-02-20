@@ -121,6 +121,7 @@
     },
     mounted: function () {
       store.vm = this;
+      store.vm.auth = auth
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
@@ -135,7 +136,7 @@
             wx = wx.val;
           }
           alert(sitetype);
-          if((sitetype != "4" || sitetype != 6) && wx){
+          if((sitetype != "4" || sitetype == 6) && wx){
             // if (this.$route.fullPath.includes('paySweepCode')) {
             //   localStorage.paySweepCodeId = query.id;
             // }
