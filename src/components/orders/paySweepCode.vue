@@ -57,7 +57,6 @@
   import page from '../page'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
-  import cookie from './tools/cookie'
   var method = {};
   var store = {};
   store.id = '';
@@ -191,11 +190,6 @@
         store.id = this.$route.query.id || '';
         method.getorder();
       }
-      const openid = cookie.get.call(this, 'openid');
-      // if (!openid) {
-      //   alert(66)
-      //   window.location.href = auth;
-      // }
     }
   }
 </script>
