@@ -119,7 +119,6 @@
     },
     mounted: function () {
       store.vm = this;
-      store.vm.auth = auth
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');

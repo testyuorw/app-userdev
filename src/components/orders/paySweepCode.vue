@@ -106,10 +106,11 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    // if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
-    //   store.vm.$toast('用户信息获取失败，请重新获取~', "center");
-    //   return
-    // }
+    if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
+      store.vm.$toast('用户信息获取失败，请重新获取~', "center");
+      window.location.href = auth;
+      return
+    }
     if (store.id) {
       store.id=store.id==undefined?'':store.id;
       const formObj = {
@@ -188,14 +189,14 @@
       // if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
       if (this.$route.query.id) {
         store.queryId = true;
-        store.id = this.$route.query.id || localStorage.paySweepCodeId || '';
+        store.id = this.$route.query.id || '';
         method.getorder();
       }
       const openid = cookie.get.call(this, 'openid');
-      if (!openid) {
-        alert(66)
-        window.location.href = auth;
-      }
+      // if (!openid) {
+      //   alert(66)
+      //   window.location.href = auth;
+      // }
     }
   }
 </script>
