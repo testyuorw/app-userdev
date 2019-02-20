@@ -181,7 +181,14 @@
       page.title('订单支付');
       store.vm = this;
       lstore.set_item('sitetype', 6);
-      alert(lstore.get_item('openid'))
+      let query = this.$route.query;
+      if (query.hasOwnProperty('openid')) {
+        const openid = query['openid'];
+        cookie.set.call(this, 'openid', openid);
+        lstore.set_item('openid', openid);
+        alert(openid)
+        alert(query.id)
+      }
       // if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
       if (this.$route.query.id) {
         store.queryId = true;
