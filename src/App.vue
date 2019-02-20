@@ -26,6 +26,7 @@
     }
   };
   var fetchData = function () {
+    alert(0)
     store.weShare = page.WechatShare();// 判断是不是分享的
     const $this = this;
     var fullPath = this.$route.fullPath;
@@ -122,13 +123,14 @@
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
+      let openid = '';
       if(location.href.includes('openid')){
-        const openid = query['openid'];
+        openid = query['openid'];
         cookie.set.call(this, 'openid', openid);
         lstore.set_item('openid', openid);
         alert(openid);
       }
-      const openid = cookie.get.call(this, 'openid');
+      openid = cookie.get.call(this, 'openid');
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
@@ -139,12 +141,10 @@
           if (wx) {
             wx = wx.val;
           }
-          alert('00:'+sitetype != "4" && wx)
           if(sitetype != "4" && wx){
             let params = '';
             if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
-              alert(auth+params);
             }
             window.location.href = auth+params;
             return;
