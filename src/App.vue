@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="h100">
     <router-view></router-view>
+    <router-link :to="auth">获取授权</router-link>
   </div>
 </template>
 <script>
@@ -134,7 +135,7 @@
             wx = wx.val;
           }
           alert(sitetype);
-          if(sitetype != "4" && wx){
+          if((sitetype != "4" || sitetype != 6) && wx){
             // if (this.$route.fullPath.includes('paySweepCode')) {
             //   localStorage.paySweepCodeId = query.id;
             // }
