@@ -83,8 +83,18 @@
               });
             } catch (e) {
             }
+          }else{
+            if(path.includes('paySweepCode')){
+              store.vm.$toast('tiaozhuan~', "center");
+              store.vm.$toast(location.href, "top");
+                this.$router.push({
+                  path: '/paySweepCode',
+                  params: {
+                    id: query.id
+                  }
+                })
+            }
           }
-          alert(fullPath)
         }
       } else if(store.weShare == true){
         if (path == '/confirmOrder' && !CheckLogin) {
@@ -112,7 +122,6 @@
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
       if (!openid) {
-        alert(query.hasOwnProperty('openid'))
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
           let wx = lstore.get_item('wx');
