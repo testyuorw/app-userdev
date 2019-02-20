@@ -187,7 +187,6 @@
         cookie.set.call(this, 'openid', openid);
         lstore.set_item('openid', openid);
       }
-      alert(this.$route.query.split('?').toString())
       if (this.$route.query.id) {
         store.queryId = true;
         store.id = this.$route.query.id || '';
