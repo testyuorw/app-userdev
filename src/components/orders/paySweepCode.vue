@@ -176,14 +176,12 @@
     data(){
       return store;
     },
-    watch: {
-      '$route': 'fetchData'
-    },
     methods: method,
     mounted () {
       page.title('订单支付');
       store.vm = this;
       lstore.set_item('sitetype', 6);
+      alert(lstore.get_item('openid'))
       // if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
       if (this.$route.query.id) {
         store.queryId = true;
