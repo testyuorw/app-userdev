@@ -54,12 +54,7 @@
 
 <script>
   import api from '../../services/api'
-  import user from '../../services/userinfo'
-  import error from '../../services/error'
-  import cookie from '../../tools/cookie'
   import page from '../page'
-  import hook from '../../tools/hook'
-  import info from '../../tools/info'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
   var method = {};
@@ -116,10 +111,10 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
-      store.vm.$toast('用户信息获取失败，请重新获取~', "center");
-      return
-    }
+    // if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
+    //   store.vm.$toast('用户信息获取失败，请重新获取~', "center");
+    //   return
+    // }
     if (store.id) {
       store.id=store.id==undefined?'':store.id;
       const formObj = {
@@ -187,9 +182,9 @@
     data(){
       return store;
     },
-    watch: {
-      '$route': 'fetchData'
-    },
+    // watch: {
+    //   '$route': 'fetchData'
+    // },
     methods: method,
     mounted () {
       page.title('订单支付');

@@ -26,7 +26,7 @@
     }
   };
   var fetchData = function () {
-    store.weShare = page.WechatShare();//判断是不是分享的
+    store.weShare = page.WechatShare();// 判断是不是分享的
     const $this = this;
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
@@ -35,25 +35,25 @@
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
-          }
+    }
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
       if (sitetype) {
         sitetype = sitetype.val;
       }
-    if (sitetype==6) { // 单独处理扫码支付订单业务 add on 2019/01/30
-      // this.$router.push({
-      //   path: '/paySweepCode',
-      //   params: {
-      //     id: localStorage.paySweepCodeId || ''
-      //   }
-      // })
-      localStorage.paySweepCodeId=localStorage.paySweepCodeId==undefined?'':localStorage.paySweepCodeId
-      location.href='/#/paySweepCode?id='+localStorage.paySweepCodeId;
-      return
-    }
-    localStorage.removeItem('paySweepCodeId');
+    // if (sitetype==6) {
+    //   // this.$router.push({
+    //   //   path: '/paySweepCode',
+    //   //   params: {
+    //   //     id: localStorage.paySweepCodeId || ''
+    //   //   }
+    //   // })
+    //   localStorage.paySweepCodeId=localStorage.paySweepCodeId==undefined?'':localStorage.paySweepCodeId
+    //   location.href='/#/paySweepCode?id='+localStorage.paySweepCodeId;
+    //   return
+    // }
+    // localStorage.removeItem('paySweepCodeId');
       if (fullPath == '/userProtocol') {
         this.$router.push({path: '/userProtocol'})
       }
@@ -98,6 +98,7 @@
           }
         }
       } else if(store.weShare == true){
+        alert('store.weShare == true');
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
       }
@@ -134,9 +135,9 @@
           }
           alert(sitetype);
           if(sitetype != "4" && wx){
-            if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
-              localStorage.paySweepCodeId = query.id;
-            }
+            // if (this.$route.fullPath.includes('paySweepCode')) {
+            //   localStorage.paySweepCodeId = query.id;
+            // }
             window.location.href = auth;
             return;
           }

@@ -345,6 +345,7 @@
       starRating
     },
     mounted:function () {
+      alert(0)
       var self = this;
       lstore.set_item('sitetype', 4);
       store.weShare = page.WechatShare();
