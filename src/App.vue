@@ -36,7 +36,6 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    alert(query['openid']);
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
@@ -129,10 +128,14 @@
             window.location.href = auth;
             return;
           }
+        }else{
+          const openid = query['openid'];
+          cookie.set.call(this, 'openid', openid);
+          lstore.set_item('openid', openid);
+          alert(query['openid']);
         }
       }
       fetchData.apply(this);
-
     }
   }
 </script>
