@@ -122,7 +122,12 @@
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
-      alert(location.href)
+      if(location.href.includes('openid')){
+        const openid = query['openid'];
+        cookie.set.call(this, 'openid', openid);
+        lstore.set_item('openid', openid);
+        alert(openid);
+      }
       const openid = cookie.get.call(this, 'openid');
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
