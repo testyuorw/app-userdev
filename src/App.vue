@@ -36,6 +36,7 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
+    alert(fullPath)
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
@@ -121,6 +122,7 @@
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;
+      alert(location.href)
       const openid = cookie.get.call(this, 'openid');
       if (!openid) {
         if (!query.hasOwnProperty('openid')) {
