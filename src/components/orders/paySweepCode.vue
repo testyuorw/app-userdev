@@ -180,10 +180,9 @@
       '$route': 'fetchData'
     },
     methods: method,
-    beforeCreate () {
-      alert('pay' + location.href)
-    },
     mounted () {
+      let urlArr = location.href.split('?');
+      alert(urlArr[0]+'---'+urlArr[1]+'---'+urlArr[2])
       page.title('订单支付');
       store.vm = this;
       lstore.set_item('sitetype', 6);
