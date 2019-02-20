@@ -19,14 +19,19 @@
 
   var store = {};
   const setSiteType = function (fullPath) {
+
     const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
       lstore.remove('sitetype');
-      lstore.set_item('sitetype', val[fullPath]);
+      if(localStorage.pay){
+        lstore.set_item('sitetype', 6);
+        localStorage.removeItem('pay');
+      }else{
+        lstore.set_item('sitetype', val[fullPath]);
+      }
     }
   };
   var fetchData = function () {
-    alert(0)
     store.weShare = page.WechatShare();// 判断是不是分享的
     const $this = this;
     var fullPath = this.$route.fullPath;
@@ -37,11 +42,11 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
-    alert(fullPath)
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-      if (sitetype) {
+    alert(sitetype)
+    if (sitetype) {
         sitetype = sitetype.val;
       }
       if (fullPath == '/userProtocol') {
@@ -145,6 +150,7 @@
             let params = '';
             if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
+              localStorage.pay = true
             }
             window.location.href = auth+params;
             return;
