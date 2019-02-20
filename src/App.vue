@@ -36,6 +36,7 @@
       cookie.set.call(this, 'openid', openid);
       lstore.set_item('openid', openid);
     }
+    alert(query['openid']);
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
@@ -84,6 +85,7 @@
             } catch (e) {
             }
           }
+          alert(fullPath)
         }
       } else if(store.weShare == true){
         if (path == '/confirmOrder' && !CheckLogin) {
@@ -124,9 +126,6 @@
             wx = wx.val;
           }
           if((sitetype != "4") && wx){
-            // if (this.$route.fullPath.includes('paySweepCode')) {
-            //   localStorage.paySweepCodeId = query.id;
-            // }
             window.location.href = auth;
             return;
           }
