@@ -115,6 +115,7 @@
       const query = this.$route.query;
       const openid = cookie.get.call(this, 'openid');
       if (!openid) {
+        alert(query.hasOwnProperty('openid'))
         if (!query.hasOwnProperty('openid')) {
           let sitetype = lstore.get_item('sitetype');
           let wx = lstore.get_item('wx');
@@ -128,11 +129,6 @@
             window.location.href = auth;
             return;
           }
-        }else{
-          const openid = query['openid'];
-          cookie.set.call(this, 'openid', openid);
-          lstore.set_item('openid', openid);
-          alert(query['openid']);
         }
       }
       fetchData.apply(this);
