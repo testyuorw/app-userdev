@@ -22,6 +22,8 @@
 
     const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
+      alert(val[fullPath]+'--val[fullPath]--'+fullPath)
+      alert(localStorage.pay)
       lstore.remove('sitetype');
       if(localStorage.pay){
         lstore.set_item('sitetype', 6);
@@ -45,7 +47,7 @@
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-    alert(sitetype)
+    alert(sitetype.val);
     if (sitetype) {
         sitetype = sitetype.val;
       }
@@ -151,6 +153,7 @@
             if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
               localStorage.pay = true
+              alert('localStorage.pay' + localStorage.pay)
             }
             window.location.href = auth+params;
             return;
