@@ -106,6 +106,9 @@
         fetchData.apply(this);
       }
     },
+    beforeCreate(){
+      localStorage.clear();
+    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
