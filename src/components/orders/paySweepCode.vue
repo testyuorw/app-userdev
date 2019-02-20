@@ -181,7 +181,7 @@
     },
     methods: method,
     beforeCreate () {
-      alert('pay' + location.href);
+      alert('pay:' + location.href);
       let urlArr = location.href.split('?').toString();
       alert(urlArr)
     },

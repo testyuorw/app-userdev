@@ -133,7 +133,7 @@
           }
           if((sitetype != "4") && wx){
             let params = '';
-            if(path.includes('paySweepCode')){
+            if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
             }
             window.location.href = auth+params;
