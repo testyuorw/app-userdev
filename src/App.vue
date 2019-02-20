@@ -66,7 +66,7 @@
             this.$router.push({path: location_url})
           }
         } else {
-          alert('fetchData')
+          alert('fetchData'+sitetype)
           if (sitetype != "5" && sitetype != "6") {
             this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
