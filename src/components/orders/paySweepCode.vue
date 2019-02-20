@@ -57,6 +57,7 @@
   import page from '../page'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
+  import cookie from './tools/cookie'
   var method = {};
   var store = {};
   store.id = '';
