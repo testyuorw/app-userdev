@@ -116,13 +116,12 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    alert(window.navigator.userAgent.toLocaleLowerCase())
     if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
       store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return
     }
     if (store.id) {
-      store.id=store.id==undefined?'':store.id
+      store.id=store.id==undefined?'':store.id;
       const formObj = {
         id: store.id
       }
@@ -130,6 +129,7 @@
         if (res.code == 200) {
           store.reqSuccess = true;
           store.orderdetail = res.result;
+          method.weChatShare();
         } else {
           store.reqSuccess = false;
           store.vm.$toast(res.msg, "center");
@@ -141,6 +141,41 @@
       })
     } else {
       store.vm.$toast('请输入订单号~', "center");
+    }
+  };
+  //微信分享的方法
+  method.weChatShare = function () {
+    try {
+      store.vm.$toast('666', "top");
+      api.share({url:window.location.host+'/#/paySweepCode?id='+store.id}).then(function (response) {
+        const  result = response.result;
+        const config = {
+          debug: false,
+          appId: result['appid'],
+          timestamp: result['timestamp'],
+          nonceStr: result['nonceStr'],
+          signature: result['signature'],
+          jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
+        };
+        wx.config(config);
+        wx.ready(function () {
+          var shareData = {
+            title: '住建鸟快速付款通道来了~~',
+            desc: '录入订单号，快速付款',
+            link: window.location.host+'/#/paySweepCode?id='+store.id,
+            imgUrl: './src/assets/images/payCode.png',
+            success:function () {
+            }
+          };
+          wx.onMenuShareAppMessage(shareData);
+          wx.onMenuShareTimeline(shareData);
+        });
+        wx.error(function(res){
+          console.log(res)
+        });
+      })
+    }catch (e) {
+      console.log(e.message);
     }
   };
   export default {
@@ -156,8 +191,9 @@
       page.title('订单支付');
       store.vm = this;
       lstore.set_item('sitetype', 6);
-      if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
-        store.queryId = true
+      // if (this.$route.query.id||(localStorage.paySweepCodeId&&localStorage.paySweepCodeId!="undefined")) {
+      if (this.$route.query.id) {
+        store.queryId = true;
         store.id = this.$route.query.id || localStorage.paySweepCodeId || '';
         method.getorder();
       }
