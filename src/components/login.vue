@@ -248,7 +248,7 @@ export default {
     store.vm = this;
     //判断有没有登录
     store.path = store.vm.$route.path;
-alert(99)
+    alert('loginPage')
     if (lstore.get_item("workid")) {
       store.workid = lstore.get_item("workid").val;
     }

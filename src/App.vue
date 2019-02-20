@@ -131,10 +131,12 @@
           if (wx) {
             wx = wx.val;
           }
-          if((sitetype != "4") && wx){
+          alert('00:'+sitetype != "4" && wx)
+          if(sitetype != "4" && wx){
             let params = '';
             if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
+              alert(auth+params);
             }
             window.location.href = auth+params;
             return;
