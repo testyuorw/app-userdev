@@ -132,6 +132,7 @@
           if (wx) {
             wx = wx.val;
           }
+          alert(sitetype);
           if(sitetype != "4" && wx){
             if (this.$route.fullPath.includes('paySweepCode')) { // 单独处理扫码支付订单业务 add on 2019/01/30
               localStorage.paySweepCodeId = query.id;

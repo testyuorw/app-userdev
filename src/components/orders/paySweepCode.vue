@@ -146,7 +146,6 @@
   //微信分享的方法
   method.weChatShare = function () {
     try {
-      store.vm.$toast('666', "top");
       api.share({url:window.location.host+'/#/paySweepCode?id='+store.id}).then(function (response) {
         const  result = response.result;
         const config = {
@@ -157,6 +156,7 @@
           signature: result['signature'],
           jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
         };
+        store.vm.$toast('666', "top");
         wx.config(config);
         wx.ready(function () {
           var shareData = {
@@ -165,6 +165,10 @@
             link: window.location.host+'/#/paySweepCode?id='+store.id,
             imgUrl: './src/assets/images/payCode.png',
             success:function () {
+              store.vm.$toast('success', "top");
+            },
+            cancel: function () {
+              store.vm.$toast('2333', "top");
             }
           };
           wx.onMenuShareAppMessage(shareData);
