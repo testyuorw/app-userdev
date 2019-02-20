@@ -322,7 +322,6 @@
             link: window.location.href,
             imgUrl: store.workerdata.avator,
             success:function () {
-              alert(66666)
             }
           };
           wx.onMenuShareAppMessage(shareData);

@@ -190,6 +190,11 @@
         store.id = this.$route.query.id || localStorage.paySweepCodeId || '';
         method.getorder();
       }
+      const openid = cookie.get.call(this, 'openid');
+      if (!openid) {
+        alert(66)
+        window.location.href = auth;
+      }
     }
   }
 </script>

@@ -78,7 +78,7 @@
             this.$router.push({path: location_url})
           }
         } else {
-          if (sitetype != "5" && store.weShare == false) {
+          if (sitetype != "5" &&sitetype != "6") {
             this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
             try {
@@ -98,7 +98,6 @@
           }
         }
       } else if(store.weShare == true){
-        alert('store.weShare == true');
         if (path == '/confirmOrder' && !CheckLogin) {
           $this.$router.push({path: '/login'});
       }
@@ -134,9 +133,8 @@
           if (wx) {
             wx = wx.val;
           }
-          alert(sitetype == '6');
-          alert((sitetype != "4" || sitetype == '6') && wx)
-          if((sitetype != "4" || sitetype == '6') && wx){
+          alert(sitetype);
+          if((sitetype != "4" && sitetype != '6') && wx){
             // if (this.$route.fullPath.includes('paySweepCode')) {
             //   localStorage.paySweepCodeId = query.id;
             // }
