@@ -37,7 +37,7 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    alert('fetchData\n\nfullPath:'+fullPath+'\n\npath:'+path+'query.hasOwnProperty(\'openid\'):'+query.hasOwnProperty('openid'))
+    alert('fetchData\n\nfullPath:\n'+fullPath+'\n\n\n\npath:\n'+path+'\n\n\n\nquery.has.openid:\n'+query.hasOwnProperty('openid'))
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -125,7 +125,7 @@
       }
     },
     beforeCreate () {
-      alert('app.vue:' + location.href);
+      alert('app.vue\nbeforeCreate:' + location.href);
     },
     mounted: function () {
       store.vm = this;
@@ -160,7 +160,7 @@
           }
         }
       }
-      alert('app.mounted:\n\nlocation.href:'+location.href+'\n\nopenid:'+openid);
+      alert('app.mounted:\n\n\n\nlocation.href:\n'+location.href+'\n\n\n\nopenid\n:'+openid);
       fetchData.apply(this);
     }
   }
