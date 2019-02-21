@@ -57,6 +57,7 @@
   import page from '../page'
   import lstore from '../../tools/lstore'
   import wxpay from '../../tools/pay'
+  import cookie from '../../tools/cookie'
   var method = {};
   var store = {};
   store.id = '';
@@ -137,35 +138,37 @@
     try {
       api.share({url:window.location.host+'/#/paySweepCode?id='+store.id}).then(function (response) {
         const  result = response.result;
-        const config = {
-          debug: false,
-          appId: result['appid'],
-          timestamp: result['timestamp'],
-          nonceStr: result['nonceStr'],
-          signature: result['signature'],
-          jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
-        };
-        store.vm.$toast('666', "top");
-        wx.config(config);
-        wx.ready(function () {
-          var shareData = {
-            title: '住建鸟快速付款通道来了~~',
-            desc: '录入订单号，快速付款',
-            link: window.location.host+'/#/paySweepCode?id='+store.id,
-            imgUrl: './src/assets/images/payCode.png',
-            success:function () {
-              store.vm.$toast('success', "top");
-            },
-            cancel: function () {
-              store.vm.$toast('2333', "top");
-            }
+        if(result){
+          const config = {
+            debug: false,
+            appId: result['appid'],
+            timestamp: result['timestamp'],
+            nonceStr: result['nonceStr'],
+            signature: result['signature'],
+            jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
           };
-          wx.onMenuShareAppMessage(shareData);
-          wx.onMenuShareTimeline(shareData);
-        });
-        wx.error(function(res){
-          console.log(res)
-        });
+          store.vm.$toast('666', "top");
+          wx.config(config);
+          wx.ready(function () {
+            var shareData = {
+              title: '住建鸟快速付款通道来了~~',
+              desc: '录入订单号，快速付款',
+              link: window.location.host+'/#/paySweepCode?id='+store.id,
+              imgUrl: './src/assets/images/payCode.png',
+              success:function () {
+                store.vm.$toast('success', "top");
+              },
+              cancel: function () {
+                store.vm.$toast('2333', "top");
+              }
+            };
+            wx.onMenuShareAppMessage(shareData);
+            wx.onMenuShareTimeline(shareData);
+          });
+          wx.error(function(res){
+            console.log(res)
+          });
+        }
       })
     }catch (e) {
       console.log(e.message);
@@ -181,9 +184,9 @@
     },
     methods: method,
     beforeCreate () {
-      alert('pay:' + location.href);
-      let urlArr = location.href.split('?').toString();
-      alert(urlArr)
+      alert('pay.vue:' + location.href);
+      // let urlArr = location.href.split('?').toString();
+      // alert(urlArr)
     },
     mounted () {
       page.title('订单支付');

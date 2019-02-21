@@ -22,8 +22,6 @@
 
     const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
-      alert(val[fullPath]+'--val[fullPath]--'+fullPath)
-      alert(localStorage.pay)
       lstore.remove('sitetype');
       if(localStorage.pay){
         lstore.set_item('sitetype', 6);
@@ -39,6 +37,7 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
+    alert('fullPath:'+fullPath+'\npath:'+path+'query.hasOwnProperty(\'openid\'):'+query.hasOwnProperty('openid'))
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -47,7 +46,7 @@
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-    alert(sitetype.val);
+      alert(sitetype.val)
     if (sitetype) {
         sitetype = sitetype.val;
       }
@@ -75,7 +74,6 @@
             this.$router.push({path: location_url})
           }
         } else {
-          alert('fetchData'+sitetype)
           if (sitetype != "5" && sitetype != "6") {
             this.$router.push({path: '/login'});
           } else if (sitetype == "5") {
@@ -126,6 +124,9 @@
         fetchData.apply(this);
       }
     },
+    beforeCreate () {
+      alert('app.vue:' + location.href);
+    },
     mounted: function () {
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
@@ -135,7 +136,6 @@
         openid = query['openid'];
         cookie.set.call(this, 'openid', openid);
         lstore.set_item('openid', openid);
-        alert(openid);
       }
       openid = cookie.get.call(this, 'openid');
       if (!openid) {
@@ -152,14 +152,15 @@
             let params = '';
             if(this.$route.path.includes('paySweepCode')){
               params = '?type=6&id='+this.$route.query.id;
-              localStorage.pay = true
-              alert('localStorage.pay' + localStorage.pay)
+              localStorage.pay = true;
             }
+            alert('params:'+params);
             window.location.href = auth+params;
             return;
           }
         }
       }
+      alert('location.href:'+location.href+'\nopenid:'+openid);
       fetchData.apply(this);
     }
   }
