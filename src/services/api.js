@@ -151,7 +151,11 @@ api.check_openid = function (params) {
 // api.share = function (params) {
 //   return http('get', '/api/micro/share', params);
 // }
+let shareUrl = 'http://api4j.zjbird.com/serviceapi/wechat/share_support';
+if(window.location.hostname == 'localhost' || window.location.hostname.indexOf('wechat')>-1){
+  shareUrl = 'http://api4j.e2.fat.zjbird.com/serviceapi/wechat/share_support';
+}
 api.share = function (params) {
-  return http('post', 'http://api4j.e2.fat.zjbird.com/serviceapi/wechat/share_support', params,true);
+  return http('post', shareUrl, params,true);
 };
 export default api;
