@@ -109,7 +109,6 @@
       }
     },
     beforeCreate () {
-      localStorage.removeItem('openid');
     },
     mounted: function () {
       store.vm = this;
