@@ -155,7 +155,7 @@
               title: '住建鸟快速付款通道来了~~',
               desc: '录入订单号，快速付款',
               link: window.location.origin+'/#/paySweepCode?id='+store.id,
-              imgUrl: './src/assets/images/payCode.png',
+              imgUrl: '../../assets/images/payCode.png',
               success:function () {
                 store.vm.$toast('success', "top");
               },
