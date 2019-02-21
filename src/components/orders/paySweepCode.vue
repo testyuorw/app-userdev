@@ -91,8 +91,6 @@
                   if (response === 'ok') {
                     method.getorder();
                   }
-                }).then(function (e) {
-                  console.log('reject-h5pay:\n'+e);
                 });
               });
             }catch(e){
