@@ -107,8 +107,8 @@
   };
   method.getorder = function () {
     // 90003032   //90000856
-    console.log(window.navigator.userAgent.toLocaleLowerCase().includes('android'))
-    console.log(lstore.get_item('openid').val)
+    // console.log(window.navigator.userAgent.toLocaleLowerCase().includes('android'))
+    // console.log(lstore.get_item('openid').val)
     if((!lstore.get_item('openid')||!lstore.get_item('openid').val) && !location.href.includes('localhost') && window.navigator.userAgent.toLocaleLowerCase().includes('android')){
       store.vm.$toast('用户信息获取失败，请重新获取~', "center");
       return
@@ -158,7 +158,7 @@
               link: window.location.origin+'/#/paySweepCode?id='+store.id,
               imgUrl: window.location.origin+'/static/img/payCode.png',
               success:function () {
-                console.log(window.location.origin+'/#/paySweepCode?id='+store.id)
+                // console.log(window.location.origin+'/#/paySweepCode?id='+store.id)
                 store.vm.$toast('分享成功~~', "top");
               },
               cancel: function (res) {
