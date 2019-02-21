@@ -110,7 +110,6 @@
     },
     beforeCreate () {
       localStorage.removeItem('openid');
-      cookie.remove('openid');
     },
     mounted: function () {
       store.vm = this;
