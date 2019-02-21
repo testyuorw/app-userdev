@@ -94,6 +94,7 @@
                 });
               });
             }catch(e){
+              console.log('h5pay:\n'+e);
             }
           }
         } else {
@@ -146,7 +147,6 @@
             signature: result['signature'],
             jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
           };
-          store.vm.$toast('已经获取授权', "top");
           wx.config(config);
           wx.ready(function () {
             var shareData = {
@@ -155,19 +155,19 @@
               link: window.location.origin+'/#/paySweepCode?id='+store.id,
               imgUrl: window.location.origin+'/static/img/payCode.png',
               success:function () {
-                alert(window.location.origin+'/#/paySweepCode?id='+store.id)
+                console.log(window.location.origin+'/#/paySweepCode?id='+store.id)
                 store.vm.$toast('分享成功~~', "top");
               },
-              cancel: function () {
+              cancel: function (res) {
+                console.log(res.err_desc);
+                store.vm.$toast(res.err_desc, "top");
               }
             };
             wx.onMenuShareAppMessage(shareData);
             wx.onMenuShareTimeline(shareData);
           });
           wx.error(function(res){
-            console.log(res)
-            console.log(res.err_desc)
-            store.vm.$toast(res.err_desc, "top");
+            console.log('wx.error:\n'+res)
           });
         }
       })
