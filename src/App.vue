@@ -109,7 +109,8 @@
       }
     },
     beforeCreate () {
-      // alert('app.vue\nbeforeCreate:' + location.href);
+      localStorage.removeItem('openid');
+      cookie.remove('openid');
     },
     mounted: function () {
       store.vm = this;

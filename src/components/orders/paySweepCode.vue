@@ -93,7 +93,6 @@
                   }
                 }).then(function (e) {
                   console.log('reject-h5pay:\n'+e);
-                  console.log(e.err_desc);
                 });
               });
             }catch(e){
@@ -162,7 +161,6 @@
                 store.vm.$toast('分享成功~~', "top");
               },
               cancel: function (res) {
-                console.log(res.err_desc);
                 store.vm.$toast(res.err_desc, "top");
               }
             };
