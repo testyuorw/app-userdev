@@ -157,10 +157,9 @@
               imgUrl: store.orderdetail.worker.photo,
               // imgUrl: '../../assets/images/payCode.png',
               success:function () {
-                store.vm.$toast('success', "top");
+                store.vm.$toast('分享成功~~', "top");
               },
               cancel: function () {
-                store.vm.$toast('2333', "top");
               }
             };
             wx.onMenuShareAppMessage(shareData);
@@ -201,8 +200,8 @@
         store.queryId = true;
         store.id = this.$route.query.id || '';
         method.getorder();
-        method.weChatShare();
       }
+      method.weChatShare();
     }
   }
 </script>
