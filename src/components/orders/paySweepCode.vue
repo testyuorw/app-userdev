@@ -42,7 +42,6 @@
         </li>
       </ul>
     </div>
-    <!--<button @click="weChatShare">获取分享授权</button>-->
     <a href="javascript:void (0);"
        class="btn-order pf w100"
        v-if="orderdetail.paystatus != 2"
@@ -154,8 +153,8 @@
               title: '住建鸟快速付款通道来了~~',
               desc: '录入订单号，快速付款',
               link: window.location.origin+'/#/paySweepCode?id='+store.id,
-              imgUrl: store.orderdetail.worker.photo,
-              // imgUrl: '../../assets/images/payCode.png',
+              // imgUrl: store.orderdetail.worker.photo?store.orderdetail.worker.photo:'',
+              imgUrl: window.location.origin+'/static/img/payCode.png',
               success:function () {
                 store.vm.$toast('分享成功~~', "top");
               },
