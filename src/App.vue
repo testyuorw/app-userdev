@@ -37,7 +37,7 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    alert('fullPath:'+fullPath+'\npath:'+path+'query.hasOwnProperty(\'openid\'):'+query.hasOwnProperty('openid'))
+    alert('fetchData\n\nfullPath:'+fullPath+'\n\npath:'+path+'query.hasOwnProperty(\'openid\'):'+query.hasOwnProperty('openid'))
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -46,7 +46,7 @@
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-      alert(sitetype.val)
+      alert('sitetype:'+sitetype.val)
     if (sitetype) {
         sitetype = sitetype.val;
       }
@@ -60,7 +60,7 @@
         }
         var CheckLogin = userinfo.info.call(this,cookie_name);
         //没分享要登录
-        console.log('check login' + sitetype);
+        console.log('check login sitetype:' + sitetype);
         if (CheckLogin) {
           if (fullPath == '/login') {
             var url = {
@@ -160,7 +160,7 @@
           }
         }
       }
-      alert('location.href:'+location.href+'\nopenid:'+openid);
+      alert('app.mounted:\n\nlocation.href:'+location.href+'\n\nopenid:'+openid);
       fetchData.apply(this);
     }
   }
