@@ -148,7 +148,7 @@
             signature: result['signature'],
             jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
           };
-          store.vm.$toast('已经获取授权', "top");
+          // store.vm.$toast('已经获取授权', "top");
           wx.config(config);
           wx.ready(function () {
             var shareData = {
@@ -157,10 +157,10 @@
               link: window.location.host+'/#/paySweepCode?id='+store.id,
               imgUrl: './src/assets/images/payCode.png',
               success:function () {
-                store.vm.$toast('success', "top");
+                // store.vm.$toast('success', "top");
               },
               cancel: function () {
-                store.vm.$toast('2333', "top");
+                // store.vm.$toast('2333', "top");
               }
             };
             wx.onMenuShareAppMessage(shareData);
@@ -185,9 +185,7 @@
     },
     methods: method,
     beforeCreate () {
-      alert('pay.vue\n\nbeforeCreate:\n' + location.href);
-      // let urlArr = location.href.split('?').toString();
-      // alert(urlArr)
+      // alert('pay.vue\n\nbeforeCreate:\n' + location.href);
     },
     mounted () {
       page.title('订单支付');

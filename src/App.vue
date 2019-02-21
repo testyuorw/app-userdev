@@ -37,7 +37,7 @@
     var fullPath = this.$route.fullPath;
     let path = this.$route.path;
     let query = this.$route.query;
-    alert('fetchData\n\nfullPath:\n'+fullPath+'\n\n\n\npath:\n'+path+'\n\n\n\nquery.has.openid:\n'+query.hasOwnProperty('openid'))
+    // alert('fetchData\n\nfullPath:\n'+fullPath+'\n\n\n\npath:\n'+path+'\n\n\n\nquery.has.openid:\n'+query.hasOwnProperty('openid'))
     if (query.hasOwnProperty('openid')) {
       const openid = query['openid'];
       cookie.set.call(this, 'openid', openid);
@@ -46,7 +46,7 @@
       loadmore.clear();
       setSiteType(fullPath);
       let sitetype = lstore.get_item('sitetype');
-      alert('sitetype:'+sitetype.val)
+      // alert('sitetype:'+sitetype.val)
     if (sitetype) {
         sitetype = sitetype.val;
       }
@@ -91,17 +91,6 @@
               });
             } catch (e) {
             }
-          }else{
-            if(path.includes('paySweepCode')){
-              // store.vm.$toast('tiaozhuan~', "center");
-              // store.vm.$toast(location.href, "top");
-              //   this.$router.push({
-              //     path: '/paySweepCode',
-              //     params: {
-              //       id: query.id
-              //     }
-              //   })
-            }
           }
         }
       } else if(store.weShare == true){
@@ -125,7 +114,7 @@
       }
     },
     beforeCreate () {
-      alert('app.vue\nbeforeCreate:' + location.href);
+      // alert('app.vue\nbeforeCreate:' + location.href);
     },
     mounted: function () {
       store.vm = this;
@@ -154,13 +143,13 @@
               params = '?type=6&id='+this.$route.query.id;
               localStorage.pay = true;
             }
-            alert('params:'+params);
+            // alert('params:'+params);
             window.location.href = auth+params;
             return;
           }
         }
       }
-      alert('app.mounted:\n\n\nlocation.href:\n'+location.href+'\n\n\nopenid:\n'+openid);
+      // alert('app.mounted:\n\n\nlocation.href:\n'+location.href+'\n\n\nopenid:\n'+openid);
       fetchData.apply(this);
     }
   }
