@@ -42,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <button @click="weChatShare">获取分享授权</button>
+    <!--<button @click="weChatShare">获取分享授权</button>-->
     <a href="javascript:void (0);"
        class="btn-order pf w100"
        v-if="orderdetail.paystatus != 2"
