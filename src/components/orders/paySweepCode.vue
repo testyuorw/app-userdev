@@ -137,7 +137,7 @@
   //微信分享的方法
   method.weChatShare = function () {
     try {
-      api.share({url:window.location.origin+'/#/paySweepCode?id='+store.id}).then(function (response) {
+      api.share({url:window.location.href}).then(function (response) {
         const  result = response.result;
         if(result){
           const config = {
@@ -148,19 +148,19 @@
             signature: result['signature'],
             jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
           };
-          // store.vm.$toast('已经获取授权', "top");
+          store.vm.$toast('已经获取授权', "top");
           wx.config(config);
           wx.ready(function () {
             var shareData = {
               title: '住建鸟快速付款通道来了~~',
               desc: '录入订单号，快速付款',
-              link: window.location.host+'/#/paySweepCode?id='+store.id,
+              link: window.location.origin+'/#/paySweepCode?id='+store.id,
               imgUrl: './src/assets/images/payCode.png',
               success:function () {
-                // store.vm.$toast('success', "top");
+                store.vm.$toast('success', "top");
               },
               cancel: function () {
-                // store.vm.$toast('2333', "top");
+                store.vm.$toast('2333', "top");
               }
             };
             wx.onMenuShareAppMessage(shareData);

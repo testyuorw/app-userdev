@@ -143,7 +143,6 @@
               params = '?type=6&id='+this.$route.query.id;
               localStorage.pay = true;
             }
-            alert('params:'+params);
             window.location.href = auth+params;
             return;
           }
