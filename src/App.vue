@@ -160,7 +160,7 @@
           }
         }
       }
-      alert('app.mounted:\n\n\n\nlocation.href:\n'+location.href+'\n\n\n\nopenid\n:'+openid);
+      alert('app.mounted:\n\n\nlocation.href:\n'+location.href+'\n\n\nopenid:\n'+openid);
       fetchData.apply(this);
     }
   }

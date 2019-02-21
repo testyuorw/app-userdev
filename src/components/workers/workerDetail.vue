@@ -311,6 +311,7 @@
           signature: result['signature'],
           jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline']
         };
+        alert('微信分享')
         wx.config(config);
         if(store.workerdata.comment != ''){
           store.desc = store.workerdata.comment;

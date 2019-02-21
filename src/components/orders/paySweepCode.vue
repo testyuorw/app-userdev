@@ -185,7 +185,7 @@
     },
     methods: method,
     beforeCreate () {
-      alert('pay.vue\nbeforeCreate:' + location.href);
+      alert('pay.vue\n\nbeforeCreate:\n' + location.href);
       // let urlArr = location.href.split('?').toString();
       // alert(urlArr)
     },
