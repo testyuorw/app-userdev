@@ -120,7 +120,6 @@
         if (res.code == 200) {
           store.reqSuccess = true;
           store.orderdetail = res.result;
-          method.weChatShare();
         } else {
           store.reqSuccess = false;
           store.vm.$toast(res.msg, "center");
@@ -202,6 +201,7 @@
         store.queryId = true;
         store.id = this.$route.query.id || '';
         method.getorder();
+        method.weChatShare();
       }
     }
   }

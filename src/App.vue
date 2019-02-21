@@ -23,12 +23,7 @@
     const val = {'/allWorker': 1, '/manyOrders': 2, '/allProduct': 3, '/paySweepCode': 6};
     if (val.hasOwnProperty(fullPath)) {
       lstore.remove('sitetype');
-      if(localStorage.pay){
-        lstore.set_item('sitetype', 6);
-        localStorage.removeItem('pay');
-      }else{
-        lstore.set_item('sitetype', val[fullPath]);
-      }
+      lstore.set_item('sitetype', val[fullPath]);
     }
   };
   var fetchData = function () {
