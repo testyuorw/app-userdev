@@ -137,7 +137,7 @@
   //微信分享的方法
   method.weChatShare = function () {
     try {
-      api.share({url:window.location.host+'/#/paySweepCode?id='+store.id}).then(function (response) {
+      api.share({url:window.location.origin+'/#/paySweepCode?id='+store.id}).then(function (response) {
         const  result = response.result;
         if(result){
           const config = {
