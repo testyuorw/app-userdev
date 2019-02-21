@@ -166,6 +166,7 @@
           });
           wx.error(function(res){
             console.log(res)
+            console.log(res.err_desc)
             store.vm.$toast(res.err_desc, "top");
           });
         }
