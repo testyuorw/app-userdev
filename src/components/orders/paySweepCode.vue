@@ -15,11 +15,11 @@
         </li>
         <li class="flex-space-between h3rem">
           <div>销售日期</div>
-          <div>{{reqSuccess?orderdetail.created_at:'暂无'}}</div>
+          <div>{{reqSuccess&&orderdetail.created_at?orderdetail.created_at:'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>销售单位</div>
-          <div>{{reqSuccess?orderdetail.orgname:'暂无'}}</div>
+          <div>{{reqSuccess&&orderdetail.orgname?orderdetail.orgname:'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
           <div>联系人</div>
@@ -153,9 +153,9 @@
               title: '住建鸟快速付款通道来了~~',
               desc: '录入订单号，快速付款',
               link: window.location.origin+'/#/paySweepCode?id='+store.id,
-              // imgUrl: store.orderdetail.worker.photo?store.orderdetail.worker.photo:'',
               imgUrl: window.location.origin+'/static/img/payCode.png',
               success:function () {
+                alert(window.location.origin+'/#/paySweepCode?id='+store.id)
                 store.vm.$toast('分享成功~~', "top");
               },
               cancel: function () {
@@ -166,6 +166,7 @@
           });
           wx.error(function(res){
             console.log(res)
+            store.vm.$toast(res.err_desc, "top");
           });
         }
       })
