@@ -2,9 +2,9 @@
   <div class="container w100 h100 bgf5">
     <div class="orderBox">
       <div class="h3rem bdb" v-show="orderdetail.paystatus != 2 || !orderdetail.id">
-        <div>销售订单编号:</div>
+        <div>服务订单编号:</div>
         <div class="flex-space-between">
-          <input type="text" placeholder="请输入销售订单编号" v-model="id">
+          <input type="text" placeholder="请输入服务订单编号" v-model="id">
           <a class="btn-order" @click="getorder">确认</a>
         </div>
       </div>
@@ -106,6 +106,7 @@
     }
   };
   method.getorder = function () {
+
     // 90003032   //90000856
     // console.log(window.navigator.userAgent.toLocaleLowerCase().includes('android'))
     // console.log(lstore.get_item('openid').val)
@@ -114,7 +115,7 @@
       return
     }
     if (store.id) {
-      store.id=store.id==undefined?'':store.id;
+
       const formObj = {
         id: store.id
       }
@@ -205,7 +206,8 @@
         method.getorder();
       }
       method.weChatShare();
-    }
+      store.id=store.id==undefined?'':store.id;
+  }
   }
 </script>
 <style lang="scss" scoped>
