@@ -80,7 +80,7 @@
     if (!SubmitOk) {
       return false;
     }
-store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile + 'r=' + Math.random();
+  store.img = apiUrl + "/api/imgCode?mobile=" + store.form.mobile + '&r=' + Math.random();
   ResetGetVerifyCode();
 
   var callback = function(code) {
