@@ -10,7 +10,7 @@
       </div>
       <ul>
         <li class="flex-space-between h3rem">
-          <div>销售订单编号</div>
+          <div>服务订单编号</div>
           <div>{{reqSuccess?orderdetail.id:'暂无'}}</div>
         </li>
         <li class="flex-space-between h3rem">
