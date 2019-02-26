@@ -98,11 +98,7 @@
         self.cancle();
       }else{
         store.vm.$toast(response.msg,'bottom');
-        if(response.code != error.error){
-          self.cancle();
-        }else{
-          self.refresh(store.img);;
-        }
+        self.refresh(store.img);
       }
     });
   };

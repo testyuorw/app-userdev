@@ -38,7 +38,7 @@
                     buttonColor:[],
                     buttonBgcolor:[],
                     bgColor:'',
-//                    vimg:'',
+                    vimg:'',
                     cb:function () {
 
                     }
@@ -51,6 +51,9 @@
         methods:{
             times:function (src) {
                 const time = new Date().getTime();
+                if(src.vimg.indexOf('&t=') > -1){
+                    src.vimg = src.vimg.substr(0,src.vimg.indexOf('&t='));
+                }
                 src.vimg = src.vimg + '&t=' + time;
             },
             cancle(){
