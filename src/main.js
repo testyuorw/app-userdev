@@ -20,6 +20,7 @@ import wcSwiper from 'wc-swiper'
 import 'wc-swiper/style.css'
 import Slick from 'vue-slick';
 import 'slick-carousel/slick/slick.css';
+import RequestContext from './core/RequestContext';
 
 Vue.use(wcSwiper);
 
@@ -32,6 +33,8 @@ Vue.use(image)
 Vue.use(messagebox)
 Vue.use(Calendar)
 Vue.use(selectbox)
+Vue.use(RequestContext);
+
 
 /* eslint-disable no-new */
 Vue.filter('cut', function (v) {

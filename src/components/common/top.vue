@@ -6,7 +6,7 @@
   </div>
   <div class="flex-ac flex-right pr">
     <img :src="userinfo.avator" class="g-profile-small" v-if="userinfo.avator">
-    <img src="../../assets/images/icon/profile.png" v-if="!userinfo.avator">
+    <img src="" v-if="!userinfo.avator">
     <span class="font-12 bold ml10" v-text="'你好，'+userinfo.nickname"></span>
     <a href="javascript:void(0);" v-on:click="ChildMenu=!ChildMenu" class="icon-arrow-down"></a>
     <ul class="g-right-nav-options" v-bind:class="{hide:!ChildMenu,show:ChildMenu}">

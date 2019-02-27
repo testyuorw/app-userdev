@@ -5,8 +5,6 @@
   </div>
 </template>
 <script>
-import LArea from '../../tools/LArea'
-import area from '../../services/area'
 export  default{
     name:'areas',
 }

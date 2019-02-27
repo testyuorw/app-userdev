@@ -98,7 +98,7 @@
   export default {
     name: 'app',
     watch: {
-      '$route': 'fetchData'
+      
     },
     data() {
       return store;
@@ -109,6 +109,7 @@
       }
     },
     mounted: function () {
+      return;
       store.vm = this;
       store.weShare = page.WechatShare();//判断是不是分享的
       const query = this.$route.query;

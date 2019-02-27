@@ -156,6 +156,7 @@ method.getCode = function() {
   //   }
   // });
 };
+
 //点击登录按钮
 method.login = function() {
   var url = {
@@ -228,11 +229,14 @@ method.login = function() {
   }
 };
 var fetchData = function() {
+  console.log('login fetchData');
   var fullPath = store.vm.$route.fullPath;
 };
+console.log('login load');
 export default {
   name: "login",
   data() {
+    console.log('return data');
     return store;
   },
   watch: {
@@ -240,7 +244,7 @@ export default {
   },
   mounted() {
     page.title("登录");
-
+    console.log('login mounted');
     store.vm = this;
     //判断有没有登录
     store.path = store.vm.$route.path;
