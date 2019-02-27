@@ -126,13 +126,11 @@
           if (sitetype) {
             sitetype = sitetype.val;
           }
-          if (wx) {
-            wx = wx.val;
-          }
+          if (wx) wx = wx.val;
           if(sitetype != "4" && wx){
             let params = '';
             if(this.$route.path.includes('paySweepCode')){
-              this.$route.query.id=this.$route.query.id==undefined?'':this.$route.query.id;
+              this.$route.query.id=(!this.$route.query.id || this.$route.query.id==undefined)?'':this.$route.query.id;
               params = '?type=6&id='+this.$route.query.id;
               localStorage.pay = true;
             }
