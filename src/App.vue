@@ -134,7 +134,8 @@
               params = '?type=6&id='+this.$route.query.id;
               localStorage.pay = true;
             }
-            window.location.href = auth+params;
+            window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe5b8aa9c19e67da4&redirect_uri=http://wechat.zjbird.com/#/paySweepCode&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
+            //window.location.href = auth+params;
             return;
           }
         }
