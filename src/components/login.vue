@@ -179,7 +179,6 @@ method.login = function() {
       required_tip: "验证码不能为空"
     }
   };
-  var self = this;
   var SubmitOk = formError.createErrorTip.call(this, store.form, errorconf);
   if (!SubmitOk) {
     return false;
@@ -187,23 +186,21 @@ method.login = function() {
   if (store.sitetype == 5) {
     //表示是商品分享的登录接口
     console.log("form", store.form);
+
     if (lstore.get_item("openid")) {
       store.openid = lstore.get_item("openid").val;
     }
     store.form.openid = store.openid;
-    alert(22);
-    location.href = location.origin+'/#/confirmOrder';
-   /* api.share_login(store.form).then(function(res) {
+    api.share_login(store.form).then(function(res) {
       console.log("share_login");
       console.log(res);
       var result = res.result;
       if (error.success == res.code) {
         lstore.set_item("shareUser", result);
         cookie.set.call(store.vm, "shareUser", result);
-        alert('sitetype=5');
         try {
-          alert('try');
-          store.vm.$router.push({ path: "/confirmOrder" });
+          // store.vm.$router.push({ path: "/confirmOrder" });
+          location.href = location.origin+'/#/confirmOrder';
         } catch (e) {
           console.log(e);
         }
@@ -211,7 +208,7 @@ method.login = function() {
         store.vm.$toast(res.msg, "bottom");
       }
       cookie.set.call(store.vm, "sharezjbird", res.result, 1000); //设置为已登录cookie
-    });*/
+    });
   } else {
     api.login(store.form).then(function(response) {
       if (error.success == response.code) {
