@@ -192,7 +192,7 @@ method.login = function() {
     }
     store.form.openid = store.openid;
     alert(22);
-    self.$router.push("/confirmOrder");
+    location.href = location.origin+'/#/confirmOrder';
    /* api.share_login(store.form).then(function(res) {
       console.log("share_login");
       console.log(res);
