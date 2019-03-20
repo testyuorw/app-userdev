@@ -179,6 +179,7 @@ method.login = function() {
       required_tip: "验证码不能为空"
     }
   };
+  var self = this;
   var SubmitOk = formError.createErrorTip.call(this, store.form, errorconf);
   if (!SubmitOk) {
     return false;
@@ -186,12 +187,12 @@ method.login = function() {
   if (store.sitetype == 5) {
     //表示是商品分享的登录接口
     console.log("form", store.form);
-
     if (lstore.get_item("openid")) {
       store.openid = lstore.get_item("openid").val;
     }
     store.form.openid = store.openid;
-    store.vm.$router.push({ path: "/confirmOrder" });
+    alert(22);
+    self.$router.push("/confirmOrder");
    /* api.share_login(store.form).then(function(res) {
       console.log("share_login");
       console.log(res);
