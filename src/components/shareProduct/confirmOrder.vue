@@ -16,7 +16,7 @@
           <div class="w100 b-no" :class="(userForm.city =='请选择所在区域') ? 'c9' : 'c3' " v-text="userForm.city" ></div>
           <i class="icon-arrow"  @click="areacheck()"></i>
           <citys v-show="selectArea" @select="closearea" @areas="getareas">
-            
+
           </citys>
         </div>
 
@@ -36,7 +36,7 @@
         </div>
         <div class="content">
           <p class="fz15" v-text="goodsInfoLists.name"></p>
-          <p class="darkOrange fz16 mt3" v-text="'¥' + Number(goodsInfoLists.saleprice).toFixed(2)"></p>
+          <p class="darkOrange fz16 mt3" v-text="'¥' + Number(goodsInfoLists.saleprice||0).toFixed(2)"></p>
         </div>
       </div>
       <div class="buy-shareproduct flex-space-between">
@@ -48,8 +48,8 @@
          </div>
       </div>
       <div class="count-money pv4">
-        <p>合计：<span class="darkOrange">¥{{Number(goodsInfoLists.saleprice * num).toFixed(2)}}</span></p>
-        <p class="mr5">共计<span class="darkOrange" v-text="num"></span>件商品</p>
+        <p>合计：<span class="darkOrange">¥{{Number(goodsInfoLists.saleprice * num || 0).toFixed(2)}}</span></p>
+        <p class="mr5">共计<span class="darkOrange" v-text="num || 0"></span>件商品</p>
       </div>
     </div>
 
@@ -273,7 +273,7 @@
                   store.vm.$router.push({
                     path: '/sharePaySucc'
                   });
-                }                
+                }
               }
             });
           });

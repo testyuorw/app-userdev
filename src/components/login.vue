@@ -198,7 +198,9 @@ method.login = function() {
       if (error.success == res.code) {
         lstore.set_item("shareUser", result);
         cookie.set.call(store.vm, "shareUser", result);
+        alert('sitetype=5');
         try {
+          alert('try');
           store.vm.$router.push({ path: "/confirmOrder" });
         } catch (e) {
           console.log(e);

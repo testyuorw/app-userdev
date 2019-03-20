@@ -13,8 +13,8 @@ import messagebox from './components/common/dialog'
 import Calendar from './components/common/calendar'
 import selectbox from './components/common/selectlist'
 
-// import * as VConsole from 'vconsole'
-// const vConsole = new VConsole()
+import * as VConsole from 'vconsole'
+const vConsole = new VConsole()
 
 import wcSwiper from 'wc-swiper'
 import 'wc-swiper/style.css'
