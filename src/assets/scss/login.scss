@@ -3,7 +3,9 @@
 }
 .login{
   padding:0 5%;
-  margin-top:-2rem;
+  position: relative;
+  z-index: 2;
+  top: -4rem;
 }
 .form-group:not(:last-child){
     //border-bottom: 1px solid #cecece;

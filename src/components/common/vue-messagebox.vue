@@ -77,21 +77,25 @@
     box-sizing: border-box;
     display: flex;
     justify-content: space-around;
-    padding:1.4rem 0;
+    padding:2.6rem 0 0;
+    height: 10rem;
     input {
       width: 40%;
       border-radius: 5px;
       padding-left: 0.5rem;
+      height: 4rem;
+      line-height: 4rem;
+      font-size: 1.3rem;
     }
     .yzm-img{
       width: 40%;
-      border:1px solid #f5f5f5;
       border-radius: 5px;
-    display:flex;
+      display:flex;
       .yzm{
         width: 100%;
         border:1px solid #ccc;
         border-radius: 5px;
+        height: 4rem;
       }
     }
   }
@@ -117,40 +121,50 @@
         }
     }
     .alert-header{
-      background: url("../../assets/images/alert-image.png");
-      background-size: 100%;
+      background: #ebebeb;
       width: 100%;
       height: 6rem;
-      margin-top: -2rem;
-      margin-bottom: 1rem;
+      border-radius: 4px;
+      position: relative;
+      &:before{
+        content: '';
+        position: absolute;
+        top: -2rem;
+        left: -1rem;
+        width: 30rem;
+        height: 8.65rem;
+        background: url("../../assets/images/alert-image.png") no-repeat center;
+        background-size: 80%;
+      }
       .alert-header-title{
         display: inline-block;
-        margin-top: 2rem;
         font-weight: normal;
         font-size: 1.8rem;
-        line-height: 4.5rem;
+        line-height: 6rem;
+        position: relative;
+        z-index: 2;
       }
       .alert-header-close{
-        font-size: 2rem;
+        font-size: 3.6rem;
         position: absolute;
-        top:0;
+        top:0.6rem;
         right: 1rem;
+        z-index: 8;
       }
     }
     .alert-btn-group{
-      padding-bottom:2.4rem;
       .cancle{
         border: 1px solid #ccc;
       }
       span{
-        display: inline-block;
+        display: block;
         width: 90%;
         /*height: 3rem;*/
         font-size: 1.6rem;
         text-align: center;
-        line-height: 3rem;
+        line-height: 5rem;
         border-radius: 4px;
-        margin: 0 1rem;
+        margin: 0 auto;
         cursor: pointer;
         &:hover{
            opacity: .8;
@@ -163,19 +177,19 @@
         top:0;
         bottom: 0;
         right: 0;
-        z-index: 100000;
+        z-index: 10;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.61);
         .messagebox{
-            width: 24rem;
+            width: 84vw;
             text-align: center;
             background: #fff;
             border-radius: 4px;
             color: #333;
             /*padding: 2rem;*/
-            min-height: 13rem;
+            padding-bottom: 3rem;
             .describe{
                 text-align: center;
                 padding: 1.6rem 0.5rem 2.4rem;

@@ -63,7 +63,6 @@ store.timer = null;
 store.checked = true;
 store.verify_text = "获取验证码";
 store.showCode = false;
-
 //  获取验证码
 var ResetGetVerifyCode = function() {
   store.count = verifyCodeGetTime;
