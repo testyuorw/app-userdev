@@ -15,8 +15,7 @@
         <div class="share-info-text flex-ajc" @click="areacheck">
           <div class="w100 b-no" :class="(userForm.city =='请选择所在区域') ? 'c9' : 'c3' " v-text="userForm.city" ></div>
           <i class="icon-arrow"  @click="areacheck()"></i>
-          <citys v-show="selectArea" @select="closearea" @areas="getareas">
-
+          <citys v-if="selectArea" @select="closearea" @areas="getareas" :p="p" :city="city" :area="area">
           </citys>
         </div>
 

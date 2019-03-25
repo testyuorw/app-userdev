@@ -21,7 +21,7 @@
   import error from '../../services/error'
   import _areadata from './area'
   import lstore from '../../tools/lstore';
-  
+
   // import cityServ from '../../services/cityServ'
   var method = {};
   let  areadata = _areadata;
@@ -30,10 +30,12 @@
     event.stopPropagation();
   };
   method.confirm = function () {
-    this.$emit('select',false);
     event.stopPropagation();
-    if(areadata[this.province] && this.city[this.citymodel] && this.county[this.countrymodel])
-      this.$emit('areas',areadata[this.province].id,areadata[this.province].name,this.city[this.citymodel].id,this.city[this.citymodel].name,this.county[this.countrymodel].id,this.county[this.countrymodel].name);
+    setTimeout(()=>{
+      this.$emit('select',false);
+      if(areadata[this.province] && this.city[this.citymodel] && this.county[this.countrymodel])
+        this.$emit('areas',areadata[this.province].id,areadata[this.province].name,this.city[this.citymodel].id,this.city[this.citymodel].name,this.county[this.countrymodel].id,this.county[this.countrymodel].name);
+    },300)
   };
 
   method.chooseprovince = function () {
@@ -47,9 +49,9 @@
     this.county = areadata[this.province]['child'][this.citymodel]['child'];
     this.countrymodel = 0;
   };
-  // method.choosecountry = function () {
-  //   this.address = cityData[0][this.province] + ' ' + this.city[this.citymodel] + ' ' + this.countrymodel;
-  // };
+  method.choosecountry = function () {
+   console.log(`${this.county[this.countrymodel].id},${this.county[this.countrymodel].name}`)
+  };
   var self = this;
   export default{
       name:'city',
@@ -58,13 +60,17 @@
         pdSelectItem,
         pdSelectBox
       },
+      // props:['p', 'city', 'area'],
       watch:{
         province:function () {
             this.chooseprovince();
         },
         citymodel:function () {
             this.choosecity();
-        }
+        },
+        countrymodel:function () {
+          this.choosecountry();
+        },
       },
       data(){
         let _stroe = {areadata:[],city:[],county:[],countrymodel:[]};
@@ -78,8 +84,7 @@
         _stroe.county = areadata[0]['child'][0]['child'];
         _stroe.countrymodel = _stroe.county[0];
         let sType = lstore.get_item("sharetype") ==null ? 0 : lstore.get_item("sharetype").val;
-        console.log("sType:");
-        console.log(sType);
+        console.log("sType:"+sType);
         if(typeof(sType) == undefined || sType == 0){
           try {
             api.showCities().then(function (res) {
