@@ -12,6 +12,9 @@ import image from './components/image'
 import messagebox from './components/common/dialog'
 import Calendar from './components/common/calendar'
 import selectbox from './components/common/selectlist'
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
 
 // import * as VConsole from 'vconsole'
 // const vConsole = new VConsole()
@@ -22,7 +25,7 @@ import Slick from 'vue-slick';
 import 'slick-carousel/slick/slick.css';
 
 Vue.use(wcSwiper);
-
+Vue.use(Vant);
 Vue.config.productionTip = false
 Vue.use(Toast)
 Vue.use(Loading)

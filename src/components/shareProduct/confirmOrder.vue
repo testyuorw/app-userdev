@@ -15,8 +15,6 @@
         <div class="share-info-text flex-ajc" @click="areacheck">
           <div class="w100 b-no" :class="(userForm.city =='请选择所在区域') ? 'c9' : 'c3' " v-text="userForm.city" ></div>
           <i class="icon-arrow"  @click="areacheck()"></i>
-          <citys v-if="selectArea" @select="closearea" @areas="getareas" :p="p" :city="city" :area="area">
-          </citys>
         </div>
 
       </div>
@@ -54,6 +52,9 @@
 
     <!--立即购买-->
     <a href="javascript:void (0);" class="pf buy-share-btn pv3 bgo" @click="toBuy()" >立即购买</a>
+    <van-popup v-model="selectArea" position="bottom">
+      <SelectCity v-if="selectArea" @pupStatus="setPup" :district="formObj.district || formObj.city"></SelectCity>
+    </van-popup>
   </div>
 
 </template>
@@ -66,7 +67,7 @@
   import error from '../../services/error'
   import page from '../page'
   import tool from '../../tools/tool'
-  import citys from  '../common/citys'
+  import SelectCity from  '../common/SelectCity'
   import wxpay from '../../tools/pay'
   import formError from '../../tools/formerror'
   import cookie from "../../tools/cookie";
@@ -83,6 +84,12 @@
 
   store.money = '';
   // store.showOne = true;
+  store.formObj = {
+    cityname: '',
+    district: "",
+    city: "",
+    province: ""
+  };
 
   //初始化信息
   var initInfo = function(){
@@ -102,6 +109,22 @@
   method.areacheck = function () {
     store.selectArea = true;
   };
+  // 筛选城市加载数据
+  method.setPup = function(data){
+    store.selectArea = false;
+    if(typeof data == "object") {
+      var city = data.city;
+      var province = data.province;
+      var district = data.district || '';
+      store.formObj.cityname = data.districtName ? data.districtName : data.cityName;
+      store.formObj.city = city;
+      store.formObj.province = province;
+      store.formObj.district = district;
+      store.userForm.city = data.provinceName + data.cityName + (data.districtName ? data.districtName : '');
+      store.area = district;
+      method.canBuy();
+    }
+  }
   //选择区域
   method.getareas = function (p,pname,city,cname,area,aname) {
     lstore.remove('citys');
@@ -359,8 +382,7 @@ export default {
 
       //取商品信息
       store.goodsInfo = lstore.get_item("shareProductInfo");
-      console.log("store.goodsInfo");
-       console.log(store.goodsInfo);
+
       if (store.goodsInfo){
         store.goodsInfo = lstore.get_item("shareProductInfo").val;
         store.link_id = store.goodsInfo.link_id;
@@ -405,7 +427,7 @@ export default {
 
   },
   components: {
-    citys
+    SelectCity
   },
 }
 </script>
