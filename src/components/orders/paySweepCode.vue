@@ -42,13 +42,12 @@
         </li>
       </ul>
     </div>
-    <a href="javascript:void (0);"
+<!--    <a href="javascript:void (0);"
        class="btn-order pf w100"
        v-if="orderdetail.paystatus != 2"
-       @click="weixinPay">确认付款</a>
-    <a href="javascript:void (0);"
-       class="btn-order pf w100 bg-black-40"
-       v-else>已支付</a>
+       @click="weixinPay">确认付款</a>-->
+    <button class="btn-order pf w100" :disabled="!tapAble" :class="{'bg-black-40':!tapAble}" v-if="orderdetail.paystatus != 2" @click="weixinPay">{{btnTxt}}</button>
+    <a href="javascript:void (0);" class="btn-order pf w100 bg-black-40" v-else>已支付</a>
   </div>
 </template>
 
@@ -61,17 +60,33 @@
   var method = {};
   var store = {};
   store.id = '';
+  store.btnTxt = '确认付款';
   store.orderdetail = {id: ''};
   store.form = {order_type: '', need_pay_price: '', order_sn: ''};
   store.money = '';
   store.reqSuccess = false;
   store.queryId = false;
+  store.tapAble = true;
+  store.timer = null;
+  store.count = 30;
   //点击支付按钮
   method.weixinPay = function () {
     if (store.orderdetail.id) {
       store.form.need_pay_price = store.orderdetail.totalmoney;
       store.form.order_sn = store.orderdetail.id;
       store.form.order_type = store.orderdetail.ordertype;
+      store.timer = setInterval(function () {
+        if(store.count>1){
+          store.count--;
+          store.btnTxt = store.count + 's后重试';
+          store.tapAble = false;
+        }else{
+          clearInterval(store.timer);
+          store.count=30;
+          store.btnTxt = '确认付款';
+          store.tapAble = true;
+        }
+      },1000);
       api.get_trade(store.form).then(function (res) {
         if (res.code == 200) {
           store.trade_sn = res.result.trade_sn;
@@ -212,7 +227,8 @@
 </script>
 <style lang="scss" scoped>
   .orderBox{
-    padding-bottom: 5rem;
+    height: calc(100% - 5rem);
+    overflow-y: scroll;
     .h3rem{
       padding: 1.4rem 0.8rem;
       font-size: 1.4rem;
@@ -257,5 +273,7 @@
   }
   .pf{
     line-height: 4.8rem;
+    border: none;
+    outline: none;
   }
 </style>

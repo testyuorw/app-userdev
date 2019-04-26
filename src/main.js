@@ -15,9 +15,9 @@ import selectbox from './components/common/selectlist'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
-
-// import * as VConsole from 'vconsole'
-// const vConsole = new VConsole()
+//
+import * as VConsole from 'vconsole'
+const vConsole = new VConsole()
 
 import wcSwiper from 'wc-swiper'
 import 'wc-swiper/style.css'
