@@ -17,7 +17,9 @@ import 'vant/lib/index.css';
 
 //
 import * as VConsole from 'vconsole'
-const vConsole = new VConsole()
+if(window.location.hostname == 'localhost' || window.location.hostname.indexOf('wechat')>-1){
+  const vConsole = new VConsole()
+}
 
 import wcSwiper from 'wc-swiper'
 import 'wc-swiper/style.css'
