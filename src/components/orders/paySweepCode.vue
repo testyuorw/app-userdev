@@ -71,6 +71,7 @@
   store.count = 30;
   //点击支付按钮
   method.weixinPay = function () {
+    store.tapAble = false;
     if (store.orderdetail.id) {
       store.form.need_pay_price = store.orderdetail.totalmoney;
       store.form.order_sn = store.orderdetail.id;
